@@ -8,9 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+@class NDService;
+
+extern NSString* kConfigServerURL;
+extern NSString* kConfigAPIKey;
+extern NSString* kConfigUsername;
+extern NSString* kConfigPassword;
+
 @interface DMVerb : NSObject
 
 @property (readwrite, strong) NSArray* arguments;
+@property (readwrite, strong) NDService* service;
+@property (readwrite, strong) NSDictionary* configuration;
 
 - (void)run;
 
