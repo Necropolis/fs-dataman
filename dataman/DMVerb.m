@@ -47,23 +47,42 @@ NSString* kFlagServerConfigLong = @"--server-config";
 
 - (void)obtainConfig
 {
-    NSString* configFile = nil;
+    NSString* configFileURI = nil;
     // scan args for -c or --server-config
     NSUInteger config_arg = [_arguments indexOfObject:kFlagServerConfig];
     if (config_arg == NSNotFound)
         config_arg = [_arguments indexOfObject:kFlagServerConfigLong];
     if (config_arg == NSNotFound)
-        configFile = kConfigDefault;
+        configFileURI = kConfigDefault;
     else {
         if ([_arguments count] < config_arg +1) {
             dm_PrintLn(@"No argument given to switch for custom configuration file!");
             exit(-1);
         } else {
-            configFile = [_arguments objectAtIndex:config_arg+1];
+            configFileURI = [_arguments objectAtIndex:config_arg+1];
         }
     }
     
-    dm_PrintLn(@"Using configuration file %@", configFile);
+    NSFileHandle* configFile = [NSFileHandle fileHandleForReadingAtPath:[configFileURI stringByExpandingTildeInPath]];
+    
+    if (configFile == nil) {
+        dm_PrintLn(@"Configuration file at %@ doesn't seem to exist.", configFileURI);
+        exit(-1);
+    }
+    
+    NSError* parse = nil;
+    self.configuration =
+    [NSPropertyListSerialization propertyListWithData:[configFile readDataToEndOfFile]
+                                              options:NSPropertyListImmutable
+                                               format:NULL
+                                                error:&parse];
+    
+    if (parse) {
+        dm_PrintLn(@"Failed to parse the configuration at %@ with the error %@", configFileURI, [parse description]);
+        exit(-1);
+    }
+    
+    // the configuration was obtained properly
     
 }
 
