@@ -16,6 +16,12 @@
 
 - (void)run
 {
+    /*
+     global:
+        optional args:
+            -c --server-config FILE session config file (use default location if an explicit location is not set)
+     */
+    
     dm_PrintLn(@"Running verb %@ for arguments %@", NSStringFromClass([self class]), _arguments);
 }
 

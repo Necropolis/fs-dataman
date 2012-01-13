@@ -22,42 +22,7 @@ int main (int argc, const char * argv[])
 
     @autoreleasepool {
         
-        /*
-         eg.
-            dataman deploy test.ged test.sqlite
-            dataman nuke --force test.sqlite failures.sqlite
-            dataman inspect failures.sqlite test.ged
-         
-         global:
-            optional args:
-                -c --server-config FILE session config file (use default location if an explicit location is not set)
-         deploy:
-            required args:
-                gedcom file
-                object id output file (sqlite)
-            optional args:
-                -s --soft soft (don't deploy to reference)
-         nuke:
-            required args:
-                object id input file
-                object id output file (for any stragglers that it was unable to delete)
-            optional args:
-                -s --soft soft (don't nuke from reference, just inspect what would get nuked)
-                -f --force force (if you find something preventing a delete, go delete that recursively)
-         inspect:
-            required args:
-                object id output file
-            optional args:
-                gedcom file (look for differences)
-         */
-        
         NSArray* args = [[NSProcessInfo processInfo] arguments];
-        
-        /*
-         0: executable path
-         1: verb
-         2..-1: args
-         */
         
         if ([args count] < 2) {
             dm_PrintLn(@"missing verb!");

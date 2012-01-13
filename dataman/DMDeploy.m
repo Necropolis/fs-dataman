@@ -10,4 +10,17 @@
 
 @implementation DMDeploy
 
+- (void)run
+{
+    [super run];
+    /*
+     deploy:
+        required args:
+            gedcom file
+            object id output file (sqlite)
+        optional args:
+            -s --soft soft (don't deploy to reference)
+     */
+}
+
 @end

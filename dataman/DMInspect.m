@@ -10,4 +10,16 @@
 
 @implementation DMInspect
 
+- (void)run
+{
+    [super run];
+    /*
+     inspect:
+        required args:
+            object id output file
+        optional args:
+            gedcom file (look for differences)
+     */
+}
+
 @end
