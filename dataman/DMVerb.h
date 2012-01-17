@@ -21,6 +21,8 @@ extern NSString* kConfigPassword;
 @property (readwrite, strong) NDService* service;
 @property (readwrite, strong) NSDictionary* configuration;
 
+- (void)setUp;
 - (void)run;
+- (void)tearDown;
 
 @end

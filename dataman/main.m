@@ -44,7 +44,9 @@ int main (int argc, const char * argv[])
         
         verb_impl.arguments = [args subarrayWithRange:NSMakeRange(2, [args count] -2)];
         
+        [verb_impl setUp];
         [verb_impl run];
+        [verb_impl tearDown];
     }
     
     return 0;

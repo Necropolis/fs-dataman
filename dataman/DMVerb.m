@@ -11,13 +11,19 @@
 #import "Console.h"
 
 #import "NDService.h"
+#import "NDService+Identity.h"
+#import "NSData+StringValue.h"
+
+#import "FSURLOperation.h"
 
 // remember to update the manpage if these change
-NSString* kConfigDefault   = @"~/.dataman.plist";
+NSString* kConfigDefault   = @"~/.fs-dataman.plist";
 NSString* kConfigServerURL = @"server"          ;
 NSString* kConfigAPIKey    = @"apikey"          ;
 NSString* kConfigUsername  = @"username"        ;
 NSString* kConfigPassword  = @"password"        ;
+
+NSString* kUserAgent       = @"fs-dataman 0.1"  ;
 
 NSString* kFlagServerConfig = @"-f";
 NSString* kFlagServerConfigLong = @"--server-config";
@@ -25,6 +31,7 @@ NSString* kFlagServerConfigLong = @"--server-config";
 @interface DMVerb (__private__)
 
 - (void)obtainConfig;
+- (void)setUpService;
 
 @end
 
@@ -34,15 +41,20 @@ NSString* kFlagServerConfigLong = @"--server-config";
 @synthesize service = _service;
 @synthesize configuration = _configuration;
 
-- (void)run
+- (void)setUp
 {
     /*
      global:
-        optional args:
-            -c --server-config FILE session config file (use default location if an explicit location is not set)
+     optional args:
+     -c --server-config FILE session config file (use default location if an explicit location is not set)
      */
     [self obtainConfig];
-    dm_PrintLn(@"Running verb %@ for arguments %@", NSStringFromClass([self class]), _arguments);
+    [self setUpService];
+}
+
+- (void)run
+{
+    // stub?
 }
 
 - (void)obtainConfig
@@ -84,6 +96,46 @@ NSString* kFlagServerConfigLong = @"--server-config";
     
     // the configuration was obtained properly
     
+}
+
+- (void)setUpService
+{
+    self.service = [[NDService alloc] initWithBaseURL:[NSURL URLWithString:[self.configuration valueForKey:kConfigServerURL]]
+                                            userAgent:kUserAgent];
+    [self.service.operationQueue setMaxConcurrentOperationCount:NSIntegerMax]; // dude, this is running on a developer machine. pound those API calls!
+    
+    FSURLOperation* login =
+    [self.service identityOperationCreateSessionForUser:[self.configuration valueForKey:kConfigUsername]
+                                           withPassword:[self.configuration valueForKey:kConfigPassword]
+                                                 apiKey:[self.configuration valueForKey:kConfigAPIKey]
+                                              onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+                                                  dm_PrintLn(@"Created session %@", self.service.sessionId);
+                                              }
+                                              onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
+                                                  dm_PrintLn(@"Login failure!");
+                                                  
+                                                  dm_PrintURLOperationResponse(resp, payload, error);
+                                                  
+                                                  exit(-1);
+                                              }];
+    [self.service.operationQueue addOperation:login];
+    [login waitUntilFinished];
+}
+
+- (void)tearDown
+{
+    FSURLOperation* logout =
+    [self.service identityOperationDestroySessionOnSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+        dm_PrintLn(@"Destroyed session");
+    } onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
+        dm_PrintLn(@"Failed to logout!");
+        
+        dm_PrintURLOperationResponse(resp, payload, error);
+        
+        exit(-1);
+    }];
+    [self.service.operationQueue addOperation:logout];
+    [logout waitUntilFinished];
 }
 
 @end

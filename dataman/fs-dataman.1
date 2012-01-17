@@ -52,7 +52,7 @@ may gain the ability to slurp all the data and store it locally so you could "st
 .Bl -tag -compact -ohang
 .It Fl c Ar config-file , Fl -server-config Ar config-file
 A default location for the configuation file is
-.Ar ~/.dataman.plist .
+.Ar ~/.fs-dataman.plist .
 Yeah man, you heard me right, it's in Apple
 .Ar plist
 format. There's plenty of documentation about this on the web, and it's actually a pretty slick XML format. What you need to know is that inside the default dict there are going to be a few keys that need to be present, but more on that in the
@@ -91,8 +91,9 @@ Store your password in plaintext. Come on man, everybody is doing it!
 .El
 .Sh FILES                \" File used or created by the topic of the man page
 .Bl -tag -width "/Users/joeuser/Library/really_long_file_name" -compact
-.It Pa /usr/local/bin/dataman
-.It Pa /usr/local/share/man/man1/dataman.1
+.It Pa /usr/local/bin/fs-dataman
+.It Pa /usr/local/share/man/man1/fs-dataman.1
+.It Pa ~/.fs-dataman.plist
 .El                      \" Ends the list
 .Sh BUGS              \" Document known, unremedied bugs 
 Please see Github for a list of bugs.
