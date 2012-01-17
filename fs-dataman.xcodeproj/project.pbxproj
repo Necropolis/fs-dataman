@@ -34,7 +34,7 @@
 		DA9AE84E14C0B90B002921BE /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			dstPath = /usr/local/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 				DA9AE85C14C0B90B002921BE /* fs-dataman.1 in CopyFiles */,
