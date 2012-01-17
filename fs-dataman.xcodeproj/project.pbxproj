@@ -224,7 +224,7 @@
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = FSDEV;
 			};
-			buildConfigurationList = DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "dataman" */;
+			buildConfigurationList = DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "fs-dataman" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -326,7 +326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "dataman/dataman-Prefix.pch";
+				GCC_PREFIX_HEADER = "fs-dataman/dataman-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -335,7 +335,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "dataman/dataman-Prefix.pch";
+				GCC_PREFIX_HEADER = "fs-dataman/dataman-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -343,7 +343,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "dataman" */ = {
+		DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "fs-dataman" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA9AE85D14C0B90B002921BE /* Debug */,
