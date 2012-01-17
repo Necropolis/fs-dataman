@@ -14,7 +14,7 @@ Manage information in FamilySearch's reference cluster like it's Ruby on Rails t
 
 # What will it do?
 
-The goal and objective of fs-dataman is to provide a simple command-line tool for managing the data inside of FamilySearch's FamilyTree Reference Cluster (for developer use only). The basic parts of the tool are:
+The goal and objective of `fs-dataman` is to provide a simple command-line tool for managing the data inside of FamilySearch's FamilyTree Reference Cluster (for developer use only). The basic parts of the tool are:
 
 For actually accurate documentation, read the manpage: (yes, I wrote one).
 
@@ -22,6 +22,8 @@ For actually accurate documentation, read the manpage: (yes, I wrote one).
     man ./fs-dataman/fs-dataman/fs-dataman.1
     # get done reading
     rm -rf fs-dataman
+
+For everything else, there's the readme:
 
 ## Inspect
 
@@ -53,3 +55,12 @@ I've actually made a little Rakefile to get you going. Assuming you have Xcode 4
     rake install
     # if you hate this and want to obliterate all two files it installed:
     # rake uninstall
+
+If you don't have Ruby Make (Rake), then here's how:
+
+    # using RVM - you know who you are!
+    gem install rake
+    # not using RVM
+    sudo gem install rake
+
+And then the first code sample should work for you. If you, for some reason, are incapable of running Rake, then read the freaking Rakefile and run the commands by hand. (It's not hard).
