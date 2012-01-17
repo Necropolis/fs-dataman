@@ -25,7 +25,7 @@ NSString* kConfigPassword  = @"password"        ;
 
 NSString* kUserAgent       = @"fs-dataman 0.1"  ;
 
-NSString* kFlagServerConfig = @"-f";
+NSString* kFlagServerConfig = @"-c";
 NSString* kFlagServerConfigLong = @"--server-config";
 
 @interface DMVerb (__private__)
@@ -50,6 +50,12 @@ NSString* kFlagServerConfigLong = @"--server-config";
      */
     [self obtainConfig];
     [self setUpService];
+    [self processArgs];
+}
+
+- (void)processArgs
+{
+    // stop complaining, silly compiler!
 }
 
 - (void)run
@@ -72,6 +78,14 @@ NSString* kFlagServerConfigLong = @"--server-config";
             exit(-1);
         } else {
             configFileURI = [_arguments objectAtIndex:config_arg+1];
+            // remove the two flags so it's not a problem for other verbs
+            
+            NSMutableArray* arr = [[NSMutableArray alloc] init];
+            
+            if (config_arg>0) [arr addObjectsFromArray:[_arguments subarrayWithRange:NSMakeRange(0, config_arg)]];
+            [arr addObjectsFromArray:[_arguments subarrayWithRange:NSMakeRange(config_arg+2, [_arguments count]-(config_arg+2))]];
+            
+            self.configuration = [arr copy]; // preseve immutability
         }
     }
     

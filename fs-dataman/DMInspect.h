@@ -10,4 +10,7 @@
 
 @interface DMInspect : DMVerb
 
+@property (readwrite, strong) NSFileHandle* objectIds;
+@property (readwrite, strong) NSFileHandle* gedcom;
+
 @end
