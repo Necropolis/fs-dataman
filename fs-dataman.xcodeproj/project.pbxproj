@@ -144,7 +144,7 @@
 				DAC1984A14C0DE910068A0AD /* DMInspect.m */,
 			);
 			name = Dataman;
-			path = dataman;
+			path = "fs-dataman";
 			sourceTree = "<group>";
 		};
 		DA9AE85914C0B90B002921BE /* Supporting Files */ = {
