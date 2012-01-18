@@ -24,7 +24,6 @@
 @implementation DMInspect {
     NSMutableSet* _collectedIds;
     NSString* _myId;
-    dispatch_group_t _worker_dispatches;
     NSString* _objectIdFileLocation;
 }
 
@@ -73,11 +72,9 @@
     
     _collectedIds = [[NSMutableSet alloc] init];
     
-    _worker_dispatches=dispatch_group_create();
-    dispatch_group_async(_worker_dispatches, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self relationshipTraverseForId:_myId];
-    });
-    dispatch_group_wait(_worker_dispatches, DISPATCH_TIME_FOREVER);
+    [self relationshipTraverseForId:_myId];
+    
+    [self.service.operationQueue waitUntilAllOperationsAreFinished];
     
     NSDictionary* d=[[NSDictionary alloc] initWithObjectsAndKeys:[_collectedIds allObjects], @"persons", nil];
     
@@ -102,9 +99,7 @@
                                                       for (NSString* __id in personIds) {
                                                           if ([_collectedIds containsObject:__id]||[__id isEqualToString:_myId]) continue;
                                                           [_collectedIds addObject:__id];
-                                                          dispatch_group_async(_worker_dispatches, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                              [self relationshipTraverseForId:__id];
-                                                          });
+                                                          [self relationshipTraverseForId:__id];
                                                       }
                                                   } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
                                                       if ([resp statusCode]==404) {
@@ -127,9 +122,7 @@
                                                       for (NSString* __id in personIds) {
                                                           if ([_collectedIds containsObject:__id]||[__id isEqualToString:_myId]) continue;
                                                           [_collectedIds addObject:__id];
-                                                          dispatch_group_async(_worker_dispatches, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                              [self relationshipTraverseForId:__id];
-                                                          });
+                                                          [self relationshipTraverseForId:__id];
                                                       }
                                                   }
                                                   onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
@@ -153,9 +146,7 @@
                                                       for (NSString* __id in personIds) {
                                                           if ([_collectedIds containsObject:__id]||[__id isEqualToString:_myId]) continue;
                                                           [_collectedIds addObject:__id];
-                                                          dispatch_group_async(_worker_dispatches, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                              [self relationshipTraverseForId:__id];
-                                                          });
+                                                          [self relationshipTraverseForId:__id];
                                                       }
                                                   } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
                                                       if ([resp statusCode]==404) {
@@ -170,8 +161,6 @@
     [self.service.operationQueue addOperation:parentsRead];
     [self.service.operationQueue addOperation:spousesRead];
     [self.service.operationQueue addOperation:childRead];
-    
-    [self.service.operationQueue waitUntilAllOperationsAreFinished];
 }
 
 @end
