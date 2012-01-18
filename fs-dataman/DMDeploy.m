@@ -1,6 +1,6 @@
 //
-//  Deploy.m
-//  dataman
+//  DMDeploy.m
+//  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
 //  Copyright (c) 2012 FSDEV. All rights reserved.
