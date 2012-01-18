@@ -15,9 +15,9 @@ end
 
 task :install do
   puts 'Installing /usr/local/bin/fs-dataman'
-  `cp /tmp/fs-dataman.dst/usr/local/bin/fs-dataman /usr/local/bin/fs-dataman`
+  `cp -f /tmp/fs-dataman.dst/usr/local/bin/fs-dataman /usr/local/bin/fs-dataman`
   puts 'Installing /usr/local/share/man/man1/fs-dataman.1'
-  `cp /tmp/fs-dataman.dst/usr/local/share/man/man1/fs-dataman.1 /usr/local/share/man/man1/fs-dataman.1`
+  `cp -f /tmp/fs-dataman.dst/usr/local/share/man/man1/fs-dataman.1 /usr/local/share/man/man1/fs-dataman.1`
   puts 'fs-dataman is installed! you can now run fs-dataman or read the fs-dataman(1) manpage!'
 end
 

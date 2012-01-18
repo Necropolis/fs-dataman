@@ -15,6 +15,11 @@ extern NSString* kConfigAPIKey;
 extern NSString* kConfigUsername;
 extern NSString* kConfigPassword;
 
+extern NSString* kConfigSoftShort;
+extern NSString* kConfigSoftLong;
+extern NSString* kConfigForceShort;
+extern NSString* kConfigForceLong;
+
 enum flag_t {
     NONE=0,
     SOFT=1,

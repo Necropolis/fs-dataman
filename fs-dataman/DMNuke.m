@@ -10,11 +10,6 @@
 
 #import "Console.h"
 
-NSString* kConfigSoftShort  = @"-s"      ;
-NSString* kConfigSoftLong   = @"--soft"  ;
-NSString* kConfigForceShort = @"-f"      ;
-NSString* kConfigForceLong  = @"--force" ;
-
 @implementation DMNuke {
     NSString* _ifile;
     NSString* _ofile;

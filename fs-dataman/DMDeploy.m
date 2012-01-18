@@ -10,9 +10,6 @@
 
 #import "Console.h"
 
-NSString* kConfigSoftShort  = @"-s"      ;
-NSString* kConfigSoftLong   = @"--soft"  ;
-
 @implementation DMDeploy {
     NSString* __ifilelocation;
     NSString* __ofilelocation;

@@ -28,6 +28,11 @@ NSString* kUserAgent       = @"fs-dataman 0.1"  ;
 NSString* kFlagServerConfig = @"-c";
 NSString* kFlagServerConfigLong = @"--server-config";
 
+NSString* kConfigSoftShort  = @"-s"      ;
+NSString* kConfigSoftLong   = @"--soft"  ;
+NSString* kConfigForceShort = @"-f"      ;
+NSString* kConfigForceLong  = @"--force" ;
+
 @interface DMVerb (__private__)
 
 - (void)obtainConfig;
