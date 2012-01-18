@@ -1,3 +1,6 @@
 [submodule "vendor/NewDot"]
 	path = vendor/NewDot
 	url = git@github.com:FSDEV/NewDot.git
+[submodule "vendor/gedcom55"]
+	path = vendor/gedcom55
+	url = /Users/cmiller/Code/gedcom55

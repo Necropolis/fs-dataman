@@ -46,7 +46,6 @@ int main (int argc, const char * argv[])
             [verb_impl setUp];
             [verb_impl run];
             [verb_impl tearDown];
-
         }        
     }
     
