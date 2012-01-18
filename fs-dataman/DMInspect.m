@@ -51,6 +51,11 @@
     [self.objectIds truncateFileAtOffset:0]; // ensure that the darn thing is empty!
 }
 
+- (NSString*)verbHeader
+{
+    return [NSString stringWithFormat:@"INSPECT with ofile: %@", _objectIdFileLocation];
+}
+
 - (void)run
 {
     // traverse the effing tree

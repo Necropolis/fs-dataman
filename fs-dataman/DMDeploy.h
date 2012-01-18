@@ -10,4 +10,8 @@
 
 @interface DMDeploy : DMVerb
 
+@property (readwrite, strong) NSFileHandle* gedcom;
+@property (readwrite, strong) NSFileHandle* outputFile;
+@property (readwrite, assign) enum flag_t flag;
+
 @end

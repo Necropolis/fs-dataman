@@ -8,7 +8,57 @@
 
 #import "DMDeploy.h"
 
-@implementation DMDeploy
+#import "Console.h"
+
+NSString* kConfigSoftShort  = @"-s"      ;
+NSString* kConfigSoftLong   = @"--soft"  ;
+
+@implementation DMDeploy {
+    NSString* __ifilelocation;
+    NSString* __ofilelocation;
+}
+
+@synthesize gedcom=_gedcom;
+@synthesize outputFile=_outputFile;
+@synthesize flag=_flag;
+
+- (void)processArgs
+{
+    _flag = NONE;
+    // grab soft flag
+    NSUInteger i=[self.arguments indexOfObject:kConfigSoftShort];
+    i=i==NSNotFound?:[self.arguments indexOfObject:kConfigSoftLong];
+    if (i!=NSNotFound) {
+        _flag = SOFT;
+    }
+    NSMutableArray* a=[self.arguments mutableCopy];
+    [a removeObjectsInArray:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, nil]];
+    self.arguments = [a copy];
+    if ([a count] != 2) {
+        dm_PrintLn(@"Incorrect number of file arguments. I'm going to stop now before I hurt myself.");
+        exit(-1);
+    }
+    __ifilelocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
+    __ofilelocation = [[self.arguments lastObject] stringByExpandingTildeInPath];
+    NSFileManager* _mgr=[NSFileManager defaultManager];
+    if ([_mgr fileExistsAtPath:__ifilelocation]&&[_mgr isReadableFileAtPath:__ifilelocation]) {
+        self.gedcom = [NSFileHandle fileHandleForReadingAtPath:__ifilelocation];
+        NSAssert(_gedcom!=nil,@"Seriously, how can this freaking happen?");
+    } else {
+        dm_PrintLn(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
+        exit(-1);
+    }
+    [_mgr createFileAtPath:__ofilelocation
+                  contents:[NSData data]
+                attributes:nil];
+    self.outputFile = [NSFileHandle fileHandleForWritingAtPath:__ofilelocation];
+    if (self.outputFile==nil) {
+        dm_PrintLn(@"I cannot open the output file for writing. Dude, this is totally not cool. I'm gunna quit now.");
+        exit(-1);
+    }
+    [self.outputFile truncateFileAtOffset:0];
+    // all should be well in Zion, right?
+}
 
 - (void)run
 {

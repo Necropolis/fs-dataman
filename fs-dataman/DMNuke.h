@@ -10,4 +10,8 @@
 
 @interface DMNuke : DMVerb
 
+@property (readwrite, strong) NSFileHandle* inputFile;
+@property (readwrite, strong) NSFileHandle* outputFile;
+@property (readwrite, assign) enum flag_t flag;
+
 @end

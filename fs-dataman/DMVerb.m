@@ -43,14 +43,15 @@ NSString* kFlagServerConfigLong = @"--server-config";
 
 - (void)setUp
 {
-    /*
-     global:
-     optional args:
-     -c --server-config FILE session config file (use default location if an explicit location is not set)
-     */
+    [self processArgs];
+    dm_PrintLn(@"%@\n", [self verbHeader]);
     [self obtainConfig];
     [self setUpService];
-    [self processArgs];
+}
+
+- (NSString*)verbHeader
+{
+    return @""; // go awai!
 }
 
 - (void)processArgs
