@@ -3,7 +3,7 @@
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
-//  Copyright (c) 2012 FSDEV. All rights reserved.
+//  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
 #import "DMNuke.h"
@@ -22,26 +22,12 @@
 - (void)processArgs
 {
     self.flag = NONE;
-    NSUInteger i;
-    // scan for force flags
-    i = [self.arguments indexOfObject:kConfigForceShort];
-    i=i==NSNotFound?:[self.arguments indexOfObject:kConfigForceLong];
-    if (i!=NSNotFound) {
+    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigForceLong, kConfigForceShort, nil]])
         self.flag = FORCE;
-    }
-    // scan for soft flags
-    i = [self.arguments indexOfObject:kConfigSoftShort];
-    i=i==NSNotFound?:[self.arguments indexOfObject:kConfigSoftLong];
-    if (i!=NSNotFound) {
+    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftLong, kConfigSoftShort, nil]])
         self.flag |= SOFT;
-    }
-    // remove flags from args
-    NSMutableArray* _args = [self.arguments mutableCopy];
-    [_args removeObjectsInArray:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, kConfigForceShort, kConfigForceLong, nil]];
-    self.arguments = [_args copy];
-    if ([self.arguments count]!=2) {
+    if ([self.arguments count]!=2)
         dm_PrintLn(@"Incorrect number of file arguments for command.");
-    }
     // check files
     _ifile=[[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
     _ofile=[[self.arguments lastObject] stringByExpandingTildeInPath];

@@ -3,7 +3,7 @@
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
-//  Copyright (c) 2012 FSDEV. All rights reserved.
+//  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
 #import "DMVerb.h"
@@ -32,6 +32,8 @@ NSString* kConfigSoftShort  = @"-s"      ;
 NSString* kConfigSoftLong   = @"--soft"  ;
 NSString* kConfigForceShort = @"-f"      ;
 NSString* kConfigForceLong  = @"--force" ;
+NSString* kConfigLinkShort  = @"-l"      ;
+NSString* kConfigLinkLong   = @"--link"  ;
 
 @interface DMVerb (__private__)
 
@@ -116,6 +118,12 @@ NSString* kConfigForceLong  = @"--force" ;
     
     // the configuration was obtained properly
     
+    
+    if ([[self.configuration valueForKey:kConfigServerURL] rangeOfString:@"api.familysearch.org" options:NSCaseInsensitiveSearch].location!=NSNotFound) {
+        dm_PrintLn(@"BIG FREAKING PROBLEM! YOU'RE TRYING TO RUN THIS ON THE PRODUCTION CLUSTER! I WILL NOT ALLOW THIS!");
+        dm_PrintLn(@"Ensure that your server configuration is NOT api.familysearch.org!");
+        exit(-1);
+    }
 }
 
 - (void)setUpService
@@ -156,6 +164,21 @@ NSString* kConfigForceLong  = @"--force" ;
     }];
     [self.service.operationQueue addOperation:logout];
     [logout waitUntilFinished];
+}
+
+- (BOOL)hasFlagAndRemove:(NSArray*)flag
+{
+    BOOL has=NO;
+    for (NSString* f in flag) {
+        if ([self.arguments containsObject:f]) {
+            has=YES;
+            NSMutableArray* arr=[self.arguments mutableCopy];
+            [arr removeObjectsInArray:flag];
+            self.arguments = [arr copy];
+            break;
+        }
+    }
+    return has;
 }
 
 @end

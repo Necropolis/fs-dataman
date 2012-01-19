@@ -3,7 +3,7 @@
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
-//  Copyright (c) 2012 FSDEV. All rights reserved.
+//  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
 #import "DMInspect.h"
@@ -28,20 +28,22 @@
 }
 
 @synthesize objectIds=_objectIds;
-@synthesize gedcom=_gedcom;
+@synthesize flag=_flag;
 
 - (void)processArgs
 {
+    _flag = NONE;
     if ([self.arguments count] < 1) {
-        dm_PrintLn(@"No output file or GEDCOM exemplar specified. I'm going to stop now before I hurt myself.");
-        exit(-1);
-    } else if ([self.arguments count] > 2) {
-        dm_PrintLn(@"More arguments than necessary. I'm confused, so I'm going to stop now before I hurt myself.");
+        dm_PrintLn(@"Improper number of arguments. I'm scared.");
         exit(-1);
     }
     
+    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigLinkShort, kConfigLinkLong, nil]])
+        _flag = LINK;
+    
+    if ([self.arguments count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
+    
     _objectIdFileLocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
-    if ([self.arguments count] == 2) { dm_PrintLn(@"Unimplemented feature: compare to GEDCOM."); exit(-1); }
     
     [[NSFileManager defaultManager] createFileAtPath:_objectIdFileLocation
                                             contents:[NSData data]
@@ -58,6 +60,14 @@
 
 - (void)run
 {
+    ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    //                     TODO: HANDLE THE LINK FLAG                                 //
+    ////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
     // traverse the effing tree
     __block NSDictionary* me=nil;
     FSURLOperation* getMe =

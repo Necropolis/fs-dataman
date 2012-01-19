@@ -3,7 +3,7 @@
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
-//  Copyright (c) 2012 FSDEV. All rights reserved.
+//  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +16,9 @@
 #import "DMDeploy.h"
 #import "DMNuke.h"
 #import "DMInspect.h"
+#import "DMCapture.h"
+#import "DMLink.h"
+#import "DMUnlink.h"
 
 int main (int argc, const char * argv[])
 {
@@ -30,8 +33,8 @@ int main (int argc, const char * argv[])
         } else {
             NSString* verb = [args objectAtIndex:1];
             
-            NSArray* sz_verbs   = [NSArray arrayWithObjects: @"deploy",        @"nuke",        @"inspect",       nil];
-            NSArray* objc_verbs = [NSArray arrayWithObjects:[DMDeploy class], [DMNuke class], [DMInspect class], nil];
+            NSArray* sz_verbs   = [NSArray arrayWithObjects: @"deploy",        @"nuke",        @"inspect",        @"capture",        @"link",        @"unlink",       nil];
+            NSArray* objc_verbs = [NSArray arrayWithObjects:[DMDeploy class], [DMNuke class], [DMInspect class], [DMCapture class], [DMLink class], [DMUnlink class], nil];
             
             if (![sz_verbs containsObject:verb]) {
                 dm_PrintLn(@"unknown command %@; I only know about %@", verb, [sz_verbs componentsJoinedByString:@", "]);

@@ -24,6 +24,10 @@
 		DA9AE89114C0BDD1002921BE /* NSString+LastWord.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE88414C0BDD1002921BE /* NSString+LastWord.m */; };
 		DA9AE89214C0BDD1002921BE /* NSURL+QueryStringConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE88614C0BDD1002921BE /* NSURL+QueryStringConstructor.m */; };
 		DA9AE89614C0BDF5002921BE /* FSURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE89514C0BDF5002921BE /* FSURLOperation.m */; };
+		DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* FSByteScanner.m */; };
+		DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A014C8B41A00A3E160 /* DMCapture.m */; };
+		DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A314C8B48700A3E160 /* DMLink.m */; };
+		DABDD7A714C8B49300A3E160 /* DMUnlink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A614C8B49300A3E160 /* DMUnlink.m */; };
 		DAC1983F14C0D9A40068A0AD /* Console.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1983E14C0D9A40068A0AD /* Console.m */; };
 		DAC1984214C0DDCB0068A0AD /* DMVerb.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984114C0DDCB0068A0AD /* DMVerb.m */; };
 		DAC1984514C0DDDD0068A0AD /* DMDeploy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984414C0DDDD0068A0AD /* DMDeploy.m */; };
@@ -78,6 +82,14 @@
 		DA9AE88614C0BDD1002921BE /* NSURL+QueryStringConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+QueryStringConstructor.m"; path = "vendor/NewDot/NewDot/NSURL+QueryStringConstructor.m"; sourceTree = "<group>"; };
 		DA9AE89414C0BDF5002921BE /* FSURLOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSURLOperation.h; path = vendor/NewDot/vendor/FSURLOperation/FSURLOperation.h; sourceTree = "<group>"; };
 		DA9AE89514C0BDF5002921BE /* FSURLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSURLOperation.m; path = vendor/NewDot/vendor/FSURLOperation/FSURLOperation.m; sourceTree = "<group>"; };
+		DABDD79C14C8A71600A3E160 /* FSByteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSByteScanner.m; sourceTree = "<group>"; };
+		DABDD79E14C8A72300A3E160 /* FSByteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSByteScanner.h; sourceTree = "<group>"; };
+		DABDD79F14C8B41A00A3E160 /* DMCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCapture.h; sourceTree = "<group>"; };
+		DABDD7A014C8B41A00A3E160 /* DMCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMCapture.m; sourceTree = "<group>"; };
+		DABDD7A214C8B48700A3E160 /* DMLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLink.h; sourceTree = "<group>"; };
+		DABDD7A314C8B48700A3E160 /* DMLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLink.m; sourceTree = "<group>"; };
+		DABDD7A514C8B49300A3E160 /* DMUnlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMUnlink.h; sourceTree = "<group>"; };
+		DABDD7A614C8B49300A3E160 /* DMUnlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMUnlink.m; sourceTree = "<group>"; };
 		DAC1983D14C0D9A40068A0AD /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 		DAC1983E14C0D9A40068A0AD /* Console.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Console.m; sourceTree = "<group>"; };
 		DAC1984014C0DDCB0068A0AD /* DMVerb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMVerb.h; sourceTree = "<group>"; };
@@ -107,6 +119,8 @@
 			children = (
 				DA76087C14C7809A00CAB61D /* FSGEDCOM.h */,
 				DA76087D14C7809A00CAB61D /* FSGEDCOM.m */,
+				DABDD79E14C8A72300A3E160 /* FSByteScanner.h */,
+				DABDD79C14C8A71600A3E160 /* FSByteScanner.m */,
 			);
 			name = "GEDCOM 5.5";
 			path = vendor/gedcom55;
@@ -156,6 +170,12 @@
 				DAC1984714C0DDEE0068A0AD /* DMNuke.m */,
 				DAC1984914C0DE910068A0AD /* DMInspect.h */,
 				DAC1984A14C0DE910068A0AD /* DMInspect.m */,
+				DABDD79F14C8B41A00A3E160 /* DMCapture.h */,
+				DABDD7A014C8B41A00A3E160 /* DMCapture.m */,
+				DABDD7A214C8B48700A3E160 /* DMLink.h */,
+				DABDD7A314C8B48700A3E160 /* DMLink.m */,
+				DABDD7A514C8B49300A3E160 /* DMUnlink.h */,
+				DABDD7A614C8B49300A3E160 /* DMUnlink.m */,
 			);
 			name = Dataman;
 			path = "fs-dataman";
@@ -236,7 +256,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0420;
-				ORGANIZATIONNAME = FSDEV;
+				ORGANIZATIONNAME = "Christopher Miller";
 			};
 			buildConfigurationList = DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "fs-dataman" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -280,6 +300,10 @@
 				DAC1984814C0DDEE0068A0AD /* DMNuke.m in Sources */,
 				DAC1984B14C0DE920068A0AD /* DMInspect.m in Sources */,
 				DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */,
+				DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */,
+				DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */,
+				DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */,
+				DABDD7A714C8B49300A3E160 /* DMUnlink.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

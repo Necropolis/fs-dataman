@@ -13,6 +13,15 @@ deploy
 .Ar gedcom-file
 .Ar object-id-file
 .Nm
+capture
+.Ar gedcom-file
+.Nm
+link
+.Ar object-id-input-file
+.Nm
+unlink
+.Ar object-id-input-file
+.Nm
 nuke
 .Op Fl s -soft
 .Op Fl f -force
@@ -20,34 +29,31 @@ nuke
 .Ar object-id-output-file 
 .Nm
 inspect
+.Op Fl l -link
 .Ar object-id-output-file
-.Op Ar gedcom-file
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 A tool to control the data in the reference cluster. Because the GEDCOM file importer is such a piece of poo, the API is the only reliable way to access the cluster.
-.Nm
-allows you to upload a GEDCOM to the cluster and record the object IDs of the resulting data. Using these object IDs, you can then use the tool to go out and destroy all of those objects, the purpose of which is to allow you to re-populate the cluster with different data.
-.Pp
-.Nm
-is broken out into several different commands to help with this general process:
-.Pp
+.Sh OVERVIEW
 .Bl -tag -compact -indent
 .It Ar deploy
 Deploys data to the cluster from the supplied GEDCOM file. The object IDs are deposited into a file. Keep this file! Using it you can easily wipe only the data that came from this GEDCOM file!
+.It Ar capture
+Capture the current set of data in the cluster (linked to the current user) and put it into a GEDCOM file.
+.It Ar link
+Link the current user to the two supplied user IDs (the two IDs will be the parents). The file should be in JSON format, and is easily generated using the inspect command.
+.It Ar unlink
+Unlink the current user from the two supplied user IDs (the two IDs should be the parents). The file should be in JSON format, and is easily generated using the inspect command.
 .It Ar nuke
 Nuke all the data from the cluster that corresponds to the supplied objed ID file. Another object ID file is generated - this is all the object IDs which
 .Nm
 failed to destroy! You will need these if you want to complete the destroy, perhaps by running again with the -f flag.
 .It Ar inspect
 Traverse the tree connected to the current user's record and generate an object ID file for all the connected objects. If you start with data not managed by
-.Nm
-, this is a great way to grab everything so you can start managing it with
-.Nm
-.
+.Nm ,
+this is a great way to grab everything so you can start managing it with
+.Nm .
+Also, using the -l flag you can emit just the two parents of the current user, useful for working with the link and unlink commands.
 .El
-.Pp
-Additionally, if the love is strong enough from the community,
-.Nm
-may gain the ability to slurp all the data and store it locally so you could "stash" working states.
 .Ss OPTIONS
 .Bl -tag -compact -ohang
 .It Fl c Ar config-file , Fl -server-config Ar config-file
@@ -68,7 +74,7 @@ or when you're not ready to write stuff, but just want to see what it'd do.
 When nuking data from the server,
 .Fl f
 will case
-.Nm
+.Nm 
 to be very proactive about what it does, and in the event that an object association tries to abort a delete, it will go out and try to delete as many objects as it can in order to resolve the problem, only giving up when it finds a record it doesn't have permission to delete. These records will go into
 .Ar object-id-output-file
 for your later perusal.

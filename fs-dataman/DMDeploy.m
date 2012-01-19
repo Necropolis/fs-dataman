@@ -3,7 +3,7 @@
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
-//  Copyright (c) 2012 FSDEV. All rights reserved.
+//  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
 #import "DMDeploy.h"
@@ -23,15 +23,9 @@
 {
     _flag = NONE;
     // grab soft flag
-    NSUInteger i=[self.arguments indexOfObject:kConfigSoftShort];
-    i=i==NSNotFound?:[self.arguments indexOfObject:kConfigSoftLong];
-    if (i!=NSNotFound) {
+    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, nil]])
         _flag = SOFT;
-    }
-    NSMutableArray* a=[self.arguments mutableCopy];
-    [a removeObjectsInArray:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, nil]];
-    self.arguments = [a copy];
-    if ([a count] != 2) {
+    if ([self.arguments count] != 2) {
         dm_PrintLn(@"Incorrect number of file arguments. I'm going to stop now before I hurt myself.");
         exit(-1);
     }

@@ -10,7 +10,10 @@ Manage information in FamilySearch's reference cluster like it's Ruby on Rails t
 - Apple LLVM 3.0
 - Apple Xcode 4.2 or better
 - FamilySearch developer credentials, including API key
+- Ruby and the `rake` gem
 - At least some command-line -fu
+
+This is completely untested with other Apple Foundation-like environments, sorry!
 
 # What will it do?
 
@@ -27,15 +30,35 @@ For everything else, there's the readme:
 
 ## Inspect
 
-    fs-dataman inspect object-id-output-file [gedcom-file]
+    fs-dataman inspect [-l --link] object-id-output-file
 
 Traverse the tree connected to the current user's record and generate an Object ID file for all the connected objects. If you start with data not managed by `fs-dataman`, this is a great way to grab everything so you can start managing it with `fs-dataman`.
+
+With the option of the `-l` flag, you can get just the parents of the current user. This output file is used for the `link` and `unlink` commands.
 
 ## Deploy
 
     fs-dataman deploy [-s --soft] gedcom-file object-id-file
 
 Deploys data to the cluster from the supplied GEDCOM file. The object IDs are deposited into a file. Keep this file! Using it you can easily wipe only the data that came from this GEDCOM.
+
+## Capture
+
+    fs-dataman capture gedcom-file
+
+Capture all the data currently visible (via tree-walking) in the cluster to a GEDCOM file.
+
+## Link
+
+    fs-dataman link object-id-input-file
+
+Link the two (and only two) IDs from the given file to the current user. The two object IDs will be the users parents.
+
+## Unlink
+
+    fs-dataman unlink object-id-output-file
+
+Unlink the two (and only two) IDs from the given file from the current user. The two object IDs will no longer be the user's parents. (Yes, disown them!)
 
 ## Nuke
 
