@@ -10,6 +10,8 @@
 
 #import "Console.h"
 
+#import "FSGEDCOM.h"
+
 @implementation DMDeploy {
     NSString* __ifilelocation;
     NSString* __ofilelocation;
@@ -53,15 +55,10 @@
 
 - (void)run
 {
-    [super run];
-    /*
-     deploy:
-        required args:
-            gedcom file
-            object id output file (sqlite)
-        optional args:
-            -s --soft soft (don't deploy to reference)
-     */
+    FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
+    NSDictionary* gedcom_results = [parsed_gedcom parse:[self.gedcom readDataToEndOfFile]];
+
+    dm_PrintLn(@"results of parsing gedcom: %@", gedcom_results);
 }
 
 @end
