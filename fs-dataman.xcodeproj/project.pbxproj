@@ -45,8 +45,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DA76087C14C7809A00CAB61D /* FSGEDCOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSGEDCOM.h; path = vendor/gedcom55/FSGEDCOM.h; sourceTree = "<group>"; };
-		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSGEDCOM.m; path = vendor/gedcom55/FSGEDCOM.m; sourceTree = "<group>"; };
+		DA76087C14C7809A00CAB61D /* FSGEDCOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOM.h; sourceTree = "<group>"; };
+		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOM.m; sourceTree = "<group>"; };
 		DA9AE85014C0B90B002921BE /* fs-dataman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fs-dataman"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9AE85414C0B90B002921BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA9AE85714C0B90B002921BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,7 +109,8 @@
 				DA76087D14C7809A00CAB61D /* FSGEDCOM.m */,
 			);
 			name = "GEDCOM 5.5";
-			sourceTree = "<group>";
+			path = vendor/gedcom55;
+			sourceTree = SOURCE_ROOT;
 		};
 		DA9AE84514C0B90B002921BE = {
 			isa = PBXGroup;
