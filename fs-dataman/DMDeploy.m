@@ -53,6 +53,11 @@
     // all should be well in Zion, right?
 }
 
+- (NSString*)verbHeader
+{
+    return [NSString stringWithFormat:@"DEPLOY gedcom: %@ object id file: %@", __ifilelocation, __ofilelocation];
+}
+
 - (void)run
 {
     FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
