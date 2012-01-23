@@ -40,6 +40,7 @@ enum flag_t {
 @property (readwrite, strong) NSArray* arguments;
 @property (readwrite, strong) NDService* service;
 @property (readwrite, strong) NSDictionary* configuration;
+@property (readwrite, strong) NSDictionary* me;
 
 - (NSString*)verbHeader;
 - (NSString*)verbFooter;
@@ -49,5 +50,7 @@ enum flag_t {
 - (void)tearDown;
 
 - (BOOL)hasFlagAndRemove:(NSArray*)flag;
+
+- (void)getMe;
 
 @end

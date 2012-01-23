@@ -65,19 +65,9 @@
 
 - (void)run
 {
-    __block NSDictionary* me=nil;
-    FSURLOperation* getMe =
-    [self.service familyTreeOperationReadPersons:[NSArray array] withParameters:nil onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
-        me = response;
-    } onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
-        dm_PrintLn(@"Failed to get current user in the tree!");
-        dm_PrintURLOperationResponse(resp, payload, error);
-        exit(-1);
-    }];
-    [self.service.operationQueue addOperation:getMe];
-    [getMe waitUntilFinished];
+    [self getMe];
     
-    _myId = [[me valueForKeyPath:@"persons.id"] firstObject];
+    _myId = [[self.me valueForKeyPath:@"persons.id"] firstObject];
     
     _collectedIds = [[NSMutableSet alloc] init];
     
@@ -183,9 +173,12 @@
                                                   forPerson:recordId
                                            relationshipType:NDFamilyTreeRelationshipType.parent
                                                   toPersons:nil
-                                             withParameters:nil
+                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.events, NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.assertions, NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.properties, nil]
                                                   onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
                                                       dm_PrintLn(@"[RELATIONSHIP:PARENT] Read Success for %@", recordId);
+                                                      
+                                                      dm_PrintLn(@"\n%@\n", response);
+                                                      
                                                       NSArray* personIds = [[response valueForKeyPath:@"persons.relationships.parent.id"] firstObject];
                                                       for (NSString* __id in personIds) {
                                                           if ([_collectedIds containsObject:__id]||[__id isEqualToString:_myId]) continue;

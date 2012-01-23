@@ -12,6 +12,7 @@
 
 #import "NDService.h"
 #import "NDService+Identity.h"
+#import "NDService+FamilyTree.h"
 #import "NSData+StringValue.h"
 
 #import "FSURLOperation.h"
@@ -47,6 +48,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 @synthesize arguments = _arguments;
 @synthesize service = _service;
 @synthesize configuration = _configuration;
+@synthesize me = _me;
 
 - (void)setUp
 {
@@ -185,6 +187,20 @@ NSString* kConfigLinkLong   = @"--link"  ;
         }
     }
     return has;
+}
+
+- (void)getMe
+{
+    FSURLOperation* getMe =
+    [self.service familyTreeOperationReadPersons:[NSArray array] withParameters:nil onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+        self.me = response;
+    } onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
+        dm_PrintLn(@"Failed to get current user in the tree!");
+        dm_PrintURLOperationResponse(resp, payload, error);
+        exit(-1);
+    }];
+    [self.service.operationQueue addOperation:getMe];
+    [getMe waitUntilFinished];
 }
 
 @end
