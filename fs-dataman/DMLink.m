@@ -35,7 +35,7 @@
     // all should be well in Zion, right?
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
     return [NSString stringWithFormat:@"LINK as parents the ids from file %@ to current the user", __ifilelocation];
 }

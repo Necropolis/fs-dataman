@@ -58,7 +58,12 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (NSString*)verbHeader
 {
-    return @""; // go awai!
+    return [NSString stringWithFormat:@">>> BEGIN  %@", self];
+}
+
+- (NSString*)verbFooter
+{
+    return [NSString stringWithFormat:@">>> FINISH %@", self];
 }
 
 - (void)processArgs
@@ -164,6 +169,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
     }];
     [self.service.operationQueue addOperation:logout];
     [logout waitUntilFinished];
+    dm_PrintLn(@"\n%@", [self verbFooter]);
 }
 
 - (BOOL)hasFlagAndRemove:(NSArray*)flag

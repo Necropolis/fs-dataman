@@ -29,11 +29,11 @@ enum flag_t {
     LINK=1<<2
 };
 
-#define MODE_NONE(f)           (( f & NONE          )==0)
-#define MODE_SOFT(f)           (( f & SOFT          )==0)
-#define MODE_FORCE(f)          (( f & FORCE         )==0)
-#define MODE_LINK(f)           (( f & LINK          )==0)
-#define MODE_SOFT_AND_FORCE(f) (( f & ( SOFT|FORCE ))==0)
+#define MODE_NONE(f)           (0==( f & NONE          ))
+#define MODE_SOFT(f)           (0==( f & SOFT          ))
+#define MODE_FORCE(f)          (0==( f & FORCE         ))
+#define MODE_LINK(f)           (0==( f & LINK          ))
+#define MODE_SOFT_AND_FORCE(f) (0==( f & ( SOFT|FORCE )))
 
 @interface DMVerb : NSObject
 
@@ -42,6 +42,7 @@ enum flag_t {
 @property (readwrite, strong) NSDictionary* configuration;
 
 - (NSString*)verbHeader;
+- (NSString*)verbFooter;
 - (void)setUp;
 - (void)processArgs;
 - (void)run;

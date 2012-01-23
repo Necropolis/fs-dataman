@@ -18,6 +18,7 @@
 @interface DMInspect (__PRIVATE__)
 
 - (void)relationshipTraverseForId:(NSString*)recordId;
+- (void)readParents:(NSString*)recordId;
 
 @end
 
@@ -39,7 +40,9 @@
     }
     
     if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigLinkShort, kConfigLinkLong, nil]])
-        _flag = LINK;
+        self.flag = LINK;
+    else
+        self.flag = NONE;
     
     if ([self.arguments count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
     
@@ -53,22 +56,15 @@
     [self.objectIds truncateFileAtOffset:0]; // ensure that the darn thing is empty!
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
-    return [NSString stringWithFormat:@"INSPECT with ofile: %@", _objectIdFileLocation];
+    return [NSString stringWithFormat:@"INSPECT %@with ofile: %@",
+            (_flag==LINK)?@"in LINK mode ":@"in UNLINKED mode ",
+            _objectIdFileLocation];
 }
 
 - (void)run
 {
-    ////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////
-    //                     TODO: HANDLE THE LINK FLAG                                 //
-    ////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    // traverse the effing tree
     __block NSDictionary* me=nil;
     FSURLOperation* getMe =
     [self.service familyTreeOperationReadPersons:[NSArray array] withParameters:nil onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
@@ -82,14 +78,16 @@
     [getMe waitUntilFinished];
     
     _myId = [[me valueForKeyPath:@"persons.id"] firstObject];
-
-    dm_PrintLn(@"My ID: %@", _myId);
     
     _collectedIds = [[NSMutableSet alloc] init];
     
-    [self relationshipTraverseForId:_myId];
-    
-    [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    if (_flag==LINK) {
+        [self readParents:_myId];
+        [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    } else {
+        [self relationshipTraverseForId:_myId];
+        [self.service.operationQueue waitUntilAllOperationsAreFinished];        
+    }
     
     NSDictionary* d=[[NSDictionary alloc] initWithObjectsAndKeys:[_collectedIds allObjects], @"persons", nil];
     
@@ -176,6 +174,33 @@
     [self.service.operationQueue addOperation:parentsRead];
     [self.service.operationQueue addOperation:spousesRead];
     [self.service.operationQueue addOperation:childRead];
+}
+
+- (void)readParents:(NSString*)recordId
+{
+    FSURLOperation* parentsRead =
+    [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person
+                                                  forPerson:recordId
+                                           relationshipType:NDFamilyTreeRelationshipType.parent
+                                                  toPersons:nil
+                                             withParameters:nil
+                                                  onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+                                                      dm_PrintLn(@"[RELATIONSHIP:PARENT] Read Success for %@", recordId);
+                                                      NSArray* personIds = [[response valueForKeyPath:@"persons.relationships.parent.id"] firstObject];
+                                                      for (NSString* __id in personIds) {
+                                                          if ([_collectedIds containsObject:__id]||[__id isEqualToString:_myId]) continue;
+                                                          [_collectedIds addObject:__id];
+                                                      }
+                                                  } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
+                                                      if ([resp statusCode]==404) {
+                                                          // it just didn't find anything. That's OK.
+                                                      } else {                                                          
+                                                          dm_PrintLn(@"Failed to read relationship");
+                                                          dm_PrintURLOperationResponse(resp, payload, error);
+                                                          exit(-1);
+                                                      }
+                                                  }];
+    [self.service.operationQueue addOperation:parentsRead];
 }
 
 @end

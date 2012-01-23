@@ -51,18 +51,18 @@
     // all should be well in Zion, right?
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
-    NSMutableString* header = [[NSMutableString alloc] init];
-    [header appendString:@"NUKE with modes "];
-    if (MODE_NONE(self.flag)) [header appendString:@"NONE"];
+    NSMutableString* desc = [[NSMutableString alloc] init];
+    [desc appendString:@"NUKE with modes "];
+    if (MODE_NONE(self.flag)) [desc appendString:@"NONE"];
     else {
-        if (MODE_SOFT(self.flag)) [header appendString:@"SOFT"];
-        if (MODE_SOFT_AND_FORCE(self.flag)) [header appendString:@","];
-        if (MODE_FORCE(self.flag)) [header appendString:@"FORCE"];
+        if (MODE_SOFT(self.flag)) [desc appendString:@"SOFT"];
+        if (MODE_SOFT_AND_FORCE(self.flag)) [desc appendString:@","];
+        if (MODE_FORCE(self.flag)) [desc appendString:@"FORCE"];
     }
-    [header appendFormat:@" with ifile: %@ & ofile: %@", _ifile, _ofile];
-    return header;
+    [desc appendFormat:@" with ifile: %@ & ofile: %@", _ifile, _ofile];
+    return desc;
 }
 
 - (void)run

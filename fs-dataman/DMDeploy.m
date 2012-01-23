@@ -53,7 +53,7 @@
     // all should be well in Zion, right?
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
     return [NSString stringWithFormat:@"DEPLOY gedcom: %@ object id file: %@", __ifilelocation, __ofilelocation];
 }

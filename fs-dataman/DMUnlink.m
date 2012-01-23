@@ -35,8 +35,9 @@
     // all should be well in Zion, right?
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
     return [NSString stringWithFormat:@"UNLINK as parents the ids from file %@ from current the user", __ifilelocation];
 }
+
 @end

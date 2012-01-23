@@ -30,7 +30,7 @@
     [self.ofile truncateFileAtOffset:0]; // ensure that the darn thing is empty!
 }
 
-- (NSString*)verbHeader
+- (NSString*)description
 {
     return [NSString stringWithFormat:@"CAPTURE all currently visible data into new GEDCOM at %@", __outputfilelocation];
 }
