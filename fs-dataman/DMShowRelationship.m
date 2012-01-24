@@ -12,9 +12,10 @@
 
 + (void)load
 {
-    @autoreleasepool {
-        [[DMVerb registeredCommands] addObject:[self class]];
-    }
+// UNCOMMENT WHEN THE COMMAND IS COMPLETE
+//    @autoreleasepool {
+//        [[DMVerb registeredCommands] addObject:[self class]];
+//    }
 }
 
 + (NSString*)verbCommand

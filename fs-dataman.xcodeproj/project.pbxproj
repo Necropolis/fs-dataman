@@ -12,7 +12,6 @@
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
 		DA9AE85514C0B90B002921BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AE85414C0B90B002921BE /* Foundation.framework */; };
 		DA9AE85814C0B90B002921BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE85714C0B90B002921BE /* main.m */; };
-		DA9AE85C14C0B90B002921BE /* fs-dataman.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA9AE85B14C0B90B002921BE /* fs-dataman.1 */; };
 		DA9AE88714C0BDD1002921BE /* NDService.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE87014C0BDD1002921BE /* NDService.m */; };
 		DA9AE88814C0BDD1002921BE /* NDService+Discussions.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE87214C0BDD1002921BE /* NDService+Discussions.m */; };
 		DA9AE88914C0BDD1002921BE /* NDService+FamilyTree.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE87414C0BDD1002921BE /* NDService+FamilyTree.m */; };
@@ -28,8 +27,6 @@
 		DA9AE89614C0BDF5002921BE /* FSURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE89514C0BDF5002921BE /* FSURLOperation.m */; };
 		DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40014CF4325000369B9 /* DMShowPerson.m */; };
 		DA9BA40514CF4334000369B9 /* DMShowRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40414CF4334000369B9 /* DMShowRelationship.m */; };
-		DA9BA40814CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */; };
-		DA9BA40B14CF5E19000369B9 /* NSArray+DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */; };
 		DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* FSByteScanner.m */; };
 		DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A014C8B41A00A3E160 /* DMCapture.m */; };
 		DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A314C8B48700A3E160 /* DMLink.m */; };
@@ -42,19 +39,6 @@
 		DAE4834214C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		DA9AE84E14C0B90B002921BE /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/local/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-				DA9AE85C14C0B90B002921BE /* fs-dataman.1 in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		DA271FFD14CA039900CFF1D0 /* FSGEDCOMStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMStructure.h; sourceTree = "<group>"; };
 		DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMStructure.m; sourceTree = "<group>"; };
@@ -66,7 +50,7 @@
 		DA9AE85414C0B90B002921BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA9AE85714C0B90B002921BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA9AE85A14C0B90B002921BE /* dataman-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dataman-Prefix.pch"; sourceTree = "<group>"; };
-		DA9AE85B14C0B90B002921BE /* fs-dataman.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "fs-dataman.1"; sourceTree = "<group>"; };
+		DA9AE85B14C0B90B002921BE /* fs-dataman.1.ronn */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fs-dataman.1.ronn"; sourceTree = "<group>"; };
 		DA9AE86F14C0BDD1002921BE /* NDService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDService.h; path = vendor/NewDot/NewDot/NDService.h; sourceTree = "<group>"; };
 		DA9AE87014C0BDD1002921BE /* NDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDService.m; path = vendor/NewDot/NewDot/NDService.m; sourceTree = "<group>"; };
 		DA9AE87114C0BDD1002921BE /* NDService+Discussions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+Discussions.h"; path = "vendor/NewDot/NewDot/NDService+Discussions.h"; sourceTree = "<group>"; };
@@ -97,10 +81,6 @@
 		DA9BA40014CF4325000369B9 /* DMShowPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowPerson.m; sourceTree = "<group>"; };
 		DA9BA40314CF4334000369B9 /* DMShowRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowRelationship.h; sourceTree = "<group>"; };
 		DA9BA40414CF4334000369B9 /* DMShowRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowRelationship.m; sourceTree = "<group>"; };
-		DA9BA40614CF5E06000369B9 /* NSDictionary+DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DeepMutableCopy.h"; sourceTree = "<group>"; };
-		DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+DeepMutableCopy.m"; sourceTree = "<group>"; };
-		DA9BA40914CF5E19000369B9 /* NSArray+DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+DeepMutableCopy.h"; sourceTree = "<group>"; };
-		DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+DeepMutableCopy.m"; sourceTree = "<group>"; };
 		DABDD79C14C8A71600A3E160 /* FSByteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSByteScanner.m; sourceTree = "<group>"; };
 		DABDD79E14C8A72300A3E160 /* FSByteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSByteScanner.h; sourceTree = "<group>"; };
 		DABDD79F14C8B41A00A3E160 /* DMCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCapture.h; sourceTree = "<group>"; };
@@ -183,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				DA9AE85714C0B90B002921BE /* main.m */,
-				DA9AE85B14C0B90B002921BE /* fs-dataman.1 */,
+				DA9AE85B14C0B90B002921BE /* fs-dataman.1.ronn */,
 				DA9AE85914C0B90B002921BE /* Supporting Files */,
 				DAC1983D14C0D9A40068A0AD /* Console.h */,
 				DAC1983E14C0D9A40068A0AD /* Console.m */,
@@ -205,10 +185,6 @@
 				DA9BA40014CF4325000369B9 /* DMShowPerson.m */,
 				DA9BA40314CF4334000369B9 /* DMShowRelationship.h */,
 				DA9BA40414CF4334000369B9 /* DMShowRelationship.m */,
-				DA9BA40614CF5E06000369B9 /* NSDictionary+DeepMutableCopy.h */,
-				DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */,
-				DA9BA40914CF5E19000369B9 /* NSArray+DeepMutableCopy.h */,
-				DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */,
 			);
 			name = Dataman;
 			path = "fs-dataman";
@@ -271,7 +247,6 @@
 			buildPhases = (
 				DA9AE84C14C0B90B002921BE /* Sources */,
 				DA9AE84D14C0B90B002921BE /* Frameworks */,
-				DA9AE84E14C0B90B002921BE /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -342,8 +317,6 @@
 				DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */,
 				DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */,
 				DA9BA40514CF4334000369B9 /* DMShowRelationship.m in Sources */,
-				DA9BA40814CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m in Sources */,
-				DA9BA40B14CF5E19000369B9 /* NSArray+DeepMutableCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

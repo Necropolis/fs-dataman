@@ -1,0 +1,84 @@
+fs-dataman(1) -- Utility to manage data in FamilySearch Partner Reference cluster.
+==================================================================================
+## SYNOPSIS
+
+`fs-dataman` [-c --server-config <config-file>]<br>
+`fs-dataman` inspect [-l --link] <output-file><br>
+`fs-dataman` link <input-file><br>
+`fs-dataman` unlink <input-file><br>
+
+## DESCRIPTION
+
+`fs-dataman` is a tool used to control the information visible in the FamilySearch partner reference cluster. It is broken out into sub-commands that perform specific tasks.
+
+### Inspect
+
+Traverse the tree connected to your current user and generate an Object ID file which lists all the current elements in your tree. Use the `-l` flag to generate an Object ID file useful for the `link` and `unlink` commands!
+
+### Link and Unlink
+
+If you imagine your family tree in the reference system like a big cloud, unlink lets you disconnect your user from this cloud. From there you can re-populate with more data (make a new cloud), but at your leisure you can unlink from that new cloud and re-connect with the old one. It makes switching between test datasets really quick and easy. Just as easy as:
+
+    fs-dataman inspect -l 1.json
+    fs-dataman unlink 1.json
+    # do something in your test suite, like go
+    # win the RootsTech developer challenge!
+    fs-dataman link 1.json # back to where you
+    # were before RootsTech
+
+## OPTIONS
+
+  * `-c` `--server-config`:
+  Specify a custom server configuration file. Normally `fs-dataman` looks in `~/.fs-dataman.plist` for its configuration, but if you need to change that up or use a recurring set of scripts to manipulate different users, then you can use this flag to force a different set of credentials.
+
+  * `-l` `--link`:
+  When passed to `inspect`, the link flag causes `fs-dataman` to only grab the first two record IDs, which is the current user's parents. These are deposited into the output file only. Otherwise `inspect` is pretty greedy and will get you every single last record ID that `fs-dataman` finds visible by tree-walking.
+
+## CONFIG-FILE
+
+The config file is an Apple Property List which needs four bits of information:
+
+  * `server`:
+  The URL of the server. `fs-dataman` is hard-coded to fail and die if this is api.familysearch.org - no messing with production data please!
+
+  * `apikey`:
+  This is your developer key that you use for partner reference.
+
+  * `username`:
+  The username you use when logging into www.dev.usys.org; this is generally something like `api-user-####`.
+
+  * `password`:
+  Store your password in plaintext.
+
+The config file will end up looking like this:
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+      "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>server</key>
+      <string>http://www.dev.usys.org</string>
+      <key>apikey</key>
+      <string>FAIL-FAIL-FAIL-FAIL-FAIL-FAIL-FAIL-FAIL</string>
+      <key>username</key>
+      <string>api-user-####</string>
+      <key>password</key>
+      <string>sekrit</string>
+    </dict>
+    </plist>
+
+## FILES
+
+`/usr/local/bin/fs-dataman`<br>
+`/usr/local/share/man/man1/fs-dataman.1`<br>
+`~/.fs-dataman.plist`
+
+## BUGS
+
+Please see Github to report bugs and to see a list of current bugs.
+
+## HISTORY
+
+  * Some Date
+  First release.
