@@ -42,6 +42,9 @@ enum flag_t {
 @property (readwrite, strong) NSDictionary* configuration;
 @property (readwrite, strong) NSDictionary* me;
 
++ (NSMutableArray*)registeredCommands;
++ (NSString*)verbCommand;
+
 - (NSString*)verbHeader;
 - (NSString*)verbFooter;
 - (void)setUp;

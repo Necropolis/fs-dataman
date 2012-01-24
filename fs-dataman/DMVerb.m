@@ -50,6 +50,21 @@ NSString* kConfigLinkLong   = @"--link"  ;
 @synthesize configuration = _configuration;
 @synthesize me = _me;
 
++ (NSMutableArray*)registeredCommands
+{
+    static NSMutableArray* a;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        a = [[NSMutableArray alloc] init];
+    });
+    return a;
+}
+
++ (NSString*)verbCommand
+{
+    return @"";
+}
+
 - (void)setUp
 {
     [self processArgs];

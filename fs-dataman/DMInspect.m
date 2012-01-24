@@ -31,6 +31,18 @@
 @synthesize objectIds=_objectIds;
 @synthesize flag=_flag;
 
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"inspect";
+}
+
 - (void)processArgs
 {
     _flag = NONE;
@@ -173,7 +185,7 @@
                                                   forPerson:recordId
                                            relationshipType:NDFamilyTreeRelationshipType.parent
                                                   toPersons:nil
-                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.events, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.assertions, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.properties, nil]
+                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.events, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.assertions, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.properties, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.contributors, nil]
                                                   onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
                                                       dm_PrintLn(@"[RELATIONSHIP:PARENT] Read Success for %@", recordId);
                                                       

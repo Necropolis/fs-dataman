@@ -16,6 +16,18 @@
 
 @synthesize objectIdsFile=_objectIdsFile;
 
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"link";
+}
+
 - (void)processArgs
 {
     if ([self.arguments count]!=1) {

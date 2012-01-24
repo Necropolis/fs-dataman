@@ -26,6 +26,10 @@
 		DA9AE89114C0BDD1002921BE /* NSString+LastWord.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE88414C0BDD1002921BE /* NSString+LastWord.m */; };
 		DA9AE89214C0BDD1002921BE /* NSURL+QueryStringConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE88614C0BDD1002921BE /* NSURL+QueryStringConstructor.m */; };
 		DA9AE89614C0BDF5002921BE /* FSURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE89514C0BDF5002921BE /* FSURLOperation.m */; };
+		DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40014CF4325000369B9 /* DMShowPerson.m */; };
+		DA9BA40514CF4334000369B9 /* DMShowRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40414CF4334000369B9 /* DMShowRelationship.m */; };
+		DA9BA40814CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */; };
+		DA9BA40B14CF5E19000369B9 /* NSArray+DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */; };
 		DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* FSByteScanner.m */; };
 		DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A014C8B41A00A3E160 /* DMCapture.m */; };
 		DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A314C8B48700A3E160 /* DMLink.m */; };
@@ -89,6 +93,14 @@
 		DA9AE88614C0BDD1002921BE /* NSURL+QueryStringConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSURL+QueryStringConstructor.m"; path = "vendor/NewDot/NewDot/NSURL+QueryStringConstructor.m"; sourceTree = "<group>"; };
 		DA9AE89414C0BDF5002921BE /* FSURLOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSURLOperation.h; path = vendor/NewDot/vendor/FSURLOperation/FSURLOperation.h; sourceTree = "<group>"; };
 		DA9AE89514C0BDF5002921BE /* FSURLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSURLOperation.m; path = vendor/NewDot/vendor/FSURLOperation/FSURLOperation.m; sourceTree = "<group>"; };
+		DA9BA3FF14CF4325000369B9 /* DMShowPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowPerson.h; sourceTree = "<group>"; };
+		DA9BA40014CF4325000369B9 /* DMShowPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowPerson.m; sourceTree = "<group>"; };
+		DA9BA40314CF4334000369B9 /* DMShowRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowRelationship.h; sourceTree = "<group>"; };
+		DA9BA40414CF4334000369B9 /* DMShowRelationship.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowRelationship.m; sourceTree = "<group>"; };
+		DA9BA40614CF5E06000369B9 /* NSDictionary+DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+DeepMutableCopy.h"; sourceTree = "<group>"; };
+		DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+DeepMutableCopy.m"; sourceTree = "<group>"; };
+		DA9BA40914CF5E19000369B9 /* NSArray+DeepMutableCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+DeepMutableCopy.h"; sourceTree = "<group>"; };
+		DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+DeepMutableCopy.m"; sourceTree = "<group>"; };
 		DABDD79C14C8A71600A3E160 /* FSByteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSByteScanner.m; sourceTree = "<group>"; };
 		DABDD79E14C8A72300A3E160 /* FSByteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSByteScanner.h; sourceTree = "<group>"; };
 		DABDD79F14C8B41A00A3E160 /* DMCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCapture.h; sourceTree = "<group>"; };
@@ -189,6 +201,14 @@
 				DABDD7A314C8B48700A3E160 /* DMLink.m */,
 				DABDD7A514C8B49300A3E160 /* DMUnlink.h */,
 				DABDD7A614C8B49300A3E160 /* DMUnlink.m */,
+				DA9BA3FF14CF4325000369B9 /* DMShowPerson.h */,
+				DA9BA40014CF4325000369B9 /* DMShowPerson.m */,
+				DA9BA40314CF4334000369B9 /* DMShowRelationship.h */,
+				DA9BA40414CF4334000369B9 /* DMShowRelationship.m */,
+				DA9BA40614CF5E06000369B9 /* NSDictionary+DeepMutableCopy.h */,
+				DA9BA40714CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m */,
+				DA9BA40914CF5E19000369B9 /* NSArray+DeepMutableCopy.h */,
+				DA9BA40A14CF5E19000369B9 /* NSArray+DeepMutableCopy.m */,
 			);
 			name = Dataman;
 			path = "fs-dataman";
@@ -320,6 +340,10 @@
 				DAE4834214C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m in Sources */,
 				DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */,
 				DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */,
+				DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */,
+				DA9BA40514CF4334000369B9 /* DMShowRelationship.m in Sources */,
+				DA9BA40814CF5E06000369B9 /* NSDictionary+DeepMutableCopy.m in Sources */,
+				DA9BA40B14CF5E19000369B9 /* NSArray+DeepMutableCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

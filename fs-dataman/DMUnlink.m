@@ -10,6 +10,9 @@
 
 #import "Console.h"
 
+#import "NSArray+DeepMutableCopy.h"
+#import "NSDictionary+DeepMutableCopy.h"
+
 #import "NDService.h"
 #import "NDService+FamilyTree.h"
 #import "FSURLOperation.h"
@@ -20,6 +23,18 @@
 }
 
 @synthesize objectIdsFile=_objectIdsFile;
+
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"unlink";
+}
 
 - (void)processArgs
 {
@@ -56,14 +71,25 @@
     
     [self getMe];
     NSString* _myId = [[self.me valueForKeyPath:@"persons.id"] firstObject];
-    __block NSDictionary* dict = nil;
+    __block NSDictionary* dict = nil; // events chars exists values ordinances assertions properties dispositions contributors personas notes citations
     
     FSURLOperation* _oper =
     [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person
                                                   forPerson:_myId
                                            relationshipType:NDFamilyTreeRelationshipType.parent
                                                   toPersons:[ids valueForKey:@"persons"]
-                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.characteristics, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.assertions, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.values, nil]
+                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.events,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.characteristics,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.exists,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.values,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.ordinances,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.assertions,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.dispositions,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.contributors,
+//                                                           NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.personas,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.notes,
+                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.citations, nil]
                                                   onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
                                                       dict = response;
                                                   }
@@ -73,69 +99,50 @@
     [self.service.operationQueue addOperation:_oper];
     [self.service.operationQueue waitUntilAllOperationsAreFinished];
     
-    NSMutableArray* resp = [NSMutableArray arrayWithCapacity:2];
-    for (id _i in [dict valueForKeyPath:@"persons"])
-        [resp addObject:_i];
-    
-    for (NSDictionary* _i in resp) {
-        id parents = [_i valueForKeyPath:@"relationships.parent"];
-        for (NSDictionary* parent in parents) {
-            for (NSString* assertionType in [[parent valueForKey:@"assertions"] allKeys]) {
-                for (NSDictionary* assertion in [[parent valueForKey:@"assertions"] objectForKey:assertionType]) {
-                    FSURLOperation* oper = // note that this may fail horribly for multiple assertions if the deletion causes a version bump.
-                    [self.service familyTreeOperationRelationshipDeleteFromPerson:_myId relationshipType:NDFamilyTreeRelationshipType.parent toPerson:[parent valueForKey:@"id"] relationshipVersion:[parent valueForKey:@"version"] assertionType:assertionType assertion:assertion onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
-                        dm_PrintLn(@"Deleted relationship assertion between %@ and %@", _myId, [parent valueForKey:@"id"]);
-                    } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
-                        dm_PrintURLOperationResponse(resp, payload, error);
-                    }];
-                    dm_PrintLn(@"Deleting relationship assertion between %@ and %@...", _myId, [parent valueForKey:@"id"]);
-                    [self.service.operationQueue addOperation:oper];
-                }
+    NSArray* parentIds = [[dict valueForKeyPath:@"persons.relationships.parent.id"] firstObject];
+    NSArray* relationshipVersions = [[dict valueForKeyPath:@"persons.relationships.parent.version"] firstObject];
+    NSMutableArray* assertions = [[[dict valueForKeyPath:@"persons.relationships.parent.assertions"] firstObject] mutableCopy];
+    // mutate the assertions to say action=Delete
+    for (NSUInteger i0=0;
+         i0 < [assertions count];
+         ++i0) {
+        [assertions replaceObjectAtIndex:i0 withObject:[[assertions objectAtIndex:i0] mutableCopy]];
+        NSMutableDictionary* assertionsContainer = [assertions objectAtIndex:i0];
+        for (id assertionType in [assertionsContainer allKeys]) {
+            [assertionsContainer setObject:[[assertionsContainer objectForKey:assertionType] mutableCopy] forKey:assertionType];
+            NSMutableArray* assertionCollection = [assertionsContainer objectForKey:assertionType];
+            for (NSUInteger i1=0;
+                 i1 < [assertionCollection count];
+                 ++i1) {
+                [assertionCollection replaceObjectAtIndex:i1 withObject:[[assertionCollection objectAtIndex:i1] mutableCopy]];
+                NSMutableDictionary* __assertion = [assertionCollection objectAtIndex:i1];
+                [__assertion setObject:@"Delete" forKey:@"action"];
             }
         }
     }
-    [self.service.operationQueue waitUntilAllOperationsAreFinished];
-}
+    
+    for (NSUInteger i2=0;
+         i2 < [parentIds count];
+         ++i2) {
+        
+        FSURLOperation* oper=
+        [self.service familyTreeOperationRelationshipUpdateFromPerson:_myId
+                                                     relationshipType:NDFamilyTreeRelationshipType.parent
+                                                            toPersons:[NSArray arrayWithObject:[parentIds objectAtIndex:i2]]
+                                                 relationshipVersions:[NSArray arrayWithObject:[relationshipVersions objectAtIndex:i2]]
+                                                           assertions:[NSArray arrayWithObject:[assertions objectAtIndex:i2]]
+                                                            onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+                                                                dm_PrintLn(@"Killed parent %@!", [parentIds objectAtIndex:i2]);
+                                                            }
+                                                            onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
+                                                                dm_PrintURLOperationResponse(resp, payload,     error);
+                                                            }];
+        [self.service.operationQueue addOperation:oper];
 
-- (void)killAssertion:(NSDictionary*)assertion ofType:(NSString*)assertionType fromRecord:(NSString*)fromId toRecord:(NSString*)toId
-{
-//    __block NSDictionary* dict = nil;
-//    
-//    FSURLOperation* _oper =
-//    [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person
-//                                                  forPerson:fromId
-//                                           relationshipType:NDFamilyTreeRelationshipType.parent
-//                                                  toPersons:[NSArray arrayWithObject:toId]
-//                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadRequestParameter.all, NDFamilyTreeReadPersonsRequestParameter.characteristics, NDFamilyTreeReadRequestParameter.all, NDFamilyTreeReadPersonsRequestParameter.assertions, NDFamilyTreeReadRequestParameter.all, NDFamilyTreeReadPersonsRequestParameter.values, nil]
-//                                                  onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
-//                                                      dict = response;
-//                                                  }
-//                                                  onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
-//                                                      dm_PrintURLOperationResponse(resp, payload, error);
-//                                                  }];
-//    [self.service.operationQueue addOperation:_oper];
-//    [self.service.operationQueue waitUntilAllOperationsAreFinished];
-//    
-//    NSDictionary* d = [[dict valueForKeyPath:@"persons"] firstObject];
-//    
-//    for (NSDictionary* _i in resp) {
-//        id parents = [_i valueForKeyPath:@"relationships.parent"];
-//        for (NSDictionary* parent in parents) {
-//            for (NSString* assertionType in [[parent valueForKey:@"assertions"] allKeys]) {
-//                for (NSDictionary* assertion in [[parent valueForKey:@"assertions"] objectForKey:assertionType]) {
-//                    FSURLOperation* oper = // note that this may fail horribly for multiple assertions if the deletion causes a version bump.
-//                    [self.service familyTreeOperationRelationshipDeleteFromPerson:_myId relationshipType:NDFamilyTreeRelationshipType.parent toPerson:[parent valueForKey:@"id"] relationshipVersion:[parent valueForKey:@"version"] assertionType:assertionType assertion:assertion onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
-//                        dm_PrintLn(@"Deleted relationship assertion between %@ and %@", _myId, [parent valueForKey:@"id"]);
-//                    } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
-//                        dm_PrintURLOperationResponse(resp, payload, error);
-//                    }];
-//                    dm_PrintLn(@"Deleting relationship assertion between %@ and %@...", _myId, [parent valueForKey:@"id"]);
-//                    [self.service.operationQueue addOperation:oper];
-//                }
-//            }
-//        }
-//    }
-//    [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    }
+    
+    [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    
 }
 
 @end

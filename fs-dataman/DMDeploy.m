@@ -21,6 +21,18 @@
 @synthesize outputFile=_outputFile;
 @synthesize flag=_flag;
 
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"deploy";
+}
+
 - (void)processArgs
 {
     _flag = NONE;

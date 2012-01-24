@@ -19,6 +19,18 @@
 @synthesize outputFile=_outputFile;
 @synthesize flag=_flag;
 
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"nuke";
+}
+
 - (void)processArgs
 {
     self.flag = NONE;

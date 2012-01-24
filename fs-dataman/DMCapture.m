@@ -16,6 +16,18 @@
 
 @synthesize ofile=_ofile;
 
++ (void)load
+{
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
+}
+
++ (NSString*)verbCommand
+{
+    return @"capture";
+}
+
 - (void)processArgs
 {
     if ([self.arguments count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
