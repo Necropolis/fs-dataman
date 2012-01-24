@@ -173,7 +173,7 @@
                                                   forPerson:recordId
                                            relationshipType:NDFamilyTreeRelationshipType.parent
                                                   toPersons:nil
-                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.events, NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.assertions, NDFamilyTreeReadPersonsRequestValues.all, NDFamilyTreeReadPersonsRequestParameters.properties, nil]
+                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.events, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.assertions, NDFamilyTreeReadRequestValue.all, NDFamilyTreeReadRequestParameter.properties, nil]
                                                   onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
                                                       dm_PrintLn(@"[RELATIONSHIP:PARENT] Read Success for %@", recordId);
                                                       

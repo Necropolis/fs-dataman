@@ -67,8 +67,8 @@
 		DA9AE87014C0BDD1002921BE /* NDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDService.m; path = vendor/NewDot/NewDot/NDService.m; sourceTree = "<group>"; };
 		DA9AE87114C0BDD1002921BE /* NDService+Discussions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+Discussions.h"; path = "vendor/NewDot/NewDot/NDService+Discussions.h"; sourceTree = "<group>"; };
 		DA9AE87214C0BDD1002921BE /* NDService+Discussions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NDService+Discussions.m"; path = "vendor/NewDot/NewDot/NDService+Discussions.m"; sourceTree = "<group>"; };
-		DA9AE87314C0BDD1002921BE /* NDService+FamilyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+FamilyTree.h"; path = "vendor/NewDot/NewDot/NDService+FamilyTree.h"; sourceTree = "<group>"; };
-		DA9AE87414C0BDD1002921BE /* NDService+FamilyTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NDService+FamilyTree.m"; path = "vendor/NewDot/NewDot/NDService+FamilyTree.m"; sourceTree = "<group>"; };
+		DA9AE87314C0BDD1002921BE /* NDService+FamilyTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "NDService+FamilyTree.h"; path = "vendor/NewDot/NewDot/NDService+FamilyTree.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		DA9AE87414C0BDD1002921BE /* NDService+FamilyTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "NDService+FamilyTree.m"; path = "vendor/NewDot/NewDot/NDService+FamilyTree.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DA9AE87514C0BDD1002921BE /* NDService+Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+Identity.h"; path = "vendor/NewDot/NewDot/NDService+Identity.h"; sourceTree = "<group>"; };
 		DA9AE87614C0BDD1002921BE /* NDService+Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NDService+Identity.m"; path = "vendor/NewDot/NewDot/NDService+Identity.m"; sourceTree = "<group>"; };
 		DA9AE87714C0BDD1002921BE /* NDService+Implementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+Implementation.h"; path = "vendor/NewDot/NewDot/NDService+Implementation.h"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		DABDD7A214C8B48700A3E160 /* DMLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLink.h; sourceTree = "<group>"; };
 		DABDD7A314C8B48700A3E160 /* DMLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLink.m; sourceTree = "<group>"; };
 		DABDD7A514C8B49300A3E160 /* DMUnlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMUnlink.h; sourceTree = "<group>"; };
-		DABDD7A614C8B49300A3E160 /* DMUnlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMUnlink.m; sourceTree = "<group>"; };
+		DABDD7A614C8B49300A3E160 /* DMUnlink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DMUnlink.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAC1983D14C0D9A40068A0AD /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 		DAC1983E14C0D9A40068A0AD /* Console.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Console.m; sourceTree = "<group>"; };
 		DAC1984014C0DDCB0068A0AD /* DMVerb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMVerb.h; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		DAC1984614C0DDEE0068A0AD /* DMNuke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNuke.h; sourceTree = "<group>"; };
 		DAC1984714C0DDEE0068A0AD /* DMNuke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNuke.m; sourceTree = "<group>"; };
 		DAC1984914C0DE910068A0AD /* DMInspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMInspect.h; sourceTree = "<group>"; };
-		DAC1984A14C0DE910068A0AD /* DMInspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMInspect.m; sourceTree = "<group>"; };
+		DAC1984A14C0DE910068A0AD /* DMInspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DMInspect.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOM+ErrorCodes.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
