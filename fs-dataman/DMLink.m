@@ -72,16 +72,41 @@
     if ([[ids objectForKey:@"persons"] count]!=2) {
         dm_PrintLnThenDie(@"Improper number of people specified. Did you use inspect -l, or just inspect?");
     }
+    
     for (NSString* parentId in [ids objectForKey:@"persons"]) {
         // generate a biological relationship with an exists assertion
         NSMutableDictionary* assertionsContainer = [NSMutableDictionary dictionaryWithCapacity:2];
         [assertionsContainer setObject:[NSMutableArray arrayWithCapacity:1] forKey:NDFamilyTreeAssertionType.exists];
+        
         NSMutableDictionary* lineageAssertion = [NSMutableDictionary dictionaryWithCapacity:2];
+        [lineageAssertion setObject:@"Affirming" forKey:@"disposition"];
+        NSMutableDictionary* lineageValue = [NSMutableDictionary dictionaryWithCapacity:2];
+        [lineageValue setObject:@"Adoptive" forKey:@"lineage"];
+        [lineageValue setObject:@"Lineage" forKey:@"type"];
+        [lineageAssertion setObject:lineageValue forKey:@"value"];
+        [assertionsContainer setObject:[NSArray arrayWithObject:lineageAssertion] forKey:NDFamilyTreeAssertionType.characteristics];
         
-        [assertionsContainer setObject:[NSMutableArray arrayWithCapacity:1] forKey:NDFamilyTreeAssertionType.characteristics];
+        NSMutableDictionary* existsAssertion = [NSMutableDictionary dictionaryWithCapacity:2];
+        [existsAssertion setObject:@"Affirming" forKey:@"disposition"];
+        NSMutableDictionary* existsValue = [NSMutableDictionary dictionaryWithCapacity:1];
+        [existsValue setObject:[NSNull null] forKey:@"title"];
+        [existsAssertion setObject:existsValue forKey:@"value"];
+        [assertionsContainer setObject:[NSArray arrayWithObject:existsAssertion] forKey:NDFamilyTreeAssertionType.exists];
         
-        
+        [self.service familyTreeRelationshipUpdateFromPerson:_myId
+                                            relationshipType:NDFamilyTreeRelationshipType.parent
+                                                   toPersons:[NSArray arrayWithObject:parentId]
+                                        relationshipVersions:[NSArray arrayWithObject:@"1"]
+                                                  assertions:[NSArray arrayWithObject:assertionsContainer]
+                                                   onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+                                                       dm_PrintLn(@"%@ is now %@'s parent. Happy adoption!", parentId, _myId);
+                                                   }
+                                                   onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
+                                                       dm_PrintURLOperationResponse(resp, payload, error);
+                                                   }];
     }
+    
+    [self.service.operationQueue waitUntilAllOperationsAreFinished];
 }
 
 @end

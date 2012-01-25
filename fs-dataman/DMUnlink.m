@@ -77,7 +77,7 @@
     
     __block NSDictionary* dict = nil; // events chars exists values ordinances assertions properties dispositions contributors personas notes citations
     
-    NSMutableDictionary* params = [NDFamilyTreeAllAssertionTypes() mutableCopy];
+    NSMutableDictionary* params = [NDFamilyTreeAllRelationshipReadValues() mutableCopy];
     [params removeObjectForKey:NDFamilyTreeReadRequestParameter.personas];
     
     FSURLOperation* _oper =
