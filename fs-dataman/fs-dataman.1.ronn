@@ -6,6 +6,7 @@ fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cl
 `fs-dataman` inspect [-l --link] <output-file><br>
 `fs-dataman` link <input-file><br>
 `fs-dataman` unlink <input-file><br>
+`fs-dataman` show-person <person-id><br>
 `fs-dataman` show-relationships <record-id> [parent child spouse]<br>
 
 ## DESCRIPTION
@@ -22,13 +23,58 @@ If you imagine your family tree in the reference system like a big cloud, unlink
 
     fs-dataman inspect -l 1.json
     fs-dataman unlink 1.json
-    # do something in your test suite, like
-    # go win the RootsTech developer challenge!
+    # re-populate with new data, then go do something
+    # awesome like win the RootsTech developer challenge!
+    fs-dataman inspect -l 2.json # who are my parents now?
+    fs-dataman unlink 2.json # just get rid of 'em
     fs-dataman link 1.json # back to where you were before RootsTech
+
+The relationship type is 'Adoptive' and it does create a single 'exists' assertion as well.
+    
+### Show Person
+
+A quick utility to look at all the information (except for personas) relating to a single record ID. The ouput is in pretty-printed JSON.
     
 ### Show Relationships
 
-A quick utility to look at all the relationship data (in JSON format) relating to a single record ID.
+A quick utility to look at all the relationship data (except for personas) relating to a single record ID. The output is in pretty-printed JSON.
+
+## INSTALL
+
+Prerequisites:
+
+* Mac OS X 10.7 "Lion"
+* Apple Xcode 4.2 (for compilers and git)
+* Ruby (I *highly* recommend [RVM](http://beginrescueend.com/) if you aren't using it already!)
+* The `bundler` gem
+
+I've done a bit of legwork to make this utility pretty easy to install by writing a Rakefile.
+
+To start, clone the project:
+
+    git clone git@github.com:NSError/fs-dataman.git
+    cd fs-dataman
+
+Instruct bundler to get the dependencies:
+
+    bundle install
+    
+You should see the gems `ronn` and `rake` being installed. Once you have `rake`, use my super-duper Rakefile to get all git submodules:
+
+    rake setup
+    
+You should have everything you need right there. Build the project, then install it:
+
+    rake build
+    rake install
+    
+Make a configuration file at `~/.fs-dataman.plist` using the [instructions and handy template][CONFIG-FILE]. You're now ready to start tearing it up with `fs-dataman`.
+
+If you're done with the utility and want to make it go away, please don't. Just kidding, a message about why it wasn't what you were looking for would be cool, but I'm not going to get on your case. Uninstall all the files it installed by using the rake command:
+
+    rake uninstall
+    
+And then you can blow away everything in the source tree you downloaded, and you're good to get gone. Some build intermediates will be hiding in `/tmp`, but that's wiped on every boot, so it might not even apply.
 
 ## OPTIONS
 
@@ -84,5 +130,5 @@ Please use [Github](https://github.com/NSError/fs-dataman) to report bugs and to
 
 ## HISTORY
 
-  * Some Date
-  First release.
+  * 0.1 25 January 2012
+  First release. Has the `inspect`, `link`, `unlink`, `show-person`, and `show-relationships` commands. No known bugs.
