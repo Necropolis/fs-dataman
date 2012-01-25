@@ -1,0 +1,6 @@
+#!/bin/sh
+
+WHEREAMI=`pwd $0`
+
+install -m ugo=rx $WHEREAMI/fs-dataman /usr/local/bin/fs-dataman
+install $WHEREAMI/fs-dataman.1 /usr/local/share/man/man1/fs-dataman.1

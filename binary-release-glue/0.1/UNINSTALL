@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -f /usr/local/bin/fs-dataman
+rm -f /usr/local/share/man/man1/fs-dataman.1

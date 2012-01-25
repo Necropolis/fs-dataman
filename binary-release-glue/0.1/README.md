@@ -2,15 +2,10 @@
 
 Manage information in FamilySearch's reference cluster like a boss!
 
-> Note that this is currently not finished, and represents a whole bunch of unfulfilled promises.
-
 # Requirements
 
 - Apple Mac OS X 10.7 "Lion"
-- Apple LLVM 3.0
-- Apple Xcode 4.2 or better
 - FamilySearch developer credentials, including API key
-- Ruby; `rake` and `ronn` gems (`bundler` also helps for getting these)
 - At least some command-line -fu
 
 This is completely untested with other Apple Foundation-like environments, sorry!
@@ -53,25 +48,22 @@ Show all parent relationships for the given record ID, including all assertions.
 
 # I'm interested, how do I set it up?
 
-I've actually made a little Rakefile to get you going. Assuming you have Xcode 4.2 or better and Ruby with the `bundler` gem installed, just fire up `Terminal.app` and the following shall get you started:
+This is a pre-release version (before I go for broke and open up the code). Download and extract the program to your Mac's hard drive and run the installer:
 
-    # I would suggest you cd into a nice directory here
-    git clone git@github.com:NSError/fs-dataman.git
+    tar -xvvf fs-dataman-0.1.tgz
     cd fs-dataman
-    bundle install
-    rake setup
-    rake build
-    rake install
-    # if you hate this and want to obliterate all two files it installed:
-    # rake uninstall
+    sh INSTALL
 
-If you aren't using it already, I *highly* recommend [RVM](http://beginrescueend.com/), which makes you a total Ruby rockstar without much effort at all.
+`fs-dataman` is installed to your hard disk drive at the following locations:
 
-To see actually up-to-date information about `fs-dataman`, there's also a manpage:
+* `/usr/local/bin/fs-dataman`
+* `/usr/local/share/man/man1/fs-dataman.1`
 
-    man fs-dataman # available after install
+You can use `fs-dataman` normally. Read the manpage (`man fs-dataman`, or go to [the web](http://nserror.me/fs-dataman)) to get an idea of how to use the utility. In "the future" I will release the full code.
 
-You can also look at a fancy formatted HTML page at `gh-pages/index.html`. This is the same page that would be pushed up to `http://nserror.me/fs-dataman`.
+# Other Notes
+
+The manpage boldly declares that you should report errors using the Github error tracker. That's a little hard because the project is still private. I suggest that you email me instead using the email address that sent the message to the FSDN list.
 
 # Licensing
 
