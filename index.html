@@ -62,6 +62,7 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#INSTALL">INSTALL</a>
     <a href="#OPTIONS">OPTIONS</a>
     <a href="#CONFIG-FILE">CONFIG-FILE</a>
     <a href="#FILES">FILES</a>
@@ -85,7 +86,9 @@
 <p><code>fs-dataman</code> [-c --server-config <var>config-file</var>]<br />
 <code>fs-dataman</code> inspect [-l --link] <var>output-file</var><br />
 <code>fs-dataman</code> link <var>input-file</var><br />
-<code>fs-dataman</code> unlink <var>input-file</var><br /></p>
+<code>fs-dataman</code> unlink <var>input-file</var><br />
+<code>fs-dataman</code> show-person <var>person-id</var><br />
+<code>fs-dataman</code> show-relationships <var>record-id</var> [parent child spouse]<br /></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -101,9 +104,67 @@
 
 <pre><code>fs-dataman inspect -l 1.json
 fs-dataman unlink 1.json
-# do something in your test suite, like go win the RootsTech developer challenge!
+# re-populate with new data, then go do something
+# awesome like win the RootsTech developer challenge!
+fs-dataman inspect -l 2.json # who are my parents now?
+fs-dataman unlink 2.json # just get rid of 'em
 fs-dataman link 1.json # back to where you were before RootsTech
 </code></pre>
+
+<p>The relationship type is 'Adoptive' and it does create a single 'exists' assertion as well.</p>
+
+<h3 id="Show-Person">Show Person</h3>
+
+<p>A quick utility to look at all the information (except for personas) relating to a single record ID. The ouput is in pretty-printed JSON.</p>
+
+<h3 id="Show-Relationships">Show Relationships</h3>
+
+<p>A quick utility to look at all the relationship data (except for personas) relating to a single record ID. The output is in pretty-printed JSON.</p>
+
+<h2 id="INSTALL">INSTALL</h2>
+
+<p>Prerequisites:</p>
+
+<ul>
+<li>Mac OS X 10.7 "Lion"</li>
+<li>Apple Xcode 4.2 (for compilers and git)</li>
+<li>Ruby (I <em>highly</em> recommend <a href="http://beginrescueend.com/">RVM</a> if you aren't using it already!)</li>
+<li>The <code>bundler</code> gem</li>
+</ul>
+
+
+<p>I've done a bit of legwork to make this utility pretty easy to install by writing a Rakefile.</p>
+
+<p>To start, clone the project:</p>
+
+<pre><code>git clone git@github.com:NSError/fs-dataman.git
+cd fs-dataman
+</code></pre>
+
+<p>Instruct bundler to get the dependencies:</p>
+
+<pre><code>bundle install
+</code></pre>
+
+<p>You should see the gems <code>ronn</code> and <code>rake</code> being installed. Once you have <code>rake</code>, use my super-duper Rakefile to get all git submodules:</p>
+
+<pre><code>rake setup
+</code></pre>
+
+<p>You should have everything you need right there. Build the project, then install it:</p>
+
+<pre><code>rake build
+rake install
+</code></pre>
+
+<p>Make a configuration file at <code>~/.fs-dataman.plist</code> using the <a href="#CONFIG-FILE" title="CONFIG-FILE" data-bare-link="true">instructions and handy template</a>. You're now ready to start tearing it up with <code>fs-dataman</code>.</p>
+
+<p>If you're done with the utility and want to make it go away, please don't. Just kidding, a message about why it wasn't what you were looking for would be cool, but I'm not going to get on your case. Uninstall all the files it installed by using the rake command:</p>
+
+<pre><code>rake uninstall
+</code></pre>
+
+<p>And then you can blow away everything in the source tree you downloaded, and you're good to get gone. Some build intermediates will be hiding in <code>/tmp</code>, but that's wiped on every boot, so it might not even apply.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
@@ -157,8 +218,8 @@ fs-dataman link 1.json # back to where you were before RootsTech
 <h2 id="HISTORY">HISTORY</h2>
 
 <ul>
-<li>Some Date
-First release.</li>
+<li>0.1 25 January 2012
+First release. Has the <code>inspect</code>, <code>link</code>, <code>unlink</code>, <code>show-person</code>, and <code>show-relationships</code> commands. No known bugs.</li>
 </ul>
 
 
