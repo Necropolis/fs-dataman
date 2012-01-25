@@ -10,9 +10,6 @@
 
 #import "Console.h"
 
-#import "NSArray+DeepMutableCopy.h"
-#import "NSDictionary+DeepMutableCopy.h"
-
 #import "NDService.h"
 #import "NDService+FamilyTree.h"
 #import "FSURLOperation.h"
@@ -80,23 +77,15 @@
     
     __block NSDictionary* dict = nil; // events chars exists values ordinances assertions properties dispositions contributors personas notes citations
     
+    NSMutableDictionary* params = [NDFamilyTreeAllAssertionTypes() mutableCopy];
+    [params removeObjectForKey:NDFamilyTreeReadRequestParameter.personas];
+    
     FSURLOperation* _oper =
     [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person
                                                   forPerson:_myId
                                            relationshipType:NDFamilyTreeRelationshipType.parent
                                                   toPersons:[ids valueForKey:@"persons"]
-                                             withParameters:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.events,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.characteristics,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.exists,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.values,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.ordinances,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.assertions,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.dispositions,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.contributors,
-//                                                           NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.personas,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.notes,
-                                                             NDFamilyTreeReadRequestValue.all,  NDFamilyTreeReadRequestParameter.citations, nil]
+                                             withParameters:params
                                                   onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
                                                       dict = response;
                                                   }

@@ -8,6 +8,6 @@
 
 #import "DMVerb.h"
 
-@interface DMShowRelationship : DMVerb
+@interface DMShowRelationships : DMVerb
 
 @end

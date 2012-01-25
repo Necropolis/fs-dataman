@@ -6,6 +6,7 @@ fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cl
 `fs-dataman` inspect [-l --link] <output-file><br>
 `fs-dataman` link <input-file><br>
 `fs-dataman` unlink <input-file><br>
+`fs-dataman` show-relationships <record-id> [parent child spouse]<br>
 
 ## DESCRIPTION
 
@@ -24,6 +25,10 @@ If you imagine your family tree in the reference system like a big cloud, unlink
     # do something in your test suite, like
     # go win the RootsTech developer challenge!
     fs-dataman link 1.json # back to where you were before RootsTech
+    
+### Show Relationships
+
+A quick utility to look at all the relationship data (in JSON format) relating to a single record ID.
 
 ## OPTIONS
 

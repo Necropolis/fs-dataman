@@ -10,6 +10,9 @@
 
 #import "Console.h"
 
+#import "NDService.h"
+#import "NDService+FamilyTree.h"
+
 @implementation DMLink {
     NSString* __ifilelocation;
 }
@@ -68,6 +71,16 @@
     }
     if ([[ids objectForKey:@"persons"] count]!=2) {
         dm_PrintLnThenDie(@"Improper number of people specified. Did you use inspect -l, or just inspect?");
+    }
+    for (NSString* parentId in [ids objectForKey:@"persons"]) {
+        // generate a biological relationship with an exists assertion
+        NSMutableDictionary* assertionsContainer = [NSMutableDictionary dictionaryWithCapacity:2];
+        [assertionsContainer setObject:[NSMutableArray arrayWithCapacity:1] forKey:NDFamilyTreeAssertionType.exists];
+        NSMutableDictionary* lineageAssertion = [NSMutableDictionary dictionaryWithCapacity:2];
+        
+        [assertionsContainer setObject:[NSMutableArray arrayWithCapacity:1] forKey:NDFamilyTreeAssertionType.characteristics];
+        
+        
     }
 }
 
