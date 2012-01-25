@@ -39,25 +39,40 @@ Link the two (and only two) IDs from the given file to the current user. The two
 
 Unlink the two (and only two) IDs from the given file from the current user. The two object IDs will no longer be the user's parents. (Yes, disown them!)
 
+## Show Person
+
+    fs-dataman show-person me
+
+Just dumps the formatted JSON to the standard output of what a person read on the given record ID looks like. You can use me or self as a shortcut for your current user's record ID.
+
+## Show Relationships
+
+    fs-dataman show-relationships MMMM-MMM parent
+
+Show all parent relationships for the given record ID, including all assertions. You can also use `child` and `spouse` to see all of those folks, too!
+
 # I'm interested, how do I set it up?
 
-I've actually made a little Rakefile to get you going. Assuming you have Xcode 4.2 or better and Ruby with the `rake` gem installed, just fire up `Terminal.app` and the following shall get you started:
+I've actually made a little Rakefile to get you going. Assuming you have Xcode 4.2 or better and Ruby with the `bundler` gem installed, just fire up `Terminal.app` and the following shall get you started:
 
     # I would suggest you cd into a nice directory here
     git clone git@github.com:NSError/fs-dataman.git
     cd fs-dataman
+    bundle install
     rake setup
     rake build
     rake install
     # if you hate this and want to obliterate all two files it installed:
     # rake uninstall
 
-If you don't have the necessary gems, then here's how:
+If you aren't using it already, I *highly* recommend [RVM](http://beginrescueend.com/), which makes you a total Ruby rockstar without much effort at all.
 
-    # using RVM - you know who you are!
-    gem install bundler
-    bundle install
-    # not using RVM
-    sudo gem install rake ronn
+To see actually up-to-date information about `fs-dataman`, there's also a manpage:
 
-And then the first code sample should work for you. If you, for some reason, are incapable of running Rake, then read the freaking Rakefile and run the commands by hand. (It's not hard).
+    man fs-dataman # available after install
+
+You can also look at a fancy formatted HTML page at `gh-pages/index.html`. This is the same page that would be pushed up to `http://nserror.me/fs-dataman`.
+
+# Licensing
+
+Free, totally free. See `LICENSE.md` for the real legal-text, but the important part is that you are totally free to use and modify `fs-dataman` as much as you want with absolutely no requirements.
