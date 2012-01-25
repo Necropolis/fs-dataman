@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>fs-dataman(1) - Utility to manage data in FamilySearch Partner Reference cluster.</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+  <style type='text/css' media='all'>
+  /* style: toc */
+  .man-navigation {display:block !important;position:fixed;top:0;left:113ex;height:100%;width:100%;padding:48px 0 0 0;border-left:1px solid #dbdbdb;background:#eee}
+  .man-navigation a,.man-navigation a:hover,.man-navigation a:link,.man-navigation a:visited {display:block;margin:0;padding:5px 2px 5px 30px;color:#999;text-decoration:none}
+  .man-navigation a:hover {color:#111;text-decoration:underline}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#CONFIG-FILE">CONFIG-FILE</a>
+    <a href="#FILES">FILES</a>
+    <a href="#BUGS">BUGS</a>
+    <a href="#HISTORY">HISTORY</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>fs-dataman(1)</li>
+    <li class='tc'>FamilySearch Utilities</li>
+    <li class='tr'>fs-dataman(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>fs-dataman</code> - <span class="man-whatis">Utility to manage data in FamilySearch Partner Reference cluster.</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>fs-dataman</code> [-c --server-config <var>config-file</var>]<br />
+<code>fs-dataman</code> inspect [-l --link] <var>output-file</var><br />
+<code>fs-dataman</code> link <var>input-file</var><br />
+<code>fs-dataman</code> unlink <var>input-file</var><br /></p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p><code>fs-dataman</code> is a tool used to control the information visible in the FamilySearch partner reference cluster. It is broken out into sub-commands that perform specific tasks.</p>
+
+<h3 id="Inspect">Inspect</h3>
+
+<p>Traverse the tree connected to your current user and generate an Object ID file which lists all the current elements in your tree. Use the <code>-l</code> flag to generate an Object ID file useful for the <code>link</code> and <code>unlink</code> commands!</p>
+
+<h3 id="Link-and-Unlink">Link and Unlink</h3>
+
+<p>If you imagine your family tree in the reference system like a big cloud, unlink lets you disconnect your user from this cloud. From there you can re-populate with more data (make a new cloud), but at your leisure you can unlink from that new cloud and re-connect with the old one. It makes switching between test datasets really quick and easy. Just as easy as:</p>
+
+<pre><code>fs-dataman inspect -l 1.json
+fs-dataman unlink 1.json
+# do something in your test suite, like go
+# win the RootsTech developer challenge!
+fs-dataman link 1.json # back to where you
+# were before RootsTech
+</code></pre>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<dl>
+<dt><code>-c</code> <code>--server-config</code></dt><dd><p>Specify a custom server configuration file. Normally <code>fs-dataman</code> looks in <code>~/.fs-dataman.plist</code> for its configuration, but if you need to change that up or use a recurring set of scripts to manipulate different users, then you can use this flag to force a different set of credentials.</p></dd>
+<dt><code>-l</code> <code>--link</code></dt><dd><p>When passed to <code>inspect</code>, the link flag causes <code>fs-dataman</code> to only grab the first two record IDs, which is the current user's parents. These are deposited into the output file only. Otherwise <code>inspect</code> is pretty greedy and will get you every single last record ID that <code>fs-dataman</code> finds visible by tree-walking.</p></dd>
+</dl>
+
+
+<h2 id="CONFIG-FILE">CONFIG-FILE</h2>
+
+<p>The config file is an Apple Property List which needs four bits of information:</p>
+
+<dl>
+<dt class="flush"><code>server</code></dt><dd><p>The URL of the server. <code>fs-dataman</code> is hard-coded to fail and die if this is api.familysearch.org - no messing with production data please!</p></dd>
+<dt class="flush"><code>apikey</code></dt><dd><p>This is your developer key that you use for partner reference.</p></dd>
+<dt><code>username</code></dt><dd><p>The username you use when logging into www.dev.usys.org; this is generally something like <code>api-user-####</code>.</p></dd>
+<dt><code>password</code></dt><dd><p>Store your password in plaintext.</p></dd>
+</dl>
+
+
+<p>The config file will end up looking like this:</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+  &lt;key&gt;server&lt;/key&gt;
+  &lt;string&gt;http://www.dev.usys.org&lt;/string&gt;
+  &lt;key&gt;apikey&lt;/key&gt;
+  &lt;string&gt;FAIL-FAIL-FAIL-FAIL-FAIL-FAIL-FAIL-FAIL&lt;/string&gt;
+  &lt;key&gt;username&lt;/key&gt;
+  &lt;string&gt;api-user-####&lt;/string&gt;
+  &lt;key&gt;password&lt;/key&gt;
+  &lt;string&gt;sekrit&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+
+<h2 id="FILES">FILES</h2>
+
+<p><code>/usr/local/bin/fs-dataman</code><br />
+<code>/usr/local/share/man/man1/fs-dataman.1</code><br />
+<code>~/.fs-dataman.plist</code></p>
+
+<h2 id="BUGS">BUGS</h2>
+
+<p>Please see Github to report bugs and to see a list of current bugs.</p>
+
+<h2 id="HISTORY">HISTORY</h2>
+
+<ul>
+<li>Some Date
+First release.</li>
+</ul>
+
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'>Christopher Miller</li>
+    <li class='tc'>January 2012</li>
+    <li class='tr'>fs-dataman(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>
