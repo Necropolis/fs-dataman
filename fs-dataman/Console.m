@@ -32,6 +32,16 @@ void dm_PrintLn(NSString *format, ...)
     printf("%s\n", [s0 UTF8String]);
 }
 
+void dm_PrintLnThenDie(NSString* format, ...)
+{
+    va_list arguments;
+    va_start(arguments, format);
+    NSString* s0 = [[NSString alloc] initWithFormat:format arguments:arguments];
+    va_end(arguments);
+    printf("%s\n", [s0 UTF8String]);
+    exit(-1);
+}
+
 void dm_PrintURLOperationResponse(NSHTTPURLResponse* resp, NSData* payload, NSError* error)
 {
     NSString* indent = @"   ";

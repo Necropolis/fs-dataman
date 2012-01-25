@@ -1,5 +1,5 @@
-fs-dataman(1) -- Utility to manage data in FamilySearch Partner Reference cluster.
-==================================================================================
+fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cluster.
+======================================================================================
 ## SYNOPSIS
 
 `fs-dataman` [-c --server-config <config-file>]<br>
@@ -21,10 +21,9 @@ If you imagine your family tree in the reference system like a big cloud, unlink
 
     fs-dataman inspect -l 1.json
     fs-dataman unlink 1.json
-    # do something in your test suite, like go
-    # win the RootsTech developer challenge!
-    fs-dataman link 1.json # back to where you
-    # were before RootsTech
+    # do something in your test suite, like
+    # go win the RootsTech developer challenge!
+    fs-dataman link 1.json # back to where you were before RootsTech
 
 ## OPTIONS
 
@@ -32,7 +31,7 @@ If you imagine your family tree in the reference system like a big cloud, unlink
   Specify a custom server configuration file. Normally `fs-dataman` looks in `~/.fs-dataman.plist` for its configuration, but if you need to change that up or use a recurring set of scripts to manipulate different users, then you can use this flag to force a different set of credentials.
 
   * `-l` `--link`:
-  When passed to `inspect`, the link flag causes `fs-dataman` to only grab the first two record IDs, which is the current user's parents. These are deposited into the output file only. Otherwise `inspect` is pretty greedy and will get you every single last record ID that `fs-dataman` finds visible by tree-walking.
+  When passed to `inspect`, the link flag causes `fs-dataman` to only grab the first two record IDs, which is the current user's parents. Otherwise `inspect` is pretty greedy and will get you every single last record ID that `fs-dataman` finds visible by tree-walking.
 
 ## CONFIG-FILE
 
@@ -76,7 +75,7 @@ The config file will end up looking like this:
 
 ## BUGS
 
-Please see Github to report bugs and to see a list of current bugs.
+Please use [Github](https://github.com/NSError/fs-dataman) to report bugs and to see a list of current bugs.
 
 ## HISTORY
 

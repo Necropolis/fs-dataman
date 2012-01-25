@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-void dm_Print  (NSString* format, ...) NS_FORMAT_FUNCTION(1,2);
-void dm_PrintLn(NSString* format, ...) NS_FORMAT_FUNCTION(1,2);
+void dm_Print  (NSString* format, ...)        NS_FORMAT_FUNCTION(1,2);
+void dm_PrintLn(NSString* format, ...)        NS_FORMAT_FUNCTION(1,2);
+void dm_PrintLnThenDie(NSString* format, ...) NS_FORMAT_FUNCTION(1,2);
 
 void dm_PrintURLOperationResponse(NSHTTPURLResponse* resp, NSData* payload, NSError* error);

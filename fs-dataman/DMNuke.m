@@ -49,16 +49,14 @@
         self.inputFile = [NSFileHandle fileHandleForReadingAtPath:_ifile];
         NSAssert(_inputFile!=nil,@"Seriously, how can this freaking happen?");
     } else {
-        dm_PrintLn(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
-        exit(-1);
+        dm_PrintLnThenDie(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
     }
     [_mgr createFileAtPath:_ofile
                   contents:[NSData data]
                 attributes:nil];
     self.outputFile = [NSFileHandle fileHandleForWritingAtPath:_ofile];
     if (self.outputFile==nil) {
-        dm_PrintLn(@"I cannot open the output file for writing. Dude, this is totally not cool. I'm gunna quit now.");
-        exit(-1);
+        dm_PrintLnThenDie(@"I cannot open the output file for writing. Dude, this is totally not cool. I'm gunna quit now.");
     }
     [self.outputFile truncateFileAtOffset:0];
     // all should be well in Zion, right?

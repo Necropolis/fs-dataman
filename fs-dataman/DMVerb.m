@@ -104,8 +104,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
         configFileURI = kConfigDefault;
     else {
         if ([_arguments count] < config_arg +1) {
-            dm_PrintLn(@"No argument given to switch for custom configuration file!");
-            exit(-1);
+            dm_PrintLnThenDie(@"No argument given to switch for custom configuration file!");
         } else {
             configFileURI = [_arguments objectAtIndex:config_arg+1];
             // remove the two flags so it's not a problem for other verbs
@@ -122,8 +121,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
     NSFileHandle* configFile = [NSFileHandle fileHandleForReadingAtPath:[configFileURI stringByExpandingTildeInPath]];
     
     if (configFile == nil) {
-        dm_PrintLn(@"Configuration file at %@ doesn't seem to exist.", configFileURI);
-        exit(-1);
+        dm_PrintLnThenDie(@"Configuration file at %@ doesn't seem to exist.", configFileURI);
     }
     
     NSError* parse = nil;
@@ -134,8 +132,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
                                                 error:&parse];
     
     if (parse) {
-        dm_PrintLn(@"Failed to parse the configuration at %@ with the error %@", configFileURI, [parse description]);
-        exit(-1);
+        dm_PrintLnThenDie(@"Failed to parse the configuration at %@ with the error %@", configFileURI, [parse description]);
     }
     
     // the configuration was obtained properly
@@ -143,8 +140,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
     
     if ([[self.configuration valueForKey:kConfigServerURL] rangeOfString:@"api.familysearch.org" options:NSCaseInsensitiveSearch].location!=NSNotFound) {
         dm_PrintLn(@"BIG FREAKING PROBLEM! YOU'RE TRYING TO RUN THIS ON THE PRODUCTION CLUSTER! I WILL NOT ALLOW THIS!");
-        dm_PrintLn(@"Ensure that your server configuration is NOT api.familysearch.org!");
-        exit(-1);
+        dm_PrintLnThenDie(@"Ensure that your server configuration is NOT api.familysearch.org!");
     }
 }
 

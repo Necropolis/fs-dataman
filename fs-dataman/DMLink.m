@@ -31,8 +31,7 @@
 - (void)processArgs
 {
     if ([self.arguments count]!=1) {
-        dm_PrintLn(@"Incorrect number of arguments.");
-        exit(-1);
+        dm_PrintLnThenDie(@"Incorrect number of arguments.");
     }
     
     __ifilelocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
@@ -41,8 +40,7 @@
         self.objectIdsFile = [NSFileHandle fileHandleForReadingAtPath:__ifilelocation];
         NSAssert(_objectIdsFile!=nil,@"Seriously, how can this freaking happen?");
     } else {
-        dm_PrintLn(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
-        exit(-1);
+        dm_PrintLnThenDie(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
     }
     // all should be well in Zion, right?
 }
@@ -54,7 +52,23 @@
 
 - (void)run
 {
+    NSError* err=nil;
+    NSDictionary* ids = [NSJSONSerialization JSONObjectWithData:[_objectIdsFile readDataToEndOfFile] options:0 error:&err];
+    if (err) {
+        dm_PrintLnThenDie(@"Experienced JSON parse error: %@", err);
+    }
     
+    [self getMe];
+    NSString* _myId = [[self.me valueForKeyPath:@"persons.id"] firstObject];
+    if (nil==[ids objectForKey:@"persons"]) {
+        dm_PrintLnThenDie(@"I cannot work without people, CURRENT_USER. You should know this by now.");
+    }
+    if (![[ids objectForKey:@"persons"] isKindOfClass:[NSArray class]]) {
+        dm_PrintLnThenDie(@"Inconsistency. Something other than an array was where I really wanted for there to be an array.");
+    }
+    if ([[ids objectForKey:@"persons"] count]!=2) {
+        dm_PrintLnThenDie(@"Improper number of people specified. Did you use inspect -l, or just inspect?");
+    }
 }
 
 @end

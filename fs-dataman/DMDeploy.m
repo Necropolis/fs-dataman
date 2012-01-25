@@ -41,8 +41,7 @@
     if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, nil]])
         _flag = SOFT;
     if ([self.arguments count] != 2) {
-        dm_PrintLn(@"Incorrect number of file arguments. I'm going to stop now before I hurt myself.");
-        exit(-1);
+        dm_PrintLnThenDie(@"Incorrect number of file arguments. I'm going to stop now before I hurt myself.");
     }
     __ifilelocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
     __ofilelocation = [[self.arguments lastObject] stringByExpandingTildeInPath];
@@ -51,16 +50,14 @@
         self.gedcom = [NSFileHandle fileHandleForReadingAtPath:__ifilelocation];
         NSAssert(_gedcom!=nil,@"Seriously, how can this freaking happen?");
     } else {
-        dm_PrintLn(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
-        exit(-1);
+        dm_PrintLnThenDie(@"I cannot open the input file for reading. Dude, this is totally not cool. I'm gunna quit now.");
     }
     [_mgr createFileAtPath:__ofilelocation
                   contents:[NSData data]
                 attributes:nil];
     self.outputFile = [NSFileHandle fileHandleForWritingAtPath:__ofilelocation];
     if (self.outputFile==nil) {
-        dm_PrintLn(@"I cannot open the output file for writing. Dude, this is totally not cool. I'm gunna quit now.");
-        exit(-1);
+        dm_PrintLnThenDie(@"I cannot open the output file for writing. Dude, this is totally not cool. I'm gunna quit now.");
     }
     [self.outputFile truncateFileAtOffset:0];
     // all should be well in Zion, right?

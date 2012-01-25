@@ -45,7 +45,7 @@ end
 
 desc "Push generated docs to gh-pages"
 task :gh_pages_push do
-  cd '/gh-pages' do
+  cd 'gh-pages' do
     sh "git add ."
     sh "git add -u"
     sh "git commit --allow-empty-message -m ''"

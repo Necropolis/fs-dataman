@@ -47,8 +47,7 @@
 {
     _flag = NONE;
     if ([self.arguments count] < 1) {
-        dm_PrintLn(@"Improper number of arguments. I'm scared.");
-        exit(-1);
+        dm_PrintLnThenDie(@"Improper number of arguments. I'm scared.");
     }
     
     if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigLinkShort, kConfigLinkLong, nil]])

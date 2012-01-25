@@ -31,7 +31,7 @@
 
 - (void)processArgs
 {
-    if ([self.arguments count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
+    if ([self.arguments count] != 1) { dm_PrintLnThenDie(@"More than one path given. I'm gunna panic now."); }
     
     __outputfilelocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
     
