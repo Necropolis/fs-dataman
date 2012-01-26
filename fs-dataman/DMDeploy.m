@@ -34,6 +34,11 @@
     return @"deploy";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-deploy";
+}
+
 - (void)processArgs
 {
     _flag = NONE;

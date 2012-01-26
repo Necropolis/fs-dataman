@@ -31,6 +31,11 @@
     return @"link";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-link";
+}
+
 - (void)processArgs
 {
     if ([self.arguments count]!=1) {

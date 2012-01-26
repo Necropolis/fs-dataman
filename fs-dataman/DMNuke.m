@@ -32,6 +32,11 @@
     return @"nuke";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-nuke";
+}
+
 - (void)processArgs
 {
     self.flag = NONE;

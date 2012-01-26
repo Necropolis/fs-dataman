@@ -30,6 +30,11 @@
     return @"show-person";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-show-person";
+}
+
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"SHOW-PERSON %@", _personId?:@"self"];

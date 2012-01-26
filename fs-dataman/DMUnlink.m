@@ -33,6 +33,11 @@
     return @"unlink";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-unlink";
+}
+
 - (void)processArgs
 {
     if ([self.arguments count]!=1) {

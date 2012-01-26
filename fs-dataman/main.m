@@ -12,14 +12,6 @@
 
 #import "DMVerb.h"
 
-// these might be extraneous
-#import "DMDeploy.h"
-#import "DMNuke.h"
-#import "DMInspect.h"
-#import "DMCapture.h"
-#import "DMLink.h"
-#import "DMUnlink.h"
-
 int main (int argc, const char * argv[])
 {
 
@@ -27,21 +19,24 @@ int main (int argc, const char * argv[])
         
         NSArray* args = [[NSProcessInfo processInfo] arguments];
         
-        if ([args count] < 2 || [args containsObject:@"help"]) {
+        if ([args count] < 2) {
             // fire off man
             execlp("man", "man", "fs-dataman", NULL);
         } else {
             NSString* verb = [args objectAtIndex:1];
             
-            NSArray* sz_verbs   = [[DMVerb registeredCommands] valueForKey:@"verbCommand"];// [NSArray arrayWithObjects: @"deploy",        @"nuke",        @"inspect",        @"capture",        @"link",        @"unlink",       nil];
-            NSArray* objc_verbs = [DMVerb registeredCommands];// [NSArray arrayWithObjects:[DMDeploy class], [DMNuke class], [DMInspect class], [DMCapture class], [DMLink class], [DMUnlink class], nil];
+            NSArray* sz_verbs   = [[DMVerb registeredCommands] valueForKey:@"verbCommand"];
+            NSArray* objc_verbs = [DMVerb registeredCommands];
             
-            if (![sz_verbs containsObject:verb]) {
-                dm_PrintLn(@"unknown command %@; I only know about %@", verb, [sz_verbs componentsJoinedByString:@", "]);
-                exit(-1);
+            NSUInteger i_verb = [objc_verbs indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+                if (NSOrderedSame==[[obj valueForKey:@"verbCommand"] caseInsensitiveCompare:verb]) return YES;
+                else return NO;
+            }];
+            
+            if (NSNotFound==i_verb) {
+                dm_PrintLnThenDie(@"unknown command %@; I only know about %@", verb, [sz_verbs componentsJoinedByString:@", "]);
             }
             
-            NSUInteger i_verb = [sz_verbs indexOfObject:verb];
             DMVerb* verb_impl = [[[objc_verbs objectAtIndex:i_verb] alloc] init];
             
             verb_impl.arguments = [args subarrayWithRange:NSMakeRange(2, [args count] -2)];

@@ -65,6 +65,11 @@ NSString* kConfigLinkLong   = @"--link"  ;
     return @"";
 }
 
++ (NSString*)manpage
+{
+    return @"";
+}
+
 - (void)setUp
 {
     [self processArgs];

@@ -44,6 +44,7 @@ enum flag_t {
 
 + (NSMutableArray*)registeredCommands;
 + (NSString*)verbCommand;
++ (NSString*)manpage;
 
 - (NSString*)verbHeader;
 - (NSString*)verbFooter;

@@ -29,6 +29,11 @@
     return @"capture";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-capture";
+}
+
 - (void)processArgs
 {
     if ([self.arguments count] != 1) { dm_PrintLnThenDie(@"More than one path given. I'm gunna panic now."); }

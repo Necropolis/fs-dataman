@@ -43,6 +43,11 @@
     return @"inspect";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-inspect";
+}
+
 - (void)processArgs
 {
     _flag = NONE;

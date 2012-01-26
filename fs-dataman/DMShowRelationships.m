@@ -33,6 +33,11 @@
     return @"show-relationships";
 }
 
++ (NSString*)manpage
+{
+    return @"fs-dataman-show-relationships";
+}
+
 - (NSString*)description
 {
     return [NSString stringWithFormat:@"SHOW-RELATIONSHIPS on %@ of type %@", _recordId, _relationshipType];

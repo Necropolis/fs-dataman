@@ -10,6 +10,7 @@
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
+		DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79014D1DB5600A9F129 /* DMHelp.m */; };
 		DA9AE85514C0B90B002921BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AE85414C0B90B002921BE /* Foundation.framework */; };
 		DA9AE85814C0B90B002921BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE85714C0B90B002921BE /* main.m */; };
 		DA9AE88714C0BDD1002921BE /* NDService.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE87014C0BDD1002921BE /* NDService.m */; };
@@ -46,11 +47,12 @@
 		DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMHead.m; sourceTree = "<group>"; };
 		DA76087C14C7809A00CAB61D /* FSGEDCOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOM.h; sourceTree = "<group>"; };
 		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOM.m; sourceTree = "<group>"; };
+		DA8CE78F14D1DB5600A9F129 /* DMHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMHelp.h; sourceTree = "<group>"; };
+		DA8CE79014D1DB5600A9F129 /* DMHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMHelp.m; sourceTree = "<group>"; };
 		DA9AE85014C0B90B002921BE /* fs-dataman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fs-dataman"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9AE85414C0B90B002921BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA9AE85714C0B90B002921BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA9AE85A14C0B90B002921BE /* dataman-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dataman-Prefix.pch"; sourceTree = "<group>"; };
-		DA9AE85B14C0B90B002921BE /* fs-dataman.1.ronn */ = {isa = PBXFileReference; lastKnownFileType = text; path = "fs-dataman.1.ronn"; sourceTree = "<group>"; };
 		DA9AE86F14C0BDD1002921BE /* NDService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NDService.h; path = vendor/NewDot/NewDot/NDService.h; sourceTree = "<group>"; };
 		DA9AE87014C0BDD1002921BE /* NDService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NDService.m; path = vendor/NewDot/NewDot/NDService.m; sourceTree = "<group>"; };
 		DA9AE87114C0BDD1002921BE /* NDService+Discussions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NDService+Discussions.h"; path = "vendor/NewDot/NewDot/NDService+Discussions.h"; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 		DA9AE89514C0BDF5002921BE /* FSURLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSURLOperation.m; path = vendor/NewDot/vendor/FSURLOperation/FSURLOperation.m; sourceTree = "<group>"; };
 		DA9BA3FF14CF4325000369B9 /* DMShowPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowPerson.h; sourceTree = "<group>"; };
 		DA9BA40014CF4325000369B9 /* DMShowPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowPerson.m; sourceTree = "<group>"; };
-		DA9BA40314CF4334000369B9 /* DMShowRelationships.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DMShowRelationships.h; sourceTree = "<group>"; };
+		DA9BA40314CF4334000369B9 /* DMShowRelationships.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowRelationships.h; sourceTree = "<group>"; };
 		DA9BA40414CF4334000369B9 /* DMShowRelationships.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowRelationships.m; sourceTree = "<group>"; };
 		DABDD79C14C8A71600A3E160 /* FSByteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSByteScanner.m; sourceTree = "<group>"; };
 		DABDD79E14C8A72300A3E160 /* FSByteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSByteScanner.h; sourceTree = "<group>"; };
@@ -163,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				DA9AE85714C0B90B002921BE /* main.m */,
-				DA9AE85B14C0B90B002921BE /* fs-dataman.1.ronn */,
 				DA9AE85914C0B90B002921BE /* Supporting Files */,
 				DAC1983D14C0D9A40068A0AD /* Console.h */,
 				DAC1983E14C0D9A40068A0AD /* Console.m */,
@@ -185,6 +186,8 @@
 				DA9BA40014CF4325000369B9 /* DMShowPerson.m */,
 				DA9BA40314CF4334000369B9 /* DMShowRelationships.h */,
 				DA9BA40414CF4334000369B9 /* DMShowRelationships.m */,
+				DA8CE78F14D1DB5600A9F129 /* DMHelp.h */,
+				DA8CE79014D1DB5600A9F129 /* DMHelp.m */,
 			);
 			name = Dataman;
 			path = "fs-dataman";
@@ -317,6 +320,7 @@
 				DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */,
 				DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */,
 				DA9BA40514CF4334000369B9 /* DMShowRelationships.m in Sources */,
+				DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
