@@ -1,0 +1,13 @@
+fs-dataman-show-relationships(1) -- Show all relationships relating to a single record.
+=======================================================================================
+## SYNOPSIS
+
+`fs-dataman` show-relationships <record-id> [parent child spouse]
+
+## DESCRIPTION
+
+A quick utility to look at all the relationship data (except for personas) relating to a single record ID. The output is in pretty-printed JSON. Use a standard `MMMM-MMM`-style record id.
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

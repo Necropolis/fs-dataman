@@ -1,0 +1,13 @@
+fs-dataman-show-person(1) -- Show a single record in its entirety.
+==================================================================
+## SYNOPSIS
+
+`fs-dataman` show-person <record-id>
+
+## DESCRIPTION
+
+A quick utility to look at all the information (except for personas) relating to a single record ID. The ouput is in pretty-printed JSON. It accepts `me`, `self`, and `myself` as a request for your current user; otherwise a standard `MMMM-MMM`-style record id will be required.
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

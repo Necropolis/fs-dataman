@@ -1,0 +1,34 @@
+fs-dataman-link(1) -- Link records to the current user as parents.
+==================================================================
+## SYNOPSIS
+
+`fs-dataman` link <input-file>
+
+## DESCRIPTION
+
+`link` allows you to tie any two records to your current user as parents. If you imagine your family tree in the reference system like a big cloud, `unlink` lets you disconnect your user from this cloud. From there you can re-populate with more data (make a new cloud), but at your leisure you can unlink from that new cloud and re-connect with the old one. It makes switching between test datasets really quick and easy.
+
+## EXAMPLE
+
+Get two record IDs to unlink first, then unlink them:
+
+    fs-dataman inspect -l 1.json
+    fs-dataman unlink 1.json
+
+Re-populate the cluster with data now, and then use it for a time, like go write something to win the RootsTech developer challenge. Afterwards you want to resume what you were doing before the conference, so find who your parents are now and unlink them, too:
+
+    fs-dataman inspect -l 2.json
+    fs-dataman unlink 2.json
+
+Finally, link back to your original parents.
+
+    fs-dataman link 1.json
+
+## SEE ALSO
+
+* [unlink][fs-dataman-unlink(1)] - The evil family-sundering child-disowning twin of `link`.
+* [inspect][fs-dataman-inspect(1)] - The weird uncle which gives them (`link` and `unlink`) data with which to start causing mayhem.
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

@@ -2,7 +2,7 @@ require 'bundler/setup'
 require 'rake'
 require 'ronn'
 
-ronn_files = FileList['fs-dataman/*.1.ronn']
+ronn_files = FileList['man/*.1.ronn']
 
 def man_file(ronn_file)
   ronn_file.gsub /\.ronn$/, ''
@@ -27,8 +27,8 @@ desc "Generate manpages & documentation"
 task :mangen do
   sh "mkdir -p /tmp/fs-dataman.dst/usr/local/share/man/man1/"
   sh "mkdir -p gh-pages"
+  sh "ronn #{ronn_config} #{ronn_style} #{ronn_files.shelljoin}"
   ronn_files.each do |ronn_file|
-    sh "ronn #{ronn_config} #{ronn_style} #{ronn_file}"
     sh "mv -f #{man_file(ronn_file)} /tmp/fs-dataman.dst/usr/local/share/man/man1/"
     sh "mv -f #{man_html(ronn_file)} gh-pages/"
   end
