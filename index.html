@@ -62,8 +62,9 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#COMMANDS">COMMANDS</a>
     <a href="#INSTALL">INSTALL</a>
-    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#GLOBAL-OPTIONS">GLOBAL OPTIONS</a>
     <a href="#CONFIG-FILE">CONFIG-FILE</a>
     <a href="#FILES">FILES</a>
     <a href="#BUGS">BUGS</a>
@@ -83,43 +84,22 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>fs-dataman</code> [-c --server-config <var>config-file</var>]<br />
-<code>fs-dataman</code> inspect [-l --link] <var>output-file</var><br />
-<code>fs-dataman</code> link <var>input-file</var><br />
-<code>fs-dataman</code> unlink <var>input-file</var><br />
-<code>fs-dataman</code> show-person <var>person-id</var><br />
-<code>fs-dataman</code> show-relationships <var>record-id</var> [parent child spouse]<br /></p>
+<p><code>fs-dataman</code> [-c --server-config <var>config-file</var>] &lt;command&gt;<br /></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p><code>fs-dataman</code> is a tool used to control the information visible in the FamilySearch partner reference cluster. It is broken out into sub-commands that perform specific tasks.</p>
 
-<h3 id="Inspect">Inspect</h3>
+<h2 id="COMMANDS">COMMANDS</h2>
 
-<p>Traverse the tree connected to your current user and generate an Object ID file which lists all the current elements in your tree. Use the <code>-l</code> flag to generate an Object ID file useful for the <code>link</code> and <code>unlink</code> commands!</p>
+<ul>
+<li><a href="fs-dataman-inspect.1.html">inspect</a> - Inspect currently visible records in the tree.</li>
+<li><a href="fs-dataman-link.1.html">link</a> - Link any two records to your current user's record as parents.</li>
+<li><a href="fs-dataman-unlink.1.html">unlink</a> - Unlink any two records from your current user's record as parents.</li>
+<li><a href="fs-dataman-show-person.1.html">show-person</a> - Show the data associated with a specific record. Useful when debugging.</li>
+<li><a href="fs-dataman-show-relationships.1.html">show-relationships</a> - Show the relationships of any type associated with a specific record. Useful when debugging.</li>
+</ul>
 
-<h3 id="Link-and-Unlink">Link and Unlink</h3>
-
-<p>If you imagine your family tree in the reference system like a big cloud, unlink lets you disconnect your user from this cloud. From there you can re-populate with more data (make a new cloud), but at your leisure you can unlink from that new cloud and re-connect with the old one. It makes switching between test datasets really quick and easy. Just as easy as:</p>
-
-<pre><code>fs-dataman inspect -l 1.json
-fs-dataman unlink 1.json
-# re-populate with new data, then go do something
-# awesome like win the RootsTech developer challenge!
-fs-dataman inspect -l 2.json # who are my parents now?
-fs-dataman unlink 2.json # just get rid of 'em
-fs-dataman link 1.json # back to where you were before RootsTech
-</code></pre>
-
-<p>The relationship type is 'Adoptive' and it does create a single 'exists' assertion as well.</p>
-
-<h3 id="Show-Person">Show Person</h3>
-
-<p>A quick utility to look at all the information (except for personas) relating to a single record ID. The ouput is in pretty-printed JSON.</p>
-
-<h3 id="Show-Relationships">Show Relationships</h3>
-
-<p>A quick utility to look at all the relationship data (except for personas) relating to a single record ID. The output is in pretty-printed JSON.</p>
 
 <h2 id="INSTALL">INSTALL</h2>
 
@@ -166,11 +146,10 @@ rake install
 
 <p>And then you can blow away everything in the source tree you downloaded, and you're good to get gone. Some build intermediates will be hiding in <code>/tmp</code>, but that's wiped on every boot, so it might not even apply.</p>
 
-<h2 id="OPTIONS">OPTIONS</h2>
+<h2 id="GLOBAL-OPTIONS">GLOBAL OPTIONS</h2>
 
 <dl>
-<dt><code>-c</code> <code>--server-config</code></dt><dd><p>Specify a custom server configuration file. Normally <code>fs-dataman</code> looks in <code>~/.fs-dataman.plist</code> for its configuration, but if you need to change that up or use a recurring set of scripts to manipulate different users, then you can use this flag to force a different set of credentials.</p></dd>
-<dt><code>-l</code> <code>--link</code></dt><dd><p>When passed to <code>inspect</code>, the link flag causes <code>fs-dataman</code> to only grab the first two record IDs, which is the current user's parents. Otherwise <code>inspect</code> is pretty greedy and will get you every single last record ID that <code>fs-dataman</code> finds visible by tree-walking.</p></dd>
+<dt><code>-c</code> <code>--server-config</code></dt><dd>Specify a custom server configuration file. Normally <code>fs-dataman</code> looks in <code>~/.fs-dataman.plist</code> for its configuration, but if you need to change that up or use a recurring set of scripts to manipulate different users, then you can use this flag to force a different set of credentials. Every command supports this option.</dd>
 </dl>
 
 
@@ -209,6 +188,11 @@ rake install
 
 <p><code>/usr/local/bin/fs-dataman</code><br />
 <code>/usr/local/share/man/man1/fs-dataman.1</code><br />
+<code>/usr/local/share/man/man1/fs-dataman-inspect.1</code><br />
+<code>/usr/local/share/man/man1/fs-dataman-link.1</code><br />
+<code>/usr/local/share/man/man1/fs-dataman-unlink.1</code><br />
+<code>/usr/local/share/man/man1/fs-dataman-show-person.1</code><br />
+<code>/usr/local/share/man/man1/fs-dataman-show-relationships.1</code><br />
 <code>~/.fs-dataman.plist</code></p>
 
 <h2 id="BUGS">BUGS</h2>
@@ -217,10 +201,10 @@ rake install
 
 <h2 id="HISTORY">HISTORY</h2>
 
-<ul>
-<li>0.1 25 January 2012
-First release. Has the <code>inspect</code>, <code>link</code>, <code>unlink</code>, <code>show-person</code>, and <code>show-relationships</code> commands. No known bugs.</li>
-</ul>
+<dl>
+<dt>0.2 RELEASE PENDING</dt><dd>Cleaned up the manpage documentation quite a lot.</dd>
+<dt>0.1 25 January 2012</dt><dd>First release. Has the <code>inspect</code>, <code>link</code>, <code>unlink</code>, <code>show-person</code>, and <code>show-relationships</code> commands. No known bugs.</dd>
+</dl>
 
 
 
