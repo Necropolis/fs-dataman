@@ -24,9 +24,9 @@
 + (void)load
 {
 // UNCOMMENT WHEN THE COMMAND IS COMPLETE
-//    @autoreleasepool {
-//        [[DMVerb registeredCommands] addObject:[self class]];
-//    }
+    @autoreleasepool {
+        [[DMVerb registeredCommands] addObject:[self class]];
+    }
 }
 
 + (NSString*)verbCommand

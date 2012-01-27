@@ -13,6 +13,7 @@ fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cl
 * [inspect][fs-dataman-inspect(1)] - Inspect currently visible records in the tree.
 * [link][fs-dataman-link(1)] - Link any two records to your current user's record as parents.
 * [unlink][fs-dataman-unlink(1)] - Unlink any two records from your current user's record as parents.
+* [deploy][fs-dataman-deploy(1)] - Deploy a GEDCOM to the cluster.
 * [show-person][fs-dataman-show-person(1)] - Show the data associated with a specific record. Useful when debugging.
 * [show-relationships][fs-dataman-show-relationships(1)] - Show the relationships of any type associated with a specific record. Useful when debugging.
 

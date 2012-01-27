@@ -1,0 +1,13 @@
+fs-dataman-deploy(1) -- Deploy the contents of a GEDCOM to the cluster.
+=======================================================================
+## SYNOPSIS
+
+`fs-dataman` deploy [-s --soft] [-f --force] <gedcom>
+
+## DESCRIPTION
+
+A quick utility to look at all the relationship data (except for personas) relating to a single record ID. The output is in pretty-printed JSON. Use a standard `MMMM-MMM`-style record id.
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

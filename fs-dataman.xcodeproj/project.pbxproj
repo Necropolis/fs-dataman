@@ -11,6 +11,8 @@
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
 		DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79014D1DB5600A9F129 /* DMHelp.m */; };
+		DA8CE79414D1F8C200A9F129 /* ByteBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79314D1F8C200A9F129 /* ByteBuffer.m */; };
+		DA8CE79714D1FC4B00A9F129 /* ByteSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79614D1FC4B00A9F129 /* ByteSequence.m */; };
 		DA9AE85514C0B90B002921BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA9AE85414C0B90B002921BE /* Foundation.framework */; };
 		DA9AE85814C0B90B002921BE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE85714C0B90B002921BE /* main.m */; };
 		DA9AE88714C0BDD1002921BE /* NDService.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE87014C0BDD1002921BE /* NDService.m */; };
@@ -28,7 +30,7 @@
 		DA9AE89614C0BDF5002921BE /* FSURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9AE89514C0BDF5002921BE /* FSURLOperation.m */; };
 		DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40014CF4325000369B9 /* DMShowPerson.m */; };
 		DA9BA40514CF4334000369B9 /* DMShowRelationships.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40414CF4334000369B9 /* DMShowRelationships.m */; };
-		DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* FSByteScanner.m */; };
+		DABDD79D14C8A71600A3E160 /* BytePrinting.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* BytePrinting.m */; };
 		DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A014C8B41A00A3E160 /* DMCapture.m */; };
 		DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A314C8B48700A3E160 /* DMLink.m */; };
 		DABDD7A714C8B49300A3E160 /* DMUnlink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A614C8B49300A3E160 /* DMUnlink.m */; };
@@ -49,6 +51,10 @@
 		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOM.m; sourceTree = "<group>"; };
 		DA8CE78F14D1DB5600A9F129 /* DMHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMHelp.h; sourceTree = "<group>"; };
 		DA8CE79014D1DB5600A9F129 /* DMHelp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMHelp.m; sourceTree = "<group>"; };
+		DA8CE79214D1F8C200A9F129 /* ByteBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteBuffer.h; sourceTree = "<group>"; };
+		DA8CE79314D1F8C200A9F129 /* ByteBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ByteBuffer.m; sourceTree = "<group>"; };
+		DA8CE79514D1FC4B00A9F129 /* ByteSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ByteSequence.h; sourceTree = "<group>"; };
+		DA8CE79614D1FC4B00A9F129 /* ByteSequence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ByteSequence.m; sourceTree = "<group>"; };
 		DA9AE85014C0B90B002921BE /* fs-dataman */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "fs-dataman"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA9AE85414C0B90B002921BE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DA9AE85714C0B90B002921BE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,8 +89,8 @@
 		DA9BA40014CF4325000369B9 /* DMShowPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowPerson.m; sourceTree = "<group>"; };
 		DA9BA40314CF4334000369B9 /* DMShowRelationships.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMShowRelationships.h; sourceTree = "<group>"; };
 		DA9BA40414CF4334000369B9 /* DMShowRelationships.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowRelationships.m; sourceTree = "<group>"; };
-		DABDD79C14C8A71600A3E160 /* FSByteScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSByteScanner.m; sourceTree = "<group>"; };
-		DABDD79E14C8A72300A3E160 /* FSByteScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSByteScanner.h; sourceTree = "<group>"; };
+		DABDD79C14C8A71600A3E160 /* BytePrinting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BytePrinting.m; sourceTree = "<group>"; };
+		DABDD79E14C8A72300A3E160 /* BytePrinting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BytePrinting.h; sourceTree = "<group>"; };
 		DABDD79F14C8B41A00A3E160 /* DMCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCapture.h; sourceTree = "<group>"; };
 		DABDD7A014C8B41A00A3E160 /* DMCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMCapture.m; sourceTree = "<group>"; };
 		DABDD7A214C8B48700A3E160 /* DMLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLink.h; sourceTree = "<group>"; };
@@ -126,12 +132,24 @@
 				DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */,
 				DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */,
 				DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */,
-				DABDD79E14C8A72300A3E160 /* FSByteScanner.h */,
-				DABDD79C14C8A71600A3E160 /* FSByteScanner.m */,
+				DA86601C14D33A6700180264 /* Byte-Level Utilities */,
 			);
 			name = "GEDCOM 5.5";
 			path = vendor/gedcom55;
 			sourceTree = SOURCE_ROOT;
+		};
+		DA86601C14D33A6700180264 /* Byte-Level Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DA8CE79214D1F8C200A9F129 /* ByteBuffer.h */,
+				DA8CE79314D1F8C200A9F129 /* ByteBuffer.m */,
+				DA8CE79514D1FC4B00A9F129 /* ByteSequence.h */,
+				DA8CE79614D1FC4B00A9F129 /* ByteSequence.m */,
+				DABDD79E14C8A72300A3E160 /* BytePrinting.h */,
+				DABDD79C14C8A71600A3E160 /* BytePrinting.m */,
+			);
+			name = "Byte-Level Utilities";
+			sourceTree = "<group>";
 		};
 		DA9AE84514C0B90B002921BE = {
 			isa = PBXGroup;
@@ -311,7 +329,7 @@
 				DAC1984814C0DDEE0068A0AD /* DMNuke.m in Sources */,
 				DAC1984B14C0DE920068A0AD /* DMInspect.m in Sources */,
 				DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */,
-				DABDD79D14C8A71600A3E160 /* FSByteScanner.m in Sources */,
+				DABDD79D14C8A71600A3E160 /* BytePrinting.m in Sources */,
 				DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */,
 				DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */,
 				DABDD7A714C8B49300A3E160 /* DMUnlink.m in Sources */,
@@ -321,6 +339,8 @@
 				DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */,
 				DA9BA40514CF4334000369B9 /* DMShowRelationships.m in Sources */,
 				DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */,
+				DA8CE79414D1F8C200A9F129 /* ByteBuffer.m in Sources */,
+				DA8CE79714D1FC4B00A9F129 /* ByteSequence.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
