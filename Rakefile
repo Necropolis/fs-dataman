@@ -3,6 +3,10 @@ require 'rake'
 require 'ronn'
 
 ronn_files = FileList['man/*.1.ronn']
+VENDOR_MODULES = [
+  'vendor/gedcom55',
+  'vendor/NewDot'
+]
 
 def man_file(ronn_file)
   ronn_file.gsub /\.ronn$/, ''
@@ -20,7 +24,12 @@ task :setup do
   puts 'Cloning submodules - this could take a little moment'
   sh "git submodule init"
   sh "git submodule update"
-  sh "cd vendor/NewDot && git submodule init && git submodule update"
+  VENDOR_MODULES.each do |vendor_module|
+    cd vendor_module do
+      sh "git submodule init"
+      sh "git submodule update"
+    end
+  end
 end
 
 desc "Generate manpages & documentation"
