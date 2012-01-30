@@ -3,4 +3,4 @@
 	url = git@github.com:FSDEV/NewDot.git
 [submodule "vendor/gedcom55"]
 	path = vendor/gedcom55
-	url = /Users/cmiller/Code/gedcom55
+	url = git@github.com:NSError/gedcom55
