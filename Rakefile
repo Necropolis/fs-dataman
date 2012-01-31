@@ -5,6 +5,7 @@ require 'ronn'
 ronn_files = FileList['man/*.1.ronn']
 VENDOR_MODULES = [
   'vendor/gedcom55',
+  'vendor/gedcom55/vendor/NSContainers+PrettyPrint',
   'vendor/NewDot'
 ]
 
