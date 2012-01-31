@@ -31,6 +31,7 @@
 		DA9BA40114CF4325000369B9 /* DMShowPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40014CF4325000369B9 /* DMShowPerson.m */; };
 		DA9BA40514CF4334000369B9 /* DMShowRelationships.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9BA40414CF4334000369B9 /* DMShowRelationships.m */; };
 		DA9C897214D744B3007CD284 /* NSContainers+DebugPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */; };
+		DAB7CB7C14D8A254007BD2E9 /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB7CB7B14D8A254007BD2E9 /* JRSwizzle.m */; };
 		DABDD79D14C8A71600A3E160 /* BytePrinting.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD79C14C8A71600A3E160 /* BytePrinting.m */; };
 		DABDD7A114C8B41A00A3E160 /* DMCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A014C8B41A00A3E160 /* DMCapture.m */; };
 		DABDD7A414C8B48700A3E160 /* DMLink.m in Sources */ = {isa = PBXBuildFile; fileRef = DABDD7A314C8B48700A3E160 /* DMLink.m */; };
@@ -92,6 +93,8 @@
 		DA9BA40414CF4334000369B9 /* DMShowRelationships.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMShowRelationships.m; sourceTree = "<group>"; };
 		DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSContainers+DebugPrint.h"; path = "vendor/NSContainers+PrettyPrint/NSContainers+DebugPrint.h"; sourceTree = "<group>"; };
 		DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSContainers+DebugPrint.m"; path = "vendor/NSContainers+PrettyPrint/NSContainers+DebugPrint.m"; sourceTree = "<group>"; };
+		DAB7CB7A14D8A254007BD2E9 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JRSwizzle.h; path = "vendor/NSContainers+PrettyPrint/vendor/JRSwizzle/JRSwizzle.h"; sourceTree = "<group>"; };
+		DAB7CB7B14D8A254007BD2E9 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JRSwizzle.m; path = "vendor/NSContainers+PrettyPrint/vendor/JRSwizzle/JRSwizzle.m"; sourceTree = "<group>"; };
 		DABDD79C14C8A71600A3E160 /* BytePrinting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BytePrinting.m; sourceTree = "<group>"; };
 		DABDD79E14C8A72300A3E160 /* BytePrinting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BytePrinting.h; sourceTree = "<group>"; };
 		DABDD79F14C8B41A00A3E160 /* DMCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMCapture.h; sourceTree = "<group>"; };
@@ -138,6 +141,8 @@
 				DA86601C14D33A6700180264 /* Byte-Level Utilities */,
 				DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */,
 				DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */,
+				DAB7CB7A14D8A254007BD2E9 /* JRSwizzle.h */,
+				DAB7CB7B14D8A254007BD2E9 /* JRSwizzle.m */,
 			);
 			name = "GEDCOM 5.5";
 			path = vendor/gedcom55;
@@ -347,6 +352,7 @@
 				DA8CE79414D1F8C200A9F129 /* ByteBuffer.m in Sources */,
 				DA8CE79714D1FC4B00A9F129 /* ByteSequence.m in Sources */,
 				DA9C897214D744B3007CD284 /* NSContainers+DebugPrint.m in Sources */,
+				DAB7CB7C14D8A254007BD2E9 /* JRSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
