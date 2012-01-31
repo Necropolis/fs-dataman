@@ -56,10 +56,9 @@ Show all parent relationships for the given record ID, including all assertions.
 I've actually made a little Rakefile to get you going. Assuming you have Xcode 4.2 or better and Ruby with the `bundler` gem installed, just fire up `Terminal.app` and the following shall get you started:
 
     # I would suggest you cd into a nice directory here
-    git clone git@github.com:NSError/fs-dataman.git
+    git clone --recursive git@github.com:NSError/fs-dataman.git
     cd fs-dataman
     bundle install
-    rake setup
     rake build
     rake install
     # if you hate this and want to obliterate all two files it installed:

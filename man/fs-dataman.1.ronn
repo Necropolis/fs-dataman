@@ -30,18 +30,14 @@ I've done a bit of legwork to make this utility pretty easy to install by writin
 
 To start, clone the project:
 
-    git clone git@github.com:NSError/fs-dataman.git
+    git clone --recursive git@github.com:NSError/fs-dataman.git
     cd fs-dataman
 
 Instruct bundler to get the dependencies:
 
     bundle install
     
-You should see the gems `ronn` and `rake` being installed. Once you have `rake`, use my super-duper Rakefile to get all git submodules:
-
-    rake setup
-    
-You should have everything you need right there. Build the project, then install it:
+You should see the gems `ronn` and `rake` being installed. You should have everything you need right there. Build the project, then install it:
 
     rake build
     rake install
