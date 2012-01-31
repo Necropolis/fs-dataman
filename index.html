@@ -96,6 +96,7 @@
 <li><a href="fs-dataman-inspect.1.html">inspect</a> - Inspect currently visible records in the tree.</li>
 <li><a href="fs-dataman-link.1.html">link</a> - Link any two records to your current user's record as parents.</li>
 <li><a href="fs-dataman-unlink.1.html">unlink</a> - Unlink any two records from your current user's record as parents.</li>
+<li><a href="fs-dataman-deploy.1.html">deploy</a> - Deploy a GEDCOM to the cluster.</li>
 <li><a href="fs-dataman-show-person.1.html">show-person</a> - Show the data associated with a specific record. Useful when debugging.</li>
 <li><a href="fs-dataman-show-relationships.1.html">show-relationships</a> - Show the relationships of any type associated with a specific record. Useful when debugging.</li>
 </ul>
@@ -117,7 +118,7 @@
 
 <p>To start, clone the project:</p>
 
-<pre><code>git clone git@github.com:NSError/fs-dataman.git
+<pre><code>git clone --recursive git@github.com:NSError/fs-dataman.git
 cd fs-dataman
 </code></pre>
 
@@ -126,12 +127,7 @@ cd fs-dataman
 <pre><code>bundle install
 </code></pre>
 
-<p>You should see the gems <code>ronn</code> and <code>rake</code> being installed. Once you have <code>rake</code>, use my super-duper Rakefile to get all git submodules:</p>
-
-<pre><code>rake setup
-</code></pre>
-
-<p>You should have everything you need right there. Build the project, then install it:</p>
+<p>You should see the gems <code>ronn</code> and <code>rake</code> being installed. You should have everything you need right there. Build the project, then install it:</p>
 
 <pre><code>rake build
 rake install
