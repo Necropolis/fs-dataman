@@ -76,9 +76,9 @@
 - (void)run
 {
     FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
-    NSDictionary* gedcom_results = [parsed_gedcom parse:[self.gedcom readDataToEndOfFile]];
+    [parsed_gedcom parse:[self.gedcom readDataToEndOfFile]];
 
-    dm_PrintLn(@"results of parsing gedcom: %@", gedcom_results);
+    dm_PrintLn(@"results of parsing gedcom: %@", parsed_gedcom);
 }
 
 @end
