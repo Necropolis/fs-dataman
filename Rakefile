@@ -4,6 +4,9 @@ require 'ronn'
 
 ronn_files = FileList['man/*.1.ronn']
 
+DOCWEB='man-html'
+GITWEB='gh-pages'
+
 def man_file(ronn_file)
   ronn_file.gsub /\.ronn$/, ''
 end
@@ -25,26 +28,34 @@ end
 desc "Generate manpages & documentation"
 task :mangen do
   sh "mkdir -p /tmp/fs-dataman.dst/usr/local/share/man/man1/"
-  sh "mkdir -p gh-pages"
+  sh "mkdir -p #{DOCWEB}"
+  sh "mkdir -p #{GITWEB}"
   sh "ronn #{ronn_config} #{ronn_style} #{ronn_files.shelljoin}"
   ronn_files.each do |ronn_file|
     sh "mv -f #{man_file(ronn_file)} /tmp/fs-dataman.dst/usr/local/share/man/man1/"
-    sh "mv -f #{man_html(ronn_file)} gh-pages/"
+    sh "cp -f #{man_html(ronn_file)} #{DOCWEB}/"
+    sh "mv -f #{man_file(ronn_file)} #{GITWEB}/"
   end
-  sh "mv gh-pages/fs-dataman.1.html gh-pages/index.html"
+  sh "mv #{DOCWEB}/fs-dataman.1.html #{DOCWEB}/index.html"
+  sh "mv #{GITWEB}/fs-dataman.1.html #{GITWEB}/index.html"
+end
+
+desc "Upload docs to server"
+task :docload do
+  sh "rsync -vrutzh --chmod=ugo=rw --progress --delete #{DOCWEB}/ fsdev.net:nserror.me/fs-dataman"
 end
 
 desc "Setup gh-pages as a copy of remote repo (for publishing docs)"
 task :gh_pages_clone do
-  sh "git clone git@github.com:NSError/fs-dataman.git gh-pages"
-  cd 'gh-pages' do
-    sh "git checkout gh-pages"
+  sh "git clone git@github.com:NSError/fs-dataman.git #{GITWEB}"
+  cd GITWEB do
+    sh "git checkout #{GITWEB}"
   end
 end
 
 desc "Push generated docs to gh-pages"
 task :gh_pages_push do
-  cd 'gh-pages' do
+  cd GITWEB do
     sh "git add ."
     sh "git add -u"
     sh "git commit --allow-empty-message -m ''"

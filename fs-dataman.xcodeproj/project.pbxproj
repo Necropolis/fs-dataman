@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA00AEC814DC551200719E46 /* FSGEDCOMIndividual.m in Sources */ = {isa = PBXBuildFile; fileRef = DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */; };
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
@@ -41,10 +42,13 @@
 		DAC1984514C0DDDD0068A0AD /* DMDeploy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984414C0DDDD0068A0AD /* DMDeploy.m */; };
 		DAC1984814C0DDEE0068A0AD /* DMNuke.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984714C0DDEE0068A0AD /* DMNuke.m */; };
 		DAC1984B14C0DE920068A0AD /* DMInspect.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984A14C0DE910068A0AD /* DMInspect.m */; };
+		DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */; };
 		DAE4834214C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DA00AEC614DC551200719E46 /* FSGEDCOMIndividual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMIndividual.h; sourceTree = "<group>"; };
+		DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMIndividual.m; sourceTree = "<group>"; };
 		DA271FFD14CA039900CFF1D0 /* FSGEDCOMStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMStructure.h; sourceTree = "<group>"; };
 		DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMStructure.m; sourceTree = "<group>"; };
 		DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMHead.h; sourceTree = "<group>"; };
@@ -113,6 +117,9 @@
 		DAC1984714C0DDEE0068A0AD /* DMNuke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNuke.m; sourceTree = "<group>"; };
 		DAC1984914C0DE910068A0AD /* DMInspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMInspect.h; sourceTree = "<group>"; };
 		DAC1984A14C0DE910068A0AD /* DMInspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DMInspect.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		DAC6E70414E975CE002BD932 /* FSGEDCOMFamily.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMFamily.h; sourceTree = "<group>"; };
+		DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMFamily.m; sourceTree = "<group>"; };
+		DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOM+ParserInternal.h"; sourceTree = "<group>"; };
 		DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOM+ErrorCodes.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,12 +139,17 @@
 			isa = PBXGroup;
 			children = (
 				DA76087C14C7809A00CAB61D /* FSGEDCOM.h */,
+				DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */,
 				DA76087D14C7809A00CAB61D /* FSGEDCOM.m */,
 				DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */,
 				DA271FFD14CA039900CFF1D0 /* FSGEDCOMStructure.h */,
 				DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */,
 				DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */,
 				DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */,
+				DA00AEC614DC551200719E46 /* FSGEDCOMIndividual.h */,
+				DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */,
+				DAC6E70414E975CE002BD932 /* FSGEDCOMFamily.h */,
+				DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */,
 				DA86601C14D33A6700180264 /* Byte-Level Utilities */,
 				DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */,
 				DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */,
@@ -353,6 +365,8 @@
 				DA8CE79714D1FC4B00A9F129 /* ByteSequence.m in Sources */,
 				DA9C897214D744B3007CD284 /* NSContainers+DebugPrint.m in Sources */,
 				DAB7CB7C14D8A254007BD2E9 /* JRSwizzle.m in Sources */,
+				DA00AEC814DC551200719E46 /* FSGEDCOMIndividual.m in Sources */,
+				DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
