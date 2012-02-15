@@ -43,6 +43,7 @@
 		DAC1984814C0DDEE0068A0AD /* DMNuke.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984714C0DDEE0068A0AD /* DMNuke.m */; };
 		DAC1984B14C0DE920068A0AD /* DMInspect.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984A14C0DE910068A0AD /* DMInspect.m */; };
 		DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */; };
+		DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */; };
 		DAE4834214C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */; };
 /* End PBXBuildFile section */
 
@@ -120,6 +121,9 @@
 		DAC6E70414E975CE002BD932 /* FSGEDCOMFamily.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMFamily.h; sourceTree = "<group>"; };
 		DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMFamily.m; sourceTree = "<group>"; };
 		DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOM+ParserInternal.h"; sourceTree = "<group>"; };
+		DAC6E70B14E9B3B6002BD932 /* FSGEDCOMWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMWeakProxy.h; sourceTree = "<group>"; };
+		DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMWeakProxy.m; sourceTree = "<group>"; };
+		DAD7312B14EAF6FB00232F0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOM+ErrorCodes.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +142,7 @@
 		DA76088014C780A000CAB61D /* GEDCOM 5.5 */ = {
 			isa = PBXGroup;
 			children = (
+				DAD7312B14EAF6FB00232F0C /* README.md */,
 				DA76087C14C7809A00CAB61D /* FSGEDCOM.h */,
 				DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */,
 				DA76087D14C7809A00CAB61D /* FSGEDCOM.m */,
@@ -150,6 +155,8 @@
 				DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */,
 				DAC6E70414E975CE002BD932 /* FSGEDCOMFamily.h */,
 				DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */,
+				DAC6E70B14E9B3B6002BD932 /* FSGEDCOMWeakProxy.h */,
+				DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */,
 				DA86601C14D33A6700180264 /* Byte-Level Utilities */,
 				DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */,
 				DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */,
@@ -367,6 +374,7 @@
 				DAB7CB7C14D8A254007BD2E9 /* JRSwizzle.m in Sources */,
 				DA00AEC814DC551200719E46 /* FSGEDCOMIndividual.m in Sources */,
 				DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */,
+				DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
