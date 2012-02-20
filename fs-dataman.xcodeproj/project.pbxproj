@@ -313,7 +313,7 @@
 		DA9AE84714C0B90B002921BE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Christopher Miller";
 			};
 			buildConfigurationList = DA9AE84A14C0B90B002921BE /* Build configuration list for PBXProject "fs-dataman" */;
@@ -396,6 +396,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"FSURLDEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
