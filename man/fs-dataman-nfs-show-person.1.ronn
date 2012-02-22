@@ -1,8 +1,8 @@
-fs-dataman-show-person(1) -- Show a single record in its entirety.
-==================================================================
+fs-dataman-nfs-show-person(1) -- Show a single record in its entirety.
+======================================================================
 ## SYNOPSIS
 
-`fs-dataman` show-person <record-id>
+`fs-dataman` nfs-show-person <record-id>
 
 ## DESCRIPTION
 

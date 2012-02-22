@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMCapture.h"
+#import "DMNFSCapture.h"
 
 #import "Console.h"
 
-@implementation DMCapture {
+@implementation DMNFSCapture {
     NSString* __outputfilelocation;
 }
 
@@ -26,12 +26,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"capture";
+    return @"nfs-capture";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-capture";
+    return @"fs-dataman-nfs-capture";
 }
 
 - (void)processArgs

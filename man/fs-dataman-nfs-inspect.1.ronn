@@ -1,0 +1,18 @@
+fs-dataman-nfs-inspect(1) -- Tree-walking inspector.
+====================================================
+## SYNOPSIS
+
+`fs-dataman` nfs-inspect [-l --link] <output-file>
+
+## DESCRIPTION
+
+Traverse the tree connected to your current user and generate an Object ID file which lists all the current elements in your tree. This is used to auto-generate input files for other commands. `nfs-inspect` will traverse your entire tree by default.
+
+## OPTIONS
+
+  * `-l` `--link` Generate an object file for use with the `nfs-link` and `nfs-unlink` commands.
+    `link` and `unlink` only want two record IDs to link to, and the `nfs-link` flag will cause `nfs-inspect` to only check for the two parents to the current user. The behavior if you have more than two is to panic and make you edit the JSON by hand. (Pending a better fix idea).
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

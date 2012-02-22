@@ -8,7 +8,7 @@
 
 #import "DMVerb.h"
 
-@interface DMNuke : DMVerb
+@interface DMNFSNuke : DMVerb
 
 @property (readwrite, strong) NSFileHandle* inputFile;
 @property (readwrite, strong) NSFileHandle* outputFile;

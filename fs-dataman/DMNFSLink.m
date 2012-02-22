@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMLink.h"
+#import "DMNFSLink.h"
 
 #import "Console.h"
 
 #import "NDService.h"
 #import "NDService+FamilyTree.h"
 
-@implementation DMLink {
+@implementation DMNFSLink {
     NSString* __ifilelocation;
 }
 
@@ -28,12 +28,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"link";
+    return @"nfs-link";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-link";
+    return @"fs-dataman-nfs-link";
 }
 
 - (void)processArgs

@@ -1,5 +1,5 @@
 //
-//  DMCapture.h
+//  DMUnlink.h
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/19/12.
@@ -8,8 +8,8 @@
 
 #import "DMVerb.h"
 
-@interface DMCapture : DMVerb
+@interface DMNFSUnlink : DMVerb
 
-@property (readwrite, strong) NSFileHandle* ofile;
+@property (readwrite, strong) NSFileHandle* objectIdsFile;
 
 @end

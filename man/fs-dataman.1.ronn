@@ -10,12 +10,12 @@ fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cl
 
 ## COMMANDS
 
-* [inspect][fs-dataman-inspect(1)] - Inspect currently visible records in the tree.
-* [link][fs-dataman-link(1)] - Link any two records to your current user's record as parents.
-* [unlink][fs-dataman-unlink(1)] - Unlink any two records from your current user's record as parents.
-* [deploy][fs-dataman-deploy(1)] - Deploy a GEDCOM to the cluster.
-* [show-person][fs-dataman-show-person(1)] - Show the data associated with a specific record. Useful when debugging.
-* [show-relationships][fs-dataman-show-relationships(1)] - Show the relationships of any type associated with a specific record. Useful when debugging.
+* [inspect][fs-dataman-nfs-inspect(1)] - Inspect currently visible records in the tree.
+* [link][fs-dataman-nfs-link(1)] - Link any two records to your current user's record as parents.
+* [unlink][fs-dataman-nfs-unlink(1)] - Unlink any two records from your current user's record as parents.
+* [deploy][fs-dataman-nfs-deploy(1)] - Deploy a GEDCOM to the cluster.
+* [show-person][fs-dataman-nfs-show-person(1)] - Show the data associated with a specific record. Useful when debugging.
+* [show-relationships][fs-dataman-nfs-show-relationships(1)] - Show the relationships of any type associated with a specific record. Useful when debugging.
 
 ## INSTALL
 
@@ -93,11 +93,11 @@ The config file will end up looking like this:
 
 `/usr/local/bin/fs-dataman`<br>
 `/usr/local/share/man/man1/fs-dataman.1`<br>
-`/usr/local/share/man/man1/fs-dataman-inspect.1`<br>
-`/usr/local/share/man/man1/fs-dataman-link.1`<br>
-`/usr/local/share/man/man1/fs-dataman-unlink.1`<br>
-`/usr/local/share/man/man1/fs-dataman-show-person.1`<br>
-`/usr/local/share/man/man1/fs-dataman-show-relationships.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-inspect.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-link.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-unlink.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-show-person.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-show-relationships.1`<br>
 `~/.fs-dataman.plist`
 
 ## BUGS

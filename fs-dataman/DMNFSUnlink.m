@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMUnlink.h"
+#import "DMNFSUnlink.h"
 
 #import "Console.h"
 
@@ -15,7 +15,7 @@
 #import "FSURLOperation.h"
 #import "NSData+StringValue.h"
 
-@implementation DMUnlink {
+@implementation DMNFSUnlink {
     NSString* __ifilelocation;
 }
 
@@ -30,12 +30,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"unlink";
+    return @"nfs-unlink";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-unlink";
+    return @"fs-dataman-nfs-unlink";
 }
 
 - (void)processArgs

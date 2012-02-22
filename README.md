@@ -21,7 +21,7 @@ The goal and objective of `fs-dataman` is to provide a simple command-line tool 
 
 ## Inspect
 
-    fs-dataman inspect [-l --link] object-id-output-file
+    fs-dataman nfs-inspect [-l --link] object-id-output-file
 
 Traverse the tree connected to the current user's record and generate an Object ID file for all the connected objects. If you start with data not managed by `fs-dataman`, this is a great way to grab everything so you can start managing it with `fs-dataman`.
 
@@ -29,25 +29,25 @@ With the option of the `-l` flag, you can get just the parents of the current us
 
 ## Link
 
-    fs-dataman link input-file
+    fs-dataman nfs-link input-file
 
 Link the two (and only two) IDs from the given file to the current user. The two object IDs will be the users parents.
 
 ## Unlink
 
-    fs-dataman unlink output-file
+    fs-dataman nfs-unlink output-file
 
 Unlink the two (and only two) IDs from the given file from the current user. The two object IDs will no longer be the user's parents. (Yes, disown them!)
 
 ## Show Person
 
-    fs-dataman show-person me
+    fs-dataman nfs-show-person me
 
 Just dumps the formatted JSON to the standard output of what a person read on the given record ID looks like. You can use me or self as a shortcut for your current user's record ID.
 
 ## Show Relationships
 
-    fs-dataman show-relationships MMMM-MMM parent
+    fs-dataman nfs-show-relationships MMMM-MMM parent
 
 Show all parent relationships for the given record ID, including all assertions. You can also use `child` and `spouse` to see all of those folks, too!
 

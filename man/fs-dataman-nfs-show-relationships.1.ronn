@@ -1,8 +1,8 @@
-fs-dataman-show-relationships(1) -- Show all relationships relating to a single record.
-=======================================================================================
+fs-dataman-nfs-show-relationships(1) -- Show all relationships relating to a single record.
+===========================================================================================
 ## SYNOPSIS
 
-`fs-dataman` show-relationships <record-id> [parent child spouse]
+`fs-dataman` nfs-show-relationships <record-id> [parent child spouse]
 
 ## DESCRIPTION
 

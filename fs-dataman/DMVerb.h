@@ -46,6 +46,8 @@ enum flag_t {
 + (NSString*)verbCommand;
 + (NSString*)manpage;
 
+- (BOOL)shouldLogin;
+
 - (NSString*)verbHeader;
 - (NSString*)verbFooter;
 - (void)setUp;
@@ -53,7 +55,9 @@ enum flag_t {
 - (void)run;
 - (void)tearDown;
 
-- (BOOL)hasFlagAndRemove:(NSArray*)flag;
+- (BOOL)hasFlagAndRemove:(id)flagNames;
+- (NSString *)getSingleArgument:(id)argName;
+- (NSArray *)getArgumentList:(id)argName withEndingSentinel:(id)sentinel; // sentinel is string or regex
 
 - (void)getMe;
 

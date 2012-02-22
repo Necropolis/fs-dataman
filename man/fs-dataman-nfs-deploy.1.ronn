@@ -1,8 +1,8 @@
-fs-dataman-deploy(1) -- Deploy the contents of a GEDCOM to the cluster.
-=======================================================================
+fs-dataman-nfs-deploy(1) -- Deploy the contents of a GEDCOM to the cluster.
+===========================================================================
 ## SYNOPSIS
 
-`fs-dataman` deploy [-s --soft] [-f --force] <gedcom>
+`fs-dataman` nfs-deploy [-s --soft] [-f --force] <gedcom>
 
 ## DESCRIPTION
 

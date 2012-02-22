@@ -1,5 +1,5 @@
 //
-//  DMShowRelationship.h
+//  DMShowPerson.h
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/24/12.
@@ -8,6 +8,6 @@
 
 #import "DMVerb.h"
 
-@interface DMShowRelationships : DMVerb
+@interface DMNFSShowPerson : DMVerb
 
 @end

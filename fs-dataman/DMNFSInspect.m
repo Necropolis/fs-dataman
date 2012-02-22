@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMInspect.h"
+#import "DMNFSInspect.h"
 
 #import "Console.h"
 
@@ -15,14 +15,14 @@
 
 #import "FSURLOperation.h"
 
-@interface DMInspect (__PRIVATE__)
+@interface DMNFSInspect (__PRIVATE__)
 
 - (void)relationshipTraverseForId:(NSString*)recordId;
 - (void)readParents:(NSString*)recordId;
 
 @end
 
-@implementation DMInspect {
+@implementation DMNFSInspect {
     NSMutableSet* _collectedIds;
     NSString* _myId;
     NSString* _objectIdFileLocation;
@@ -40,12 +40,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"inspect";
+    return @"nfs-inspect";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-inspect";
+    return @"fs-dataman-nfs-inspect";
 }
 
 - (void)processArgs

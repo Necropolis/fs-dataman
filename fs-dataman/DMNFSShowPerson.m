@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMShowPerson.h"
+#import "DMNFSShowPerson.h"
 
 #import "Console.h"
 
@@ -14,7 +14,7 @@
 #import "NDService+FamilyTree.h"
 #import "NSData+StringValue.h"
 
-@implementation DMShowPerson {
+@implementation DMNFSShowPerson {
     NSString* _personId;
 }
 
@@ -27,12 +27,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"show-person";
+    return @"nfs-show-person";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-show-person";
+    return @"fs-dataman-nfs-show-person";
 }
 
 - (NSString*)description

@@ -8,7 +8,7 @@
 
 #import "DMVerb.h"
 
-@interface DMLink : DMVerb
+@interface DMNFSLink : DMVerb
 
 @property (readwrite, strong) NSFileHandle* objectIdsFile;
 

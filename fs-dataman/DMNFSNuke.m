@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMNuke.h"
+#import "DMNFSNuke.h"
 
 #import "Console.h"
 
-@implementation DMNuke {
+@implementation DMNFSNuke {
     NSString* _ifile;
     NSString* _ofile;
 }
@@ -29,12 +29,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"nuke";
+    return @"nfs-nuke";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-nuke";
+    return @"fs-dataman-nfs-nuke";
 }
 
 - (void)processArgs

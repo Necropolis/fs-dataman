@@ -70,6 +70,8 @@ NSString* kConfigLinkLong   = @"--link"  ;
     return @"";
 }
 
+- (BOOL)shouldLogin { return YES; }
+
 - (void)setUp
 {
     [self processArgs];
@@ -100,28 +102,8 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)obtainConfig
 {
-    NSString* configFileURI = nil;
-    // scan args for -c or --server-config
-    NSUInteger config_arg = [_arguments indexOfObject:kFlagServerConfig];
-    if (config_arg == NSNotFound)
-        config_arg = [_arguments indexOfObject:kFlagServerConfigLong];
-    if (config_arg == NSNotFound)
-        configFileURI = kConfigDefault;
-    else {
-        if ([_arguments count] < config_arg +1) {
-            dm_PrintLnThenDie(@"No argument given to switch for custom configuration file!");
-        } else {
-            configFileURI = [_arguments objectAtIndex:config_arg+1];
-            // remove the two flags so it's not a problem for other verbs
-            
-            NSMutableArray* arr = [[NSMutableArray alloc] init];
-            
-            if (config_arg>0) [arr addObjectsFromArray:[_arguments subarrayWithRange:NSMakeRange(0, config_arg)]];
-            [arr addObjectsFromArray:[_arguments subarrayWithRange:NSMakeRange(config_arg+2, [_arguments count]-(config_arg+2))]];
-            
-            self.configuration = [arr copy]; // preseve immutability
-        }
-    }
+    NSString* configFileURI = [self getSingleArgument:[NSArray arrayWithObjects:kFlagServerConfig, kFlagServerConfigLong, nil]];
+    if (configFileURI==nil) configFileURI = kConfigDefault;
     
     NSFileHandle* configFile = [NSFileHandle fileHandleForReadingAtPath:[configFileURI stringByExpandingTildeInPath]];
     
@@ -190,19 +172,77 @@ NSString* kConfigLinkLong   = @"--link"  ;
     dm_PrintLn(@"\n%@", [self verbFooter]);
 }
 
-- (BOOL)hasFlagAndRemove:(NSArray*)flag
+- (BOOL)hasFlagAndRemove:(id)flagNames
 {
+    NSArray * _flag;
+    if ([flagNames isKindOfClass:[NSString class]]) _flag = [NSArray arrayWithObject:flagNames];
+    else _flag = flagNames;
     BOOL has=NO;
-    for (NSString* f in flag) {
+    for (NSString* f in _flag) {
         if ([self.arguments containsObject:f]) {
             has=YES;
             NSMutableArray* arr=[self.arguments mutableCopy];
-            [arr removeObjectsInArray:flag];
+            [arr removeObjectsInArray:flagNames];
             self.arguments = [arr copy];
             break;
         }
     }
     return has;
+}
+
+- (NSString *)getSingleArgument:(id)argNames
+{
+    NSArray * _argNames;
+    if ([argNames isKindOfClass:[NSString class]]) _argNames = [NSArray arrayWithObject:argNames];
+    else _argNames = argNames;
+    for (NSString * n in _argNames) {
+        NSUInteger i = [self.arguments indexOfObject:n];
+        if (i == NSNotFound) continue;
+        if (i == [self.arguments count]-1) return nil;
+        NSString * t = [self.arguments objectAtIndex:i+1];
+        NSMutableArray * arr = [self.arguments mutableCopy];
+        [arr removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, 2)]];
+        self.arguments = [arr copy];
+        return t;
+    }
+    return nil;
+}
+
+- (NSArray *)getArgumentList:(id)argNames withEndingSentinel:(id)sentinel
+{
+    NSArray * _argNames;
+    if ([argNames isKindOfClass:[NSString class]]) _argNames = [NSArray arrayWithObject:argNames];
+    else _argNames = argNames;
+    
+    NSRegularExpression * _sentinelRegex;
+    NSString * _sentinelString;
+    BOOL isRegex = [sentinel isKindOfClass:[NSRegularExpression class]];
+    if (isRegex) _sentinelRegex = sentinel;
+    else _sentinelString = sentinel;
+    
+    NSMutableArray * returnVal = [NSMutableArray array];
+    
+    for (NSString * n in _argNames) {
+        NSUInteger i = [self.arguments indexOfObject:n];
+        if (i == NSNotFound) continue;
+        if (i == [self.arguments count]-1) return nil;
+        for (NSUInteger _i = i+1;
+             _i < [self.arguments count];
+             ++_i) {
+            NSString * _s = [self.arguments objectAtIndex:_i];
+            if (isRegex) {
+                if (0<[_sentinelRegex numberOfMatchesInString:_s options:0 range:NSMakeRange(0, [_s length])]) break;
+            } else {
+                if ([_s isEqualToString:_sentinelString]) break;
+            }
+            [returnVal addObject:_s];
+        }
+        NSMutableArray * arr = [self.arguments mutableCopy];
+        [arr removeObjectsInRange:NSMakeRange(i, [returnVal count]+1)];
+        self.arguments = [arr copy];
+        return returnVal;
+    }
+    return nil;
 }
 
 - (void)getMe

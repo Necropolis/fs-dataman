@@ -1,5 +1,5 @@
 //
-//  DMInspect.h
+//  DMDeploy.h
 //  fs-dataman
 //
 //  Created by Christopher Miller on 1/13/12.
@@ -8,9 +8,10 @@
 
 #import "DMVerb.h"
 
-@interface DMInspect : DMVerb
+@interface DMNFSDeploy : DMVerb
 
-@property (readwrite, strong) NSFileHandle* objectIds;
+@property (readwrite, strong) NSFileHandle* gedcom;
+@property (readwrite, strong) NSFileHandle* outputFile;
 @property (readwrite, assign) enum flag_t flag;
 
 @end

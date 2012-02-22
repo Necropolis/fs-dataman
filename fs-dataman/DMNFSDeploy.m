@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMDeploy.h"
+#import "DMNFSDeploy.h"
 
 #import "Console.h"
 
 #import "FSGEDCOM.h"
 
-@implementation DMDeploy {
+@implementation DMNFSDeploy {
     NSString* __ifilelocation;
     NSString* __ofilelocation;
 }
@@ -31,12 +31,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"deploy";
+    return @"nfs-deploy";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-deploy";
+    return @"fs-dataman-nfs-deploy";
 }
 
 - (void)processArgs

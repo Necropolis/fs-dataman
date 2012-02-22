@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMShowRelationships.h"
+#import "DMNFSShowRelationships.h"
 
 #import "Console.h"
 
@@ -16,7 +16,7 @@
 
 #import "FSURLOperation.h"
 
-@implementation DMShowRelationships {
+@implementation DMNFSShowRelationships {
     NSString* _recordId;
     NSString* _relationshipType;
 }
@@ -30,12 +30,12 @@
 
 + (NSString*)verbCommand
 {
-    return @"show-relationships";
+    return @"nfs-show-relationships";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-show-relationships";
+    return @"fs-dataman-nfs-show-relationships";
 }
 
 - (NSString*)description
