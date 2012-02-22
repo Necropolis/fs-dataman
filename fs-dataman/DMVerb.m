@@ -47,10 +47,10 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 @implementation DMVerb
 
+@synthesize __arguments_raw = ___arguments_raw;
 @synthesize arguments = _arguments;
-@synthesize __arguments = ___arguments;
-@synthesize __flags = ___flags;
-@synthesize __unnamedArguments = ___unnamedArguments;
+@synthesize flags = _flags;
+@synthesize unnamedArguments = _unnamedArguments;
 @synthesize service = _service;
 @synthesize configuration = _configuration;
 @synthesize me = _me;
@@ -81,7 +81,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)parseArgs
 {
-    NSMutableArray * args = [self.arguments mutableCopy];
+    NSMutableArray * args = [self.__arguments_raw mutableCopy];
     NSArray * argumentSignatures = [[self argumentSignatures] arrayByAddingObject:[FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-c", @"--server-config", nil] flag:NO required:NO multipleAllowed:NO]];
     
     // check for conflicting flags
@@ -157,13 +157,13 @@ NSString* kConfigLinkLong   = @"--link"  ;
     // what's left are the unnamed args
     [working_unnamed_arguments addObjectsFromArray:args];
     
-    self.__arguments = [working_arguments copy];
-    self.__flags = [working_flags copy];
-    self.__unnamedArguments = [working_unnamed_arguments copy];
+    self.arguments = [working_arguments copy];
+    self.flags = [working_flags copy];
+    self.unnamedArguments = [working_unnamed_arguments copy];
     
-    dm_PrintLn(@"__arguments: %@", ___arguments);
-    dm_PrintLn(@"__flags: %@", ___flags);
-    dm_PrintLn(@"__unnamedArguments: %@", ___unnamedArguments);
+    dm_PrintLn(@"arguments: %@", _arguments);
+    dm_PrintLn(@"flags: %@", _flags);
+    dm_PrintLn(@"unnamedArguments: %@", _unnamedArguments);
 }
 
 - (void)setUp
@@ -197,7 +197,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)obtainConfig
 {
-    NSString* configFileURI = [self getSingleArgument:[NSArray arrayWithObjects:kFlagServerConfig, kFlagServerConfigLong, nil]];
+    NSString* configFileURI = [self.arguments objectForKey:kFlagServerConfig];
     if (configFileURI==nil) configFileURI = kConfigDefault;
     
     NSFileHandle* configFile = [NSFileHandle fileHandleForReadingAtPath:[configFileURI stringByExpandingTildeInPath]];
@@ -274,11 +274,11 @@ NSString* kConfigLinkLong   = @"--link"  ;
     else _flag = flagNames;
     BOOL has=NO;
     for (NSString* f in _flag) {
-        if ([self.arguments containsObject:f]) {
+        if ([self.__arguments_raw containsObject:f]) {
             has=YES;
-            NSMutableArray* arr=[self.arguments mutableCopy];
+            NSMutableArray* arr=[self.__arguments_raw mutableCopy];
             [arr removeObjectsInArray:flagNames];
-            self.arguments = [arr copy];
+            self.__arguments_raw = [arr copy];
             break;
         }
     }
@@ -291,51 +291,14 @@ NSString* kConfigLinkLong   = @"--link"  ;
     if ([argNames isKindOfClass:[NSString class]]) _argNames = [NSArray arrayWithObject:argNames];
     else _argNames = argNames;
     for (NSString * n in _argNames) {
-        NSUInteger i = [self.arguments indexOfObject:n];
+        NSUInteger i = [self.__arguments_raw indexOfObject:n];
         if (i == NSNotFound) continue;
-        if (i == [self.arguments count]-1) return nil;
-        NSString * t = [self.arguments objectAtIndex:i+1];
-        NSMutableArray * arr = [self.arguments mutableCopy];
+        if (i == [self.__arguments_raw count]-1) return nil;
+        NSString * t = [self.__arguments_raw objectAtIndex:i+1];
+        NSMutableArray * arr = [self.__arguments_raw mutableCopy];
         [arr removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, 2)]];
-        self.arguments = [arr copy];
+        self.__arguments_raw = [arr copy];
         return t;
-    }
-    return nil;
-}
-
-- (NSArray *)getArgumentList:(id)argNames withEndingSentinel:(id)sentinel
-{
-    NSArray * _argNames;
-    if ([argNames isKindOfClass:[NSString class]]) _argNames = [NSArray arrayWithObject:argNames];
-    else _argNames = argNames;
-    
-    NSRegularExpression * _sentinelRegex;
-    NSString * _sentinelString;
-    BOOL isRegex = [sentinel isKindOfClass:[NSRegularExpression class]];
-    if (isRegex) _sentinelRegex = sentinel;
-    else _sentinelString = sentinel;
-    
-    NSMutableArray * returnVal = [NSMutableArray array];
-    
-    for (NSString * n in _argNames) {
-        NSUInteger i = [self.arguments indexOfObject:n];
-        if (i == NSNotFound) continue;
-        if (i == [self.arguments count]-1) return nil;
-        for (NSUInteger _i = i+1;
-             _i < [self.arguments count];
-             ++_i) {
-            NSString * _s = [self.arguments objectAtIndex:_i];
-            if (isRegex) {
-                if (0<[_sentinelRegex numberOfMatchesInString:_s options:0 range:NSMakeRange(0, [_s length])]) break;
-            } else {
-                if ([_s isEqualToString:_sentinelString]) break;
-            }
-            [returnVal addObject:_s];
-        }
-        NSMutableArray * arr = [self.arguments mutableCopy];
-        [arr removeObjectsInRange:NSMakeRange(i, [returnVal count]+1)];
-        self.arguments = [arr copy];
-        return returnVal;
     }
     return nil;
 }

@@ -9,6 +9,7 @@
 #import "DMNFSNuke.h"
 
 #import "Console.h"
+#import "FSArgumentSignature.h"
 
 @implementation DMNFSNuke {
     NSString* _ifile;
@@ -37,6 +38,14 @@
     return @"fs-dataman-nfs-nuke";
 }
 
+- (NSArray *)argumentSignatures
+{
+    return [NSArray arrayWithObjects:
+            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-s", @"--soft", nil] flag:YES required:NO multipleAllowed:NO],
+            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-f", @"--force", nil] flag:YES required:NO multipleAllowed:NO],
+            nil];
+}
+
 - (void)processArgs
 {
     self.flag = NONE;
@@ -44,11 +53,11 @@
         self.flag = FORCE;
     if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftLong, kConfigSoftShort, nil]])
         self.flag |= SOFT;
-    if ([self.arguments count]!=2)
+    if ([self.__arguments_raw count]!=2)
         dm_PrintLn(@"Incorrect number of file arguments for command.");
     // check files
-    _ifile=[[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
-    _ofile=[[self.arguments lastObject] stringByExpandingTildeInPath];
+    _ifile=[[self.__arguments_raw objectAtIndex:0] stringByExpandingTildeInPath];
+    _ofile=[[self.__arguments_raw lastObject] stringByExpandingTildeInPath];
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:_ifile]&&[_mgr isReadableFileAtPath:_ifile]) {
         self.inputFile = [NSFileHandle fileHandleForReadingAtPath:_ifile];

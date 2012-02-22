@@ -37,10 +37,10 @@ enum flag_t {
 
 @interface DMVerb : NSObject
 
-@property (readwrite, strong) NSArray* arguments;
-@property (readwrite, strong) NSArray * __flags;
-@property (readwrite, strong) NSDictionary * __arguments;
-@property (readwrite, strong) NSArray * __unnamedArguments;
+@property (readwrite, strong) NSArray* __arguments_raw;
+@property (readwrite, strong) NSArray * flags;
+@property (readwrite, strong) NSDictionary * arguments;
+@property (readwrite, strong) NSArray * unnamedArguments;
 @property (readwrite, strong) NDService* service;
 @property (readwrite, strong) NSDictionary* configuration;
 @property (readwrite, strong) NSDictionary* me;
@@ -61,7 +61,6 @@ enum flag_t {
 
 - (BOOL)hasFlagAndRemove:(id)flagNames;
 - (NSString *)getSingleArgument:(id)argName;
-- (NSArray *)getArgumentList:(id)argName withEndingSentinel:(id)sentinel; // sentinel is string or regex
 
 - (void)getMe;
 

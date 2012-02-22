@@ -9,6 +9,7 @@
 #import "DMNFSInspect.h"
 
 #import "Console.h"
+#import "FSArgumentSignature.h"
 
 #import "NDService.h"
 #import "NDService+FamilyTree.h"
@@ -48,10 +49,16 @@
     return @"fs-dataman-nfs-inspect";
 }
 
+- (NSArray *)argumentSignatures
+{
+    return [NSArray arrayWithObject:
+            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-l", @"--link", nil] flag:YES required:NO multipleAllowed:NO]];
+}
+
 - (void)processArgs
 {
     _flag = NONE;
-    if ([self.arguments count] < 1) {
+    if ([self.__arguments_raw count] < 1) {
         dm_PrintLnThenDie(@"Improper number of arguments. I'm scared.");
     }
     
@@ -60,9 +67,9 @@
     else
         self.flag = NONE;
     
-    if ([self.arguments count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
+    if ([self.__arguments_raw count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
     
-    _objectIdFileLocation = [[self.arguments objectAtIndex:0] stringByExpandingTildeInPath];
+    _objectIdFileLocation = [[self.__arguments_raw objectAtIndex:0] stringByExpandingTildeInPath];
     
     [[NSFileManager defaultManager] createFileAtPath:_objectIdFileLocation
                                             contents:[NSData data]

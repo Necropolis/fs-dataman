@@ -45,11 +45,11 @@
 
 - (void)processArgs
 {
-    if ([self.arguments count] != 2) {
+    if ([self.__arguments_raw count] != 2) {
         dm_PrintLnThenDie(@"Insufficient arguments; an ID and a relationship type of [%@] must be chosen.", [NDFamilyTreeAllRelationshipTypes() componentsJoinedByString:@" "]);
     }
-    _recordId = [self.arguments objectAtIndex:0];
-    _relationshipType = [self.arguments objectAtIndex:1];
+    _recordId = [self.__arguments_raw objectAtIndex:0];
+    _relationshipType = [self.__arguments_raw objectAtIndex:1];
     
     if (![NDFamilyTreeAllRelationshipTypes() containsObject:_relationshipType]) {
         dm_PrintLnThenDie(@"That's not a recognized relationship type; try one of [%@]", [NDFamilyTreeAllRelationshipTypes() componentsJoinedByString:@" "]);
