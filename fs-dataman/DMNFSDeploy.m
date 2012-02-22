@@ -10,6 +10,8 @@
 
 #import "Console.h"
 
+#import "FSArgumentSignature.h"
+
 #import "FSGEDCOM.h"
 
 @implementation DMNFSDeploy {
@@ -37,6 +39,14 @@
 + (NSString*)manpage
 {
     return @"fs-dataman-nfs-deploy";
+}
+
+- (NSArray *)argumentSignatures
+{
+    return [NSArray arrayWithObjects:
+            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-s", @"--soft", nil] flag:YES required:NO multipleAllowed:NO],
+            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-f", @"--force", nil] flag:YES required:NO multipleAllowed:NO],
+            nil];
 }
 
 - (void)processArgs

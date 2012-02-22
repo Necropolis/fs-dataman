@@ -47,6 +47,7 @@
 		DAE4834214C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */; };
 		DAF552A714F54DD600AAE777 /* FSGEDCOMDate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF552A614F54DD600AAE777 /* FSGEDCOMDate.m */; };
 		DAF552AB14F58C7600AAE777 /* DMGEDListIndividuals.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF552AA14F58C7600AAE777 /* DMGEDListIndividuals.m */; };
+		DAF552B114F59A6100AAE777 /* FSArgumentSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF552B014F59A6100AAE777 /* FSArgumentSignature.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,8 @@
 		DAF552A614F54DD600AAE777 /* FSGEDCOMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMDate.m; sourceTree = "<group>"; };
 		DAF552A914F58C7600AAE777 /* DMGEDListIndividuals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMGEDListIndividuals.h; sourceTree = "<group>"; };
 		DAF552AA14F58C7600AAE777 /* DMGEDListIndividuals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMGEDListIndividuals.m; sourceTree = "<group>"; };
+		DAF552AF14F59A6100AAE777 /* FSArgumentSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentSignature.h; sourceTree = "<group>"; };
+		DAF552B014F59A6100AAE777 /* FSArgumentSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentSignature.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,8 @@
 				DA8CE79014D1DB5600A9F129 /* DMHelp.m */,
 				DAF552A914F58C7600AAE777 /* DMGEDListIndividuals.h */,
 				DAF552AA14F58C7600AAE777 /* DMGEDListIndividuals.m */,
+				DAF552AF14F59A6100AAE777 /* FSArgumentSignature.h */,
+				DAF552B014F59A6100AAE777 /* FSArgumentSignature.m */,
 			);
 			name = Dataman;
 			path = "fs-dataman";
@@ -387,6 +392,7 @@
 				DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */,
 				DAF552A714F54DD600AAE777 /* FSGEDCOMDate.m in Sources */,
 				DAF552AB14F58C7600AAE777 /* DMGEDListIndividuals.m in Sources */,
+				DAF552B114F59A6100AAE777 /* FSArgumentSignature.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

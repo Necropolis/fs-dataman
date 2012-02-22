@@ -38,6 +38,9 @@ enum flag_t {
 @interface DMVerb : NSObject
 
 @property (readwrite, strong) NSArray* arguments;
+@property (readwrite, strong) NSArray * __flags;
+@property (readwrite, strong) NSDictionary * __arguments;
+@property (readwrite, strong) NSArray * __unnamedArguments;
 @property (readwrite, strong) NDService* service;
 @property (readwrite, strong) NSDictionary* configuration;
 @property (readwrite, strong) NSDictionary* me;
@@ -46,6 +49,7 @@ enum flag_t {
 + (NSString*)verbCommand;
 + (NSString*)manpage;
 
+- (NSArray *)argumentSignatures;
 - (BOOL)shouldLogin;
 
 - (NSString*)verbHeader;

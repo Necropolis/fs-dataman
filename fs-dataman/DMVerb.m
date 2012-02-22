@@ -10,6 +10,8 @@
 
 #import "Console.h"
 
+#import "FSArgumentSignature.h"
+
 #import "NDService.h"
 #import "NDService+Identity.h"
 #import "NDService+FamilyTree.h"
@@ -46,6 +48,9 @@ NSString* kConfigLinkLong   = @"--link"  ;
 @implementation DMVerb
 
 @synthesize arguments = _arguments;
+@synthesize __arguments = ___arguments;
+@synthesize __flags = ___flags;
+@synthesize __unnamedArguments = ___unnamedArguments;
 @synthesize service = _service;
 @synthesize configuration = _configuration;
 @synthesize me = _me;
@@ -72,8 +77,98 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (BOOL)shouldLogin { return YES; }
 
+- (NSArray *)argumentSignatures { return [NSArray array]; }
+
+- (void)parseArgs
+{
+    NSMutableArray * args = [self.arguments mutableCopy];
+    NSArray * argumentSignatures = [[self argumentSignatures] arrayByAddingObject:[FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-c", @"--server-config", nil] flag:NO required:NO multipleAllowed:NO]];
+    
+    // check for conflicting flags
+    [argumentSignatures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        FSArgumentSignature * signature = obj;
+        [signature.names enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSString * name = obj;
+            [argumentSignatures enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                if (obj == signature) return;
+                FSArgumentSignature * _signature = obj;
+                if ([_signature.names containsObject:name]) {
+                    dm_PrintLnThenDie(@"Conflicting argument names");
+                }
+            }];
+        }];
+    }];
+    
+    NSMutableDictionary * working_arguments = [[NSMutableDictionary alloc] init];
+    NSMutableArray * working_unnamed_arguments = [[NSMutableArray alloc] init];
+    NSMutableArray * working_flags = [[NSMutableArray alloc] init];
+    
+    // arguments first
+    [[argumentSignatures filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+        if (![evaluatedObject isKindOfClass:[FSArgumentSignature class]]) dm_PrintLnThenDie(@"Somehow something that isn't an argument signature got in a list of argument signatures.");
+        if ([((FSArgumentSignature *)evaluatedObject) isFlag]) return NO;
+        return YES;
+    }]] enumerateObjectsUsingBlock:^(FSArgumentSignature * signature, NSUInteger idx, BOOL *stop) {
+        NSIndexSet * matching_flags =
+        [args indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [signature.names containsObject:obj];
+        }];
+        if ([matching_flags count]>1&&![signature isMultipleAllowed]) dm_PrintLnThenDie(@"Found more than one argument of type %@ when that isn't allowed!", signature.names);
+        if ([matching_flags count]==0&&[signature isRequired]) dm_PrintLnThenDie(@"Missing required argument of type %@", signature.names);
+        NSMutableIndexSet * toKill = [[NSMutableIndexSet alloc] init];
+        [matching_flags enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            if (idx+1 == [args count]) { // array index out of bounds
+                dm_PrintLnThenDie(@"No argument given for %@", signature.names);
+            }
+            NSString * arg = [args objectAtIndex:idx+1];
+            if ([working_arguments objectForKey:signature]==nil)
+                [working_arguments setObject:arg forKey:signature];
+            else if ([[working_arguments objectForKey:signature] isKindOfClass:[NSArray class]])
+                [[working_arguments objectForKey:signature] addObject:arg];
+            else
+                [working_arguments setObject:[NSMutableArray arrayWithObjects:[working_arguments objectForKey:signature], arg, nil] forKey:signature];
+            [toKill addIndex:idx];
+            [toKill addIndex:idx+1];
+        }];
+        [args removeObjectsAtIndexes:toKill];
+    }];
+    [[working_arguments allKeys] enumerateObjectsUsingBlock:^(FSArgumentSignature * signature, NSUInteger idx, BOOL *stop) {
+        [signature.names enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [working_arguments setObject:[working_arguments objectForKey:signature] forKey:signature];
+        }];
+        [working_arguments removeObjectForKey:signature];
+    }];
+    
+    // flags next
+    [[argumentSignatures filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(FSArgumentSignature * signature, NSDictionary *bindings) {
+        if (signature.isFlag) return YES;
+        return NO;
+    }]] enumerateObjectsUsingBlock:^(FSArgumentSignature * signature, NSUInteger idx, BOOL *stop) {
+        NSIndexSet * matching_flags =
+        [args indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return [signature.names containsObject:obj];
+        }];
+        if ([matching_flags count]>1&&![signature isMultipleAllowed]) dm_PrintLnThenDie(@"Found more than one flag of type %@ when that isn't allowed", signature.names);
+        if ([matching_flags count]==0&&[signature isRequired]) dm_PrintLnThenDie(@"Missing required flag of type %@", signature.names);
+        if ([matching_flags count]>0) [working_flags addObjectsFromArray:signature.names]; // perhaps the number of flags is important?
+        [args removeObjectsAtIndexes:matching_flags];
+    }];
+    
+    // what's left are the unnamed args
+    [working_unnamed_arguments addObjectsFromArray:args];
+    
+    self.__arguments = [working_arguments copy];
+    self.__flags = [working_flags copy];
+    self.__unnamedArguments = [working_unnamed_arguments copy];
+    
+    dm_PrintLn(@"__arguments: %@", ___arguments);
+    dm_PrintLn(@"__flags: %@", ___flags);
+    dm_PrintLn(@"__unnamedArguments: %@", ___unnamedArguments);
+}
+
 - (void)setUp
 {
+    [self parseArgs];
     [self processArgs];
     dm_PrintLn(@"%@\n", [self verbHeader]);
     [self obtainConfig];
