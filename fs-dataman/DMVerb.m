@@ -159,10 +159,6 @@ NSString* kConfigLinkLong   = @"--link"  ;
     self.arguments = [working_arguments copy];
     self.flags = [working_flags copy];
     self.unnamedArguments = [working_unnamed_arguments copy];
-    
-    dm_PrintLn(@"arguments: %@", _arguments);
-    dm_PrintLn(@"flags: %@", _flags);
-    dm_PrintLn(@"unnamedArguments: %@", _unnamedArguments);
 }
 
 - (void)setUp
@@ -226,42 +222,46 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)setUpService
 {
-    self.service = [[NDService alloc] initWithBaseURL:[NSURL URLWithString:[self.configuration valueForKey:kConfigServerURL]]
-                                            userAgent:kUserAgent];
-    [self.service.operationQueue setMaxConcurrentOperationCount:NSIntegerMax]; // dude, this is running on a developer machine. pound those API calls!
-    
-    FSURLOperation* login =
-    [self.service identityOperationCreateSessionForUser:[self.configuration valueForKey:kConfigUsername]
-                                           withPassword:[self.configuration valueForKey:kConfigPassword]
-                                                 apiKey:[self.configuration valueForKey:kConfigAPIKey]
-                                              onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
-                                                  dm_PrintLn(@"Created session %@", self.service.sessionId);
-                                              }
-                                              onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
-                                                  dm_PrintLn(@"Login failure!");
-                                                  
-                                                  dm_PrintURLOperationResponse(resp, payload, error);
-                                                  
-                                                  exit(-1);
-                                              }];
-    [self.service.operationQueue addOperation:login];
-    [login waitUntilFinished];
+    if ([self shouldLogin]) {
+        self.service = [[NDService alloc] initWithBaseURL:[NSURL URLWithString:[self.configuration valueForKey:kConfigServerURL]]
+                                                userAgent:kUserAgent];
+        [self.service.operationQueue setMaxConcurrentOperationCount:NSIntegerMax]; // dude, this is running on a developer machine. pound those API calls!
+        
+        FSURLOperation* login =
+        [self.service identityOperationCreateSessionForUser:[self.configuration valueForKey:kConfigUsername]
+                                               withPassword:[self.configuration valueForKey:kConfigPassword]
+                                                     apiKey:[self.configuration valueForKey:kConfigAPIKey]
+                                                  onSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+                                                      dm_PrintLn(@"Created session %@", self.service.sessionId);
+                                                  }
+                                                  onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
+                                                      dm_PrintLn(@"Login failure!");
+                                                      
+                                                      dm_PrintURLOperationResponse(resp, payload, error);
+                                                      
+                                                      exit(-1);
+                                                  }];
+        [self.service.operationQueue addOperation:login];
+        [login waitUntilFinished];
+    }
 }
 
 - (void)tearDown
 {
-    FSURLOperation* logout =
-    [self.service identityOperationDestroySessionOnSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
-        dm_PrintLn(@"Destroyed session");
-    } onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
-        dm_PrintLn(@"Failed to logout!");
-        
-        dm_PrintURLOperationResponse(resp, payload, error);
-        
-        exit(-1);
-    }];
-    [self.service.operationQueue addOperation:logout];
-    [logout waitUntilFinished];
+    if ([self shouldLogin]) {
+        FSURLOperation* logout =
+        [self.service identityOperationDestroySessionOnSuccess:^(NSHTTPURLResponse* resp, id response, NSData* payload) {
+            dm_PrintLn(@"Destroyed session");
+        } onFailure:^(NSHTTPURLResponse* resp, NSData* payload, NSError* error) {
+            dm_PrintLn(@"Failed to logout!");
+            
+            dm_PrintURLOperationResponse(resp, payload, error);
+            
+            exit(-1);
+        }];
+        [self.service.operationQueue addOperation:logout];
+        [logout waitUntilFinished];
+    }
     dm_PrintLn(@"\n%@", [self verbFooter]);
 }
 
