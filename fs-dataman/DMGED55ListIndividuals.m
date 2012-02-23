@@ -58,7 +58,22 @@
     FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
     [parsed_gedcom parse:[_gedcomFile readDataToEndOfFile]];
     
-    dm_PrintLn(@"results of parsing gedcom: %@", parsed_gedcom);
+    __block NSUInteger maxIdLength = 0;
+    
+    NSArray * sortedKeys = [[parsed_gedcom.individuals allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2 options:NSCaseInsensitiveSearch|NSNumericSearch];
+    }];
+    [sortedKeys enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSUInteger l = [obj length];
+        if (l>maxIdLength) maxIdLength=l;
+    }];
+    dm_PrintLn(@"Records:");
+    [sortedKeys enumerateObjectsUsingBlock:^(NSString * obj, NSUInteger idx, BOOL *stop) {
+        id name = [[parsed_gedcom.individuals objectForKey:obj] valueForKeyPath:@"NAME.value"];
+        if ([name isKindOfClass:[NSArray class]]) name = [name lastObject];
+        if (name==nil) name = @"<<UNNAMED>>";
+        dm_PrintLn(@"  %@: %@", [obj stringByPaddingToLength:maxIdLength withString:@" " startingAtIndex:0], name);
+    }];
 }
 
 @end

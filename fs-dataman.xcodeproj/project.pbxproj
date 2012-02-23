@@ -115,7 +115,7 @@
 		DAC1983E14C0D9A40068A0AD /* Console.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Console.m; sourceTree = "<group>"; };
 		DAC1984014C0DDCB0068A0AD /* DMVerb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMVerb.h; sourceTree = "<group>"; };
 		DAC1984114C0DDCB0068A0AD /* DMVerb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMVerb.m; sourceTree = "<group>"; };
-		DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DMNFSDeploy55.h; sourceTree = "<group>"; };
+		DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSDeploy55.h; sourceTree = "<group>"; };
 		DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSDeploy55.m; sourceTree = "<group>"; };
 		DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSNuke.h; sourceTree = "<group>"; };
 		DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSNuke.m; sourceTree = "<group>"; };
@@ -130,7 +130,7 @@
 		DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOM+ErrorCodes.m"; sourceTree = "<group>"; };
 		DAF552A514F54DD600AAE777 /* FSGEDCOMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMDate.h; sourceTree = "<group>"; };
 		DAF552A614F54DD600AAE777 /* FSGEDCOMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMDate.m; sourceTree = "<group>"; };
-		DAF552A914F58C7600AAE777 /* DMGED55ListIndividuals.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DMGED55ListIndividuals.h; sourceTree = "<group>"; };
+		DAF552A914F58C7600AAE777 /* DMGED55ListIndividuals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMGED55ListIndividuals.h; sourceTree = "<group>"; };
 		DAF552AA14F58C7600AAE777 /* DMGED55ListIndividuals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMGED55ListIndividuals.m; sourceTree = "<group>"; };
 		DAF552AF14F59A6100AAE777 /* FSArgumentSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentSignature.h; sourceTree = "<group>"; };
 		DAF552B014F59A6100AAE777 /* FSArgumentSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentSignature.m; sourceTree = "<group>"; };
@@ -228,26 +228,10 @@
 				DAC1983E14C0D9A40068A0AD /* Console.m */,
 				DAC1984014C0DDCB0068A0AD /* DMVerb.h */,
 				DAC1984114C0DDCB0068A0AD /* DMVerb.m */,
-				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
-				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
-				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
-				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
-				DAC1984914C0DE910068A0AD /* DMNFSInspect.h */,
-				DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */,
-				DABDD79F14C8B41A00A3E160 /* DMNFSCapture.h */,
-				DABDD7A014C8B41A00A3E160 /* DMNFSCapture.m */,
-				DABDD7A214C8B48700A3E160 /* DMNFSLink.h */,
-				DABDD7A314C8B48700A3E160 /* DMNFSLink.m */,
-				DABDD7A514C8B49300A3E160 /* DMNFSUnlink.h */,
-				DABDD7A614C8B49300A3E160 /* DMNFSUnlink.m */,
-				DA9BA3FF14CF4325000369B9 /* DMNFSShowPerson.h */,
-				DA9BA40014CF4325000369B9 /* DMNFSShowPerson.m */,
-				DA9BA40314CF4334000369B9 /* DMNFSShowRelationships.h */,
-				DA9BA40414CF4334000369B9 /* DMNFSShowRelationships.m */,
+				DADB94E014F6CCB500933099 /* New FamilySearch Commands */,
+				DADB94E114F6CCC100933099 /* GEDCOM 5.5.1 Commands */,
 				DA8CE78F14D1DB5600A9F129 /* DMHelp.h */,
 				DA8CE79014D1DB5600A9F129 /* DMHelp.m */,
-				DAF552A914F58C7600AAE777 /* DMGED55ListIndividuals.h */,
-				DAF552AA14F58C7600AAE777 /* DMGED55ListIndividuals.m */,
 				DAF552AF14F59A6100AAE777 /* FSArgumentSignature.h */,
 				DAF552B014F59A6100AAE777 /* FSArgumentSignature.m */,
 			);
@@ -301,6 +285,38 @@
 				DA9AE89514C0BDF5002921BE /* FSURLOperation.m */,
 			);
 			name = FSURLOperation;
+			sourceTree = "<group>";
+		};
+		DADB94E014F6CCB500933099 /* New FamilySearch Commands */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
+				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
+				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
+				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
+				DAC1984914C0DE910068A0AD /* DMNFSInspect.h */,
+				DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */,
+				DABDD79F14C8B41A00A3E160 /* DMNFSCapture.h */,
+				DABDD7A014C8B41A00A3E160 /* DMNFSCapture.m */,
+				DABDD7A214C8B48700A3E160 /* DMNFSLink.h */,
+				DABDD7A314C8B48700A3E160 /* DMNFSLink.m */,
+				DABDD7A514C8B49300A3E160 /* DMNFSUnlink.h */,
+				DABDD7A614C8B49300A3E160 /* DMNFSUnlink.m */,
+				DA9BA3FF14CF4325000369B9 /* DMNFSShowPerson.h */,
+				DA9BA40014CF4325000369B9 /* DMNFSShowPerson.m */,
+				DA9BA40314CF4334000369B9 /* DMNFSShowRelationships.h */,
+				DA9BA40414CF4334000369B9 /* DMNFSShowRelationships.m */,
+			);
+			name = "New FamilySearch Commands";
+			sourceTree = "<group>";
+		};
+		DADB94E114F6CCC100933099 /* GEDCOM 5.5.1 Commands */ = {
+			isa = PBXGroup;
+			children = (
+				DAF552A914F58C7600AAE777 /* DMGED55ListIndividuals.h */,
+				DAF552AA14F58C7600AAE777 /* DMGED55ListIndividuals.m */,
+			);
+			name = "GEDCOM 5.5.1 Commands";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

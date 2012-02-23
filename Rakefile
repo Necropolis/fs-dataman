@@ -1,11 +1,21 @@
 require 'bundler/setup'
 require 'rake'
+require 'rake/clean'
 require 'ronn'
 
 ronn_files = FileList['man/*.1.ronn']
 
 DOCWEB='man-html'
 GITWEB='gh-pages'
+
+CLEAN=FileList[
+  'man-html',
+  'gh-pages',
+  'build'
+]
+CLOBBER=FileList[
+  '/tmp/fs-dataman.dst'
+]
 
 def man_file(ronn_file)
   ronn_file.gsub /\.ronn$/, ''
