@@ -68,8 +68,15 @@
 {
     FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
     [parsed_gedcom parse:[self.gedcom readDataToEndOfFile]];
+    
+    if (nil==[parsed_gedcom.individuals objectForKey:_meRecord]) {
+        dm_PrintLn(@"I really can't be bothered to try and work with a record which isn't there. Try using ged55-list-individuals to find a working ID");
+        return;
+    }
+    
+    dm_PrintLn(@"%@", [[parsed_gedcom.individuals objectForKey:_meRecord] descriptionWithLocale:nil indent:0]);
 
-    dm_PrintLn(@"results of parsing gedcom: %@", parsed_gedcom);
+//    dm_PrintLn(@"results of parsing gedcom: %@", parsed_gedcom);
 }
 
 @end
