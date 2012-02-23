@@ -1,0 +1,15 @@
+fs-dataman-nfs-deploy55(1) -- Deploy the contents of a GEDCOM to the cluster.
+=============================================================================
+## SYNOPSIS
+
+`fs-dataman` nfs-deploy55 <gedcom> <whoami>
+
+## DESCRIPTION
+
+A super cool command which takes the contents of a GEDCOM 5.5.1 file to the cluster. The <whoami> argument is an individual ID that corresponds to the record in the GEDCOM that represents the user's record in the cluster. See the [ged55-list-individuals][fs-dataman-ged55-list-individuals(1)] command to get this particular little string.
+
+Please note that this command uses a new and very experimental GEDCOM 5.5.1 parser! If you find a bug, please report it!
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.

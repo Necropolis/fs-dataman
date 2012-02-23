@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMGEDListIndividuals.h"
+#import "DMGED55ListIndividuals.h"
 
 #import "Console.h"
 
 #import "FSGEDCOM.h"
 
-@implementation DMGEDListIndividuals {
+@implementation DMGED55ListIndividuals {
     NSString * _gedcomFilename;
     NSFileHandle * _gedcomFile;
 }
@@ -26,17 +26,17 @@
 
 + (NSString*)verbCommand
 {
-    return @"ged-list-individuals";
+    return @"ged55-list-individuals";
 }
 
 + (NSString*)manpage
 {
-    return @"fs-dataman-ged-list-individuals";
+    return @"fs-dataman-ged55-list-individuals";
 }
 
 - (NSString*)description
 {
-    return [NSString stringWithFormat:@"GED-LIST-INDIVIDUALS on %@", _gedcomFilename];
+    return [NSString stringWithFormat:@"GED55-LIST-INDIVIDUALS on %@", _gedcomFilename];
 }
 
 - (BOOL)shouldLogin { return NO; }

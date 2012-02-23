@@ -8,6 +8,6 @@
 
 #import "DMVerb.h"
 
-@interface DMGEDListIndividuals : DMVerb
+@interface DMGED55ListIndividuals : DMVerb
 
 @end

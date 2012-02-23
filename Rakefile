@@ -34,7 +34,7 @@ task :mangen do
   ronn_files.each do |ronn_file|
     sh "mv -f #{man_file(ronn_file)} /tmp/fs-dataman.dst/usr/local/share/man/man1/"
     sh "cp -f #{man_html(ronn_file)} #{DOCWEB}/"
-    sh "mv -f #{man_file(ronn_file)} #{GITWEB}/"
+    sh "mv -f #{man_html(ronn_file)} #{GITWEB}/"
   end
   sh "mv #{DOCWEB}/fs-dataman.1.html #{DOCWEB}/index.html"
   sh "mv #{GITWEB}/fs-dataman.1.html #{GITWEB}/index.html"

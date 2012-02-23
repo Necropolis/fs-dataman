@@ -1,0 +1,13 @@
+fs-dataman-ged55-list-individuals(1) -- List all individuals in a GEDCOM 5.5.1 file.
+====================================================================================
+## SYNOPSIS
+
+`fs-dataman` ged55-list-individuals <gedcom>
+
+## DESCRIPTION
+
+A quick utility to look at all the individuals in a GEDCOM file, printed with their linked ID and name assertions. This is a funky bugger useful in other glue code.
+
+## FS-DATAMAN
+
+A subcommand of the fs-dataman(1) utility.
