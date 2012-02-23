@@ -38,11 +38,11 @@
 
 - (void)processArgs
 {
-    if ([self.unnamedArguments count]!=1) {
+    if ([self.arguments.unnamedArguments count]!=1) {
         dm_PrintLnThenDie(@"Incorrect number of arguments.");
     }
     
-    __ifilelocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    __ifilelocation = [[self.arguments.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:__ifilelocation]&&[_mgr isReadableFileAtPath:__ifilelocation]) {
         self.objectIdsFile = [NSFileHandle fileHandleForReadingAtPath:__ifilelocation];

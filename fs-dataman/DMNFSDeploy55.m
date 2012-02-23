@@ -46,9 +46,9 @@
 
 - (void)processArgs
 {
-    if ([self.unnamedArguments count]!=2) dm_PrintLnThenDie(@"Improper number of arguments, buddy! I need a GEDOM file and the ID of the record corresponding to me");
-    _ifilelocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
-    _meRecord = [self.unnamedArguments lastObject];
+    if ([self.arguments.unnamedArguments count]!=2) dm_PrintLnThenDie(@"Improper number of arguments, buddy! I need a GEDOM file and the ID of the record corresponding to me");
+    _ifilelocation = [[self.arguments.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    _meRecord = [self.arguments.unnamedArguments lastObject];
         
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:_ifilelocation]&&[_mgr isReadableFileAtPath:_ifilelocation]) {

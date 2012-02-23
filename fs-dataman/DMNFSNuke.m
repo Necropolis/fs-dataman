@@ -38,26 +38,46 @@
     return @"fs-dataman-nfs-nuke";
 }
 
+- (FSArgumentSignature *)softFlag
+{
+    static FSArgumentSignature * softFlag;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        softFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-s", @"--soft", nil] flag:YES required:NO multipleAllowed:NO];
+    });
+    return softFlag;
+}
+
+- (FSArgumentSignature *)forceFlag
+{
+    static FSArgumentSignature * forceFlag;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        forceFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-f", @"--force", nil] flag:YES required:NO multipleAllowed:NO];
+    });
+    return forceFlag;
+}
+
 - (NSArray *)argumentSignatures
 {
     return [NSArray arrayWithObjects:
-            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-s", @"--soft", nil] flag:YES required:NO multipleAllowed:NO],
-            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-f", @"--force", nil] flag:YES required:NO multipleAllowed:NO],
+            [self softFlag],
+            [self forceFlag],
             nil];
 }
 
 - (void)processArgs
 {
     self.flag = NONE;
-    if ([self.flags containsObject:kConfigForceShort])
+    if ([[self.arguments.flags objectForKey:[self forceFlag]] boolValue])
         self.flag = FORCE;
-    if ([self.flags containsObject:kConfigSoftShort])
+    if ([[self.arguments.flags objectForKey:[self softFlag]] boolValue])
         self.flag |= SOFT;
-    if ([self.unnamedArguments count]!=2)
+    if ([self.arguments.unnamedArguments count]!=2)
         dm_PrintLn(@"Incorrect number of file arguments for command.");
     // check files
-    _ifile=[[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
-    _ofile=[[self.unnamedArguments lastObject] stringByExpandingTildeInPath];
+    _ifile=[[self.arguments.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    _ofile=[[self.arguments.unnamedArguments lastObject] stringByExpandingTildeInPath];
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:_ifile]&&[_mgr isReadableFileAtPath:_ifile]) {
         self.inputFile = [NSFileHandle fileHandleForReadingAtPath:_ifile];

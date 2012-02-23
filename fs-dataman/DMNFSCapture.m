@@ -36,9 +36,9 @@
 
 - (void)processArgs
 {
-    if ([self.unnamedArguments count] != 1) { dm_PrintLnThenDie(@"Improper number of file paths given. I'm gunna panic now."); }
+    if ([self.arguments.unnamedArguments count] != 1) { dm_PrintLnThenDie(@"Improper number of file paths given. I'm gunna panic now."); }
     
-    __outputfilelocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    __outputfilelocation = [[self.arguments.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
     
     [[NSFileManager defaultManager] createFileAtPath:__outputfilelocation
                                             contents:[NSData data]

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class NDService;
+#import "FSArgumentPackage.h"
 
 extern NSString* kConfigServerURL;
 extern NSString* kConfigAPIKey;
@@ -60,14 +61,17 @@ enum flag_t {
  */
 @interface DMVerb : NSObject
 
+/** Arguments as parsed by FSArgumentParser */
+@property (readwrite, strong) FSArgumentPackage * arguments;
+
 /** All boolean flags. The presence of the flag indicates that it was found, and the absence of it indicates that it wasn't found. If the flag is found multiple times, you will find multiple identical flags in the array. If a flag has multiple names (eg. `-s` and `--soft`) then there will be an entry for both in the array for each occurrence. Because of this, you only need to look for a single flag signature instead of checking for the presence of both. */
-@property (readwrite, strong) NSArray * flags;
+//@property (readwrite, strong) NSArray * flags;
 
 /** All arguments, or flags followed by some token that you want to associate with that flag. If an argument is found multiple times, the argument container is replaced with an array instead of a single object. */
-@property (readwrite, strong) NSDictionary * arguments;
+//@property (readwrite, strong) NSDictionary * namedArguments;
 
 /** Everything that isn't a flag or an argument is dropped in here as an unnamed argument. This is how you get implicit arguments, for example, in the command `nfs-deploy gedcom.ged`, the file name is the first object in `unnamedArguments`. */
-@property (readwrite, strong) NSArray * unnamedArguments;
+//@property (readwrite, strong) NSArray * unnamedArguments;
 
 /** The `NDService` that is set up and logged in for you by the time you hit `run`. */
 @property (readwrite, strong) NDService* service;
@@ -96,7 +100,10 @@ enum flag_t {
 /**
  * Internal tool called by main. This populates `flags`, `arguments`, and `unnamedArguments` with their values. Ensure that you override `argumentSignatures` if you want this to be able to identify arguments and flags instead of dumping everything else into `unnamedArguments`.
  */ 
-- (void)parseArgs:(NSArray *)immutableArgs;
+- (void)parseArgs:(NSArray *)args;
+
+/** If there's an issue parsing the args, then you can respond to the issue here and try and fail gracefully. */
+- (void)processArgError:(NSError *)error;
 
 /**
  * All the argument signatures this command responds to. Everything here will be extracted to a flag or argument, and everything else becomes a value in the `unnamedArguments` array.

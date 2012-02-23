@@ -38,10 +38,10 @@
 
 - (void)processArgs
 {
-    if ([self.unnamedArguments count]==0) {
+    if ([self.arguments.unnamedArguments count]==0) {
         _manpage = [[self class] manpage];
-    } else if ([self.unnamedArguments count]==1) {
-        NSString* command = [self.unnamedArguments objectAtIndex:0];
+    } else if ([self.arguments.unnamedArguments count]==1) {
+        NSString* command = [self.arguments.unnamedArguments objectAtIndex:0];
         NSUInteger i = [[[self class] registeredCommands] indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
             if (NSOrderedSame==[[obj valueForKey:@"verbCommand"] caseInsensitiveCompare:command]) return YES;
             else return NO;

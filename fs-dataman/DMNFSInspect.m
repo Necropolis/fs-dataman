@@ -49,25 +49,34 @@
     return @"fs-dataman-nfs-inspect";
 }
 
+- (FSArgumentSignature *)linkFlag
+{
+    static FSArgumentSignature * linkFlag;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        linkFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-l", @"--link", nil] flag:YES required:NO multipleAllowed:NO];
+    });
+    return linkFlag;
+}
+
 - (NSArray *)argumentSignatures
 {
-    return [NSArray arrayWithObject:
-            [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-l", @"--link", nil] flag:YES required:NO multipleAllowed:NO]];
+    return [NSArray arrayWithObject:[self linkFlag]];
 }
 
 - (void)processArgs
 {
     _flag = NONE;
     
-    if ([self.flags containsObject:kConfigLinkShort])
+    if ([[self.arguments.flags objectForKey:[self linkFlag]] boolValue])
         self.flag = LINK;
     else
         self.flag = NONE;
     
   
-    if ([self.unnamedArguments count] != 1) { dm_PrintLn(@"Improper number of file paths given. I'm gunna panic now."); exit(-1); }
+    if ([self.arguments.unnamedArguments count] != 1) { dm_PrintLn(@"Improper number of file paths given. I'm gunna panic now."); exit(-1); }
     
-    _objectIdFileLocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    _objectIdFileLocation = [[self.arguments.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
     
     [[NSFileManager defaultManager] createFileAtPath:_objectIdFileLocation
                                             contents:[NSData data]

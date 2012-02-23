@@ -3,4 +3,7 @@
 	url = git@github.com:FSDEV/NewDot.git
 [submodule "vendor/gedcom55"]
 	path = vendor/gedcom55
-	url = git@github.com:NSError/gedcom55
+	url = git@github.com:NSError/gedcom55.git
+[submodule "vendor/ArgumentParser"]
+	path = vendor/ArgumentParser
+	url = git@github.com:NSError/ArgumentParser.git

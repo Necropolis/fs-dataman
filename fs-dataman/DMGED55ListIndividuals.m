@@ -43,8 +43,8 @@
 
 - (void)processArgs
 {
-    if ([self.unnamedArguments count]!=1) dm_PrintLnThenDie(@"Improper number of freakin files specified man!");
-    _gedcomFilename = [[self.unnamedArguments lastObject] stringByExpandingTildeInPath];
+    if ([self.arguments.unnamedArguments count]!=1) dm_PrintLnThenDie(@"Improper number of freakin files specified man!");
+    _gedcomFilename = [[self.arguments.unnamedArguments lastObject] stringByExpandingTildeInPath];
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     if (![defaultManager fileExistsAtPath:_gedcomFilename])
         dm_PrintLnThenDie(@"File does not exist at path %@", _gedcomFilename);
