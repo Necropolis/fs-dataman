@@ -47,7 +47,6 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 @implementation DMVerb
 
-//@synthesize __arguments_raw = ___arguments_raw;
 @synthesize arguments = _arguments;
 @synthesize flags = _flags;
 @synthesize unnamedArguments = _unnamedArguments;
@@ -168,7 +167,6 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)setUp
 {
-//    [self parseArgs];
     [self processArgs];
     dm_PrintLn(@"%@\n", [self verbHeader]);
     [self obtainConfig];
