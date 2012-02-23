@@ -58,18 +58,16 @@
 - (void)processArgs
 {
     _flag = NONE;
-    if ([self.__arguments_raw count] < 1) {
-        dm_PrintLnThenDie(@"Improper number of arguments. I'm scared.");
-    }
     
-    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigLinkShort, kConfigLinkLong, nil]])
+    if ([self.flags containsObject:kConfigLinkShort])
         self.flag = LINK;
     else
         self.flag = NONE;
     
-    if ([self.__arguments_raw count] != 1) { dm_PrintLn(@"More than one path given. I'm gunna panic now."); exit(-1); }
+  
+    if ([self.unnamedArguments count] != 1) { dm_PrintLn(@"Improper number of file paths given. I'm gunna panic now."); exit(-1); }
     
-    _objectIdFileLocation = [[self.__arguments_raw objectAtIndex:0] stringByExpandingTildeInPath];
+    _objectIdFileLocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
     
     [[NSFileManager defaultManager] createFileAtPath:_objectIdFileLocation
                                             contents:[NSData data]

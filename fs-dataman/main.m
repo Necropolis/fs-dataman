@@ -66,7 +66,7 @@ int main (int argc, const char * argv[])
             
             DMVerb* verb_impl = [[[objc_verbs objectAtIndex:i_verb] alloc] init];
             
-            verb_impl.__arguments_raw = [args subarrayWithRange:NSMakeRange(2, [args count] -2)];
+            [verb_impl parseArgs:[args subarrayWithRange:NSMakeRange(2, [args count] -2)]];
             
             [verb_impl setUp];
             [verb_impl run];

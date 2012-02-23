@@ -47,7 +47,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 @implementation DMVerb
 
-@synthesize __arguments_raw = ___arguments_raw;
+//@synthesize __arguments_raw = ___arguments_raw;
 @synthesize arguments = _arguments;
 @synthesize flags = _flags;
 @synthesize unnamedArguments = _unnamedArguments;
@@ -79,9 +79,9 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (NSArray *)argumentSignatures { return [NSArray array]; }
 
-- (void)parseArgs
+- (void)parseArgs:(NSArray *)immutableArgs
 {
-    NSMutableArray * args = [self.__arguments_raw mutableCopy];
+    NSMutableArray * args = [immutableArgs mutableCopy];
     NSArray * argumentSignatures = [[self argumentSignatures] arrayByAddingObject:[FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-c", @"--server-config", nil] flag:NO required:NO multipleAllowed:NO]];
     
     // check for conflicting flags
@@ -168,7 +168,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)setUp
 {
-    [self parseArgs];
+//    [self parseArgs];
     [self processArgs];
     dm_PrintLn(@"%@\n", [self verbHeader]);
     [self obtainConfig];
@@ -265,42 +265,6 @@ NSString* kConfigLinkLong   = @"--link"  ;
     [self.service.operationQueue addOperation:logout];
     [logout waitUntilFinished];
     dm_PrintLn(@"\n%@", [self verbFooter]);
-}
-
-- (BOOL)hasFlagAndRemove:(id)flagNames
-{
-    NSArray * _flag;
-    if ([flagNames isKindOfClass:[NSString class]]) _flag = [NSArray arrayWithObject:flagNames];
-    else _flag = flagNames;
-    BOOL has=NO;
-    for (NSString* f in _flag) {
-        if ([self.__arguments_raw containsObject:f]) {
-            has=YES;
-            NSMutableArray* arr=[self.__arguments_raw mutableCopy];
-            [arr removeObjectsInArray:flagNames];
-            self.__arguments_raw = [arr copy];
-            break;
-        }
-    }
-    return has;
-}
-
-- (NSString *)getSingleArgument:(id)argNames
-{
-    NSArray * _argNames;
-    if ([argNames isKindOfClass:[NSString class]]) _argNames = [NSArray arrayWithObject:argNames];
-    else _argNames = argNames;
-    for (NSString * n in _argNames) {
-        NSUInteger i = [self.__arguments_raw indexOfObject:n];
-        if (i == NSNotFound) continue;
-        if (i == [self.__arguments_raw count]-1) return nil;
-        NSString * t = [self.__arguments_raw objectAtIndex:i+1];
-        NSMutableArray * arr = [self.__arguments_raw mutableCopy];
-        [arr removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(i, 2)]];
-        self.__arguments_raw = [arr copy];
-        return t;
-    }
-    return nil;
 }
 
 - (void)getMe

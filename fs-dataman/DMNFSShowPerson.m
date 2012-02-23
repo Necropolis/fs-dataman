@@ -42,14 +42,14 @@
 
 - (void)processArgs
 {
-    if (1<[self.__arguments_raw count]) {
+    if (1<[self.unnamedArguments count]) {
         dm_PrintLnThenDie(@"Improper number of arguments. I only understand how to fetch the information for one record at a time");
     }
     
     NSArray* me_synonyms = [NSArray arrayWithObjects:@"me", @"myself", @"self", nil];
     
-    if (1==[self.__arguments_raw count]) {
-        _personId = [self.__arguments_raw objectAtIndex:0];
+    if (1==[self.unnamedArguments count]) {
+        _personId = [self.unnamedArguments objectAtIndex:0];
         if ([me_synonyms containsObject:_personId]) _personId = nil;
         // otherwise treat it like a person id
     } else {

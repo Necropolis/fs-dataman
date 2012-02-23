@@ -49,15 +49,15 @@
 - (void)processArgs
 {
     self.flag = NONE;
-    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigForceLong, kConfigForceShort, nil]])
+    if ([self.flags containsObject:kConfigForceShort])
         self.flag = FORCE;
-    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftLong, kConfigSoftShort, nil]])
+    if ([self.flags containsObject:kConfigSoftShort])
         self.flag |= SOFT;
-    if ([self.__arguments_raw count]!=2)
+    if ([self.unnamedArguments count]!=2)
         dm_PrintLn(@"Incorrect number of file arguments for command.");
     // check files
-    _ifile=[[self.__arguments_raw objectAtIndex:0] stringByExpandingTildeInPath];
-    _ofile=[[self.__arguments_raw lastObject] stringByExpandingTildeInPath];
+    _ifile=[[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    _ofile=[[self.unnamedArguments lastObject] stringByExpandingTildeInPath];
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:_ifile]&&[_mgr isReadableFileAtPath:_ifile]) {
         self.inputFile = [NSFileHandle fileHandleForReadingAtPath:_ifile];

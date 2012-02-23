@@ -53,13 +53,12 @@
 {
     _flag = NONE;
     // grab soft flag
-    if ([self hasFlagAndRemove:[NSArray arrayWithObjects:kConfigSoftShort, kConfigSoftLong, nil]])
+    if ([self.flags containsObject:kConfigSoftShort])
         _flag = SOFT;
-    if ([self.__arguments_raw count] != 2) {
+    if ([self.unnamedArguments count] != 2)
         dm_PrintLnThenDie(@"Incorrect number of file arguments. I'm going to stop now before I hurt myself.");
-    }
-    __ifilelocation = [[self.__arguments_raw objectAtIndex:0] stringByExpandingTildeInPath];
-    __ofilelocation = [[self.__arguments_raw lastObject] stringByExpandingTildeInPath];
+    __ifilelocation = [[self.unnamedArguments objectAtIndex:0] stringByExpandingTildeInPath];
+    __ofilelocation = [[self.unnamedArguments lastObject] stringByExpandingTildeInPath];
     NSFileManager* _mgr=[NSFileManager defaultManager];
     if ([_mgr fileExistsAtPath:__ifilelocation]&&[_mgr isReadableFileAtPath:__ifilelocation]) {
         self.gedcom = [NSFileHandle fileHandleForReadingAtPath:__ifilelocation];

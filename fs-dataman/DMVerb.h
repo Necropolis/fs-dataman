@@ -37,7 +37,7 @@ enum flag_t {
 
 @interface DMVerb : NSObject
 
-@property (readwrite, strong) NSArray* __arguments_raw;
+//@property (readwrite, strong) NSArray* __arguments_raw;
 @property (readwrite, strong) NSArray * flags;
 @property (readwrite, strong) NSDictionary * arguments;
 @property (readwrite, strong) NSArray * unnamedArguments;
@@ -49,6 +49,8 @@ enum flag_t {
 + (NSString*)verbCommand;
 + (NSString*)manpage;
 
+- (void)parseArgs:(NSArray *)immutableArgs;
+
 - (NSArray *)argumentSignatures;
 - (BOOL)shouldLogin;
 
@@ -58,9 +60,6 @@ enum flag_t {
 - (void)processArgs;
 - (void)run;
 - (void)tearDown;
-
-- (BOOL)hasFlagAndRemove:(id)flagNames;
-- (NSString *)getSingleArgument:(id)argName;
 
 - (void)getMe;
 
