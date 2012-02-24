@@ -7,3 +7,6 @@
 [submodule "vendor/ArgumentParser"]
 	path = vendor/ArgumentParser
 	url = git@github.com:NSError/ArgumentParser.git
+[submodule "vendor/gedcom55+NewDot"]
+	path = vendor/gedcom55+NewDot
+	url = git@github.com:NSError/gedcom55-NewDot.git

@@ -10,6 +10,7 @@
 		DA00AEC814DC551200719E46 /* FSGEDCOMIndividual.m in Sources */ = {isa = PBXBuildFile; fileRef = DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */; };
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
+		DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */; };
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
 		DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79014D1DB5600A9F129 /* DMHelp.m */; };
 		DA8CE79414D1F8C200A9F129 /* ByteBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79314D1F8C200A9F129 /* ByteBuffer.m */; };
@@ -59,6 +60,8 @@
 		DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMStructure.m; sourceTree = "<group>"; };
 		DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMHead.h; sourceTree = "<group>"; };
 		DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMHead.m; sourceTree = "<group>"; };
+		DA638F8F14F82D01005992D0 /* FSGEDCOMIndividual+NewDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOMIndividual+NewDot.h"; sourceTree = "<group>"; };
+		DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOMIndividual+NewDot.m"; sourceTree = "<group>"; };
 		DA76087C14C7809A00CAB61D /* FSGEDCOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOM.h; sourceTree = "<group>"; };
 		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOM.m; sourceTree = "<group>"; };
 		DA8CE78F14D1DB5600A9F129 /* DMHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMHelp.h; sourceTree = "<group>"; };
@@ -154,6 +157,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA638F8C14F82C90005992D0 /* GEDCOM 5.5+NewDot */ = {
+			isa = PBXGroup;
+			children = (
+				DA638F8F14F82D01005992D0 /* FSGEDCOMIndividual+NewDot.h */,
+				DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */,
+			);
+			name = "GEDCOM 5.5+NewDot";
+			path = "vendor/gedcom55+NewDot";
+			sourceTree = "<group>";
+		};
 		DA76088014C780A000CAB61D /* GEDCOM 5.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +217,7 @@
 				DA9AE89314C0BDD7002921BE /* NewDot */,
 				DA9AE89714C0BDF9002921BE /* FSURLOperation */,
 				DA76088014C780A000CAB61D /* GEDCOM 5.5 */,
+				DA638F8C14F82C90005992D0 /* GEDCOM 5.5+NewDot */,
 				DADB94F114F6EBDD00933099 /* Argument Parser */,
 				DA9AE85314C0B90B002921BE /* Frameworks */,
 				DA9AE85114C0B90B002921BE /* Products */,
@@ -429,6 +443,7 @@
 				DADB94EE14F6EBD400933099 /* FSArgumentPackage.m in Sources */,
 				DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */,
 				DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */,
+				DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

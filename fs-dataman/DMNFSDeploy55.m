@@ -13,6 +13,8 @@
 #import "FSArgumentSignature.h"
 
 #import "FSGEDCOM.h"
+#import "FSGEDCOMIndividual.h"
+#import "FSGEDCOMIndividual+NewDot.h"
 
 @implementation DMNFSDeploy55 {
     NSString* _ifilelocation;
@@ -74,7 +76,7 @@
         return;
     }
     
-    dm_PrintLn(@"%@", [[parsed_gedcom.individuals objectForKey:_meRecord] descriptionWithLocale:nil indent:0]);
+    dm_PrintLn(@"%@", [[parsed_gedcom.individuals objectForKey:_meRecord] nfs_assertionsDescribingIndividual]);
 
 //    dm_PrintLn(@"results of parsing gedcom: %@", parsed_gedcom);
 }
