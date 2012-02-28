@@ -43,7 +43,7 @@
     static FSArgumentSignature * softFlag;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        softFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-s", @"--soft", nil] flag:YES required:NO multipleAllowed:NO];
+        softFlag = [FSArgumentSignature argumentSignatureAsFlag:@"s" longNames:@"soft" multipleAllowed:NO];
     });
     return softFlag;
 }
@@ -53,7 +53,7 @@
     static FSArgumentSignature * forceFlag;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        forceFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-f", @"--force", nil] flag:YES required:NO multipleAllowed:NO];
+        forceFlag = [FSArgumentSignature argumentSignatureAsFlag:@"f" longNames:@"force" multipleAllowed:NO];
     });
     return forceFlag;
 }

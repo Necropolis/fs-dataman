@@ -41,11 +41,6 @@
     return @"fs-dataman-nfs-deploy55";
 }
 
-- (NSArray *)argumentSignatures
-{
-    return [NSArray array];
-}
-
 - (void)processArgs
 {
     if ([self.arguments.unnamedArguments count]!=2) dm_PrintLnThenDie(@"Improper number of arguments, buddy! I need a GEDOM file and the ID of the record corresponding to me");

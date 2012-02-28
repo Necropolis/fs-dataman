@@ -82,7 +82,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
     static FSArgumentSignature * configFlag;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        configFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-c", @"--server-config", nil] flag:NO required:NO multipleAllowed:NO];
+        configFlag = [FSArgumentSignature argumentSignatureAsNamedArgument:@"c" longNames:@"server-config" required:NO multipleAllowed:NO];
     });
     return configFlag;
 }
@@ -116,8 +116,8 @@ NSString* kConfigLinkLong   = @"--link"  ;
 - (void)processArgError:(NSError *)error
 {
     switch ([error code]) {
-        case MissingSignature:
-            dm_PrintLnThenDie(@"Missing argument! %@", [error userInfo]);
+        case MissingSignatures:
+            dm_PrintLnThenDie(@"Missing arguments! %@", [error userInfo]);
             break;
             
         case ArgumentMissingValue:

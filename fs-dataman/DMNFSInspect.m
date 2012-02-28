@@ -54,7 +54,7 @@
     static FSArgumentSignature * linkFlag;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        linkFlag = [FSArgumentSignature argumentSignatureWithNames:[NSArray arrayWithObjects:@"-l", @"--link", nil] flag:YES required:NO multipleAllowed:NO];
+        linkFlag = [FSArgumentSignature argumentSignatureAsFlag:@"l" longNames:@"link" multipleAllowed:NO];
     });
     return linkFlag;
 }
