@@ -16,6 +16,13 @@
 #import "FSGEDCOMIndividual.h"
 #import "FSGEDCOMIndividual+NewDot.h"
 
+#import "FSGEDCOMFamily.h"
+
+#import "NDService.h"
+#import "NDService+FamilyTree.h"
+
+#import "NSData+StringValue.h"
+
 @implementation DMNFSDeploy55 {
     NSString* _ifilelocation;
     NSString * _meRecord;
@@ -61,10 +68,37 @@
     return [NSString stringWithFormat:@"DEPLOY gedcom: %@ with me ID: %@", _ifilelocation, _meRecord];
 }
 
+/**
+ * I think the best way to think this through is:
+ * 
+ * 1) Grab the PID of the me record
+ * 2) For every record that isn't me, add to NFS 
+ * 3) Run through all relationships and add them to NFS (using the union of PIDS of me record and all the records that just got added).
+ */
 - (void)run
 {
     FSGEDCOM* parsed_gedcom = [[FSGEDCOM alloc] init];
     [parsed_gedcom parse:[self.gedcom readDataToEndOfFile]];
+    
+    NSMutableDictionary * individualOperations = [[NSMutableDictionary alloc] init];
+    
+    [parsed_gedcom.individuals enumerateKeysAndObjectsUsingBlock:^(NSString * key, FSGEDCOMIndividual * individual, BOOL *stop) {
+        
+        if ([key isEqualToString:_meRecord]) return; // Don't upload me! I'm already there!
+        
+        // make a new update (create) operation and dump it into operations
+        NSURLRequest * req=
+        [self.service familyTreeRequestPersonUpdate:nil assertions:[individual nfs_assertionsDescribingIndividual]];
+        
+        dm_PrintLn(@"%@", [[req HTTPBody] fs_stringValue]);
+        
+        // add req oper to individualOperations for key
+        
+    }];
+    
+    [parsed_gedcom.families enumerateKeysAndObjectsUsingBlock:^(NSString * key, FSGEDCOMFamily * family, BOOL *stop) {
+        
+    }];
     
     if (nil==[parsed_gedcom.individuals objectForKey:_meRecord]) {
         dm_PrintLn(@"I really can't be bothered to try and work with a record which isn't there. Try using ged55-list-individuals to find a working ID");

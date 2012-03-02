@@ -45,6 +45,7 @@
 		DAC1984B14C0DE920068A0AD /* DMNFSInspect.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */; };
 		DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */; };
 		DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */; };
+		DACACB5215012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */; };
 		DADB94EE14F6EBD400933099 /* FSArgumentPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94E914F6EBD400933099 /* FSArgumentPackage.m */; };
 		DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94EB14F6EBD400933099 /* FSArgumentParser.m */; };
 		DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */; };
@@ -104,8 +105,8 @@
 		DA9BA40014CF4325000369B9 /* DMNFSShowPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSShowPerson.m; sourceTree = "<group>"; };
 		DA9BA40314CF4334000369B9 /* DMNFSShowRelationships.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSShowRelationships.h; sourceTree = "<group>"; };
 		DA9BA40414CF4334000369B9 /* DMNFSShowRelationships.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSShowRelationships.m; sourceTree = "<group>"; };
-		DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSContainers+DebugPrint.h"; path = "vendor/NSContainers+PrettyPrint/NSContainers+DebugPrint.h"; sourceTree = "<group>"; };
-		DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSContainers+DebugPrint.m"; path = "vendor/NSContainers+PrettyPrint/NSContainers+DebugPrint.m"; sourceTree = "<group>"; };
+		DA9C897014D744B3007CD284 /* NSContainers+DebugPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSContainers+DebugPrint.h"; path = "vendor/NSContainers+PrettyPrint/PrettyPrint/NSContainers+DebugPrint.h"; sourceTree = "<group>"; };
+		DA9C897114D744B3007CD284 /* NSContainers+DebugPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSContainers+DebugPrint.m"; path = "vendor/NSContainers+PrettyPrint/PrettyPrint/NSContainers+DebugPrint.m"; sourceTree = "<group>"; };
 		DAB7CB7A14D8A254007BD2E9 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JRSwizzle.h; path = "vendor/NSContainers+PrettyPrint/vendor/JRSwizzle/JRSwizzle.h"; sourceTree = "<group>"; };
 		DAB7CB7B14D8A254007BD2E9 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JRSwizzle.m; path = "vendor/NSContainers+PrettyPrint/vendor/JRSwizzle/JRSwizzle.m"; sourceTree = "<group>"; };
 		DABDD79C14C8A71600A3E160 /* BytePrinting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BytePrinting.m; sourceTree = "<group>"; };
@@ -131,13 +132,15 @@
 		DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOM+ParserInternal.h"; sourceTree = "<group>"; };
 		DAC6E70B14E9B3B6002BD932 /* FSGEDCOMWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMWeakProxy.h; sourceTree = "<group>"; };
 		DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMWeakProxy.m; sourceTree = "<group>"; };
+		DACACB5015012B9E0072C301 /* DMNFSDeploy55IndividualOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSDeploy55IndividualOperation.h; sourceTree = "<group>"; };
+		DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSDeploy55IndividualOperation.m; sourceTree = "<group>"; };
 		DAD7312B14EAF6FB00232F0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		DADB94E814F6EBD400933099 /* FSArgumentPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSArgumentPackage.h; path = vendor/ArgumentParser/FSArgumentPackage.h; sourceTree = "<group>"; };
-		DADB94E914F6EBD400933099 /* FSArgumentPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSArgumentPackage.m; path = vendor/ArgumentParser/FSArgumentPackage.m; sourceTree = "<group>"; };
-		DADB94EA14F6EBD400933099 /* FSArgumentParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSArgumentParser.h; path = vendor/ArgumentParser/FSArgumentParser.h; sourceTree = "<group>"; };
-		DADB94EB14F6EBD400933099 /* FSArgumentParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSArgumentParser.m; path = vendor/ArgumentParser/FSArgumentParser.m; sourceTree = "<group>"; };
-		DADB94EC14F6EBD400933099 /* FSArgumentSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSArgumentSignature.h; path = vendor/ArgumentParser/FSArgumentSignature.h; sourceTree = "<group>"; };
-		DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FSArgumentSignature.m; path = vendor/ArgumentParser/FSArgumentSignature.m; sourceTree = "<group>"; };
+		DADB94E814F6EBD400933099 /* FSArgumentPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentPackage.h; sourceTree = "<group>"; };
+		DADB94E914F6EBD400933099 /* FSArgumentPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentPackage.m; sourceTree = "<group>"; };
+		DADB94EA14F6EBD400933099 /* FSArgumentParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentParser.h; sourceTree = "<group>"; };
+		DADB94EB14F6EBD400933099 /* FSArgumentParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentParser.m; sourceTree = "<group>"; };
+		DADB94EC14F6EBD400933099 /* FSArgumentSignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentSignature.h; sourceTree = "<group>"; };
+		DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentSignature.m; sourceTree = "<group>"; };
 		DAE4834114C9DE3000F7C4A7 /* FSGEDCOM+ErrorCodes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOM+ErrorCodes.m"; sourceTree = "<group>"; };
 		DAF552A514F54DD600AAE777 /* FSGEDCOMDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMDate.h; sourceTree = "<group>"; };
 		DAF552A614F54DD600AAE777 /* FSGEDCOMDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMDate.m; sourceTree = "<group>"; };
@@ -306,11 +309,21 @@
 			name = FSURLOperation;
 			sourceTree = "<group>";
 		};
-		DADB94E014F6CCB500933099 /* New FamilySearch Commands */ = {
+		DACACB5415012BA80072C301 /* deploy55 */ = {
 			isa = PBXGroup;
 			children = (
 				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
 				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
+				DACACB5015012B9E0072C301 /* DMNFSDeploy55IndividualOperation.h */,
+				DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */,
+			);
+			name = deploy55;
+			sourceTree = "<group>";
+		};
+		DADB94E014F6CCB500933099 /* New FamilySearch Commands */ = {
+			isa = PBXGroup;
+			children = (
+				DACACB5415012BA80072C301 /* deploy55 */,
 				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
 				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
 				DAC1984914C0DE910068A0AD /* DMNFSInspect.h */,
@@ -349,6 +362,7 @@
 				DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */,
 			);
 			name = "Argument Parser";
+			path = vendor/ArgumentParser/ArgumentParser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,6 +458,7 @@
 				DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */,
 				DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */,
 				DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */,
+				DACACB5215012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
