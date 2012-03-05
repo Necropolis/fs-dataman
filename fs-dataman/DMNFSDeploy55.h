@@ -11,5 +11,6 @@
 @interface DMNFSDeploy55 : DMVerb
 
 @property (readwrite, strong) NSFileHandle* gedcom;
+@property (readwrite, strong) NSFileHandle * outputFile;
 
 @end

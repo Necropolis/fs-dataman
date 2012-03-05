@@ -45,7 +45,7 @@
 		DAC1984B14C0DE920068A0AD /* DMNFSInspect.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */; };
 		DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */; };
 		DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */; };
-		DACACB5215012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */; };
+		DACACB5215012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */; };
 		DADB94EE14F6EBD400933099 /* FSArgumentPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94E914F6EBD400933099 /* FSArgumentPackage.m */; };
 		DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94EB14F6EBD400933099 /* FSArgumentParser.m */; };
 		DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */; };
@@ -132,8 +132,8 @@
 		DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOM+ParserInternal.h"; sourceTree = "<group>"; };
 		DAC6E70B14E9B3B6002BD932 /* FSGEDCOMWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMWeakProxy.h; sourceTree = "<group>"; };
 		DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMWeakProxy.m; sourceTree = "<group>"; };
-		DACACB5015012B9E0072C301 /* DMNFSDeploy55IndividualOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSDeploy55IndividualOperation.h; sourceTree = "<group>"; };
-		DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSDeploy55IndividualOperation.m; sourceTree = "<group>"; };
+		DACACB5015012B9E0072C301 /* DMNFSDeploy55FamilyOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DMNFSDeploy55FamilyOperation.h; sourceTree = "<group>"; };
+		DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSDeploy55FamilyOperation.m; sourceTree = "<group>"; };
 		DAD7312B14EAF6FB00232F0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DADB94E814F6EBD400933099 /* FSArgumentPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentPackage.h; sourceTree = "<group>"; };
 		DADB94E914F6EBD400933099 /* FSArgumentPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentPackage.m; sourceTree = "<group>"; };
@@ -314,8 +314,8 @@
 			children = (
 				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
 				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
-				DACACB5015012B9E0072C301 /* DMNFSDeploy55IndividualOperation.h */,
-				DACACB5115012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m */,
+				DACACB5015012B9E0072C301 /* DMNFSDeploy55FamilyOperation.h */,
+				DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */,
 			);
 			name = deploy55;
 			sourceTree = "<group>";
@@ -458,7 +458,7 @@
 				DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */,
 				DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */,
 				DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */,
-				DACACB5215012B9E0072C301 /* DMNFSDeploy55IndividualOperation.m in Sources */,
+				DACACB5215012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

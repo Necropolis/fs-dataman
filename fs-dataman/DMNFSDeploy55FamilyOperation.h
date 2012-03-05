@@ -1,5 +1,5 @@
 //
-//  DMNFSDeploy55IndividualOperation.h
+//  DMNFSDeploy55FamilyOperation.h
 //  fs-dataman
 //
 //  Created by Christopher Miller on 3/2/12.
@@ -11,7 +11,7 @@
 @class FSGEDCOMIndividual;
 @class NDService;
 
-@interface DMNFSDeploy55IndividualOperation : NSOperation
+@interface DMNFSDeploy55FamilyOperation : NSOperation
 
 @property (readwrite, retain) FSGEDCOMIndividual * individual;
 @property (readwrite, weak) NDService * service;

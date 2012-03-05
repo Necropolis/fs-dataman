@@ -1,12 +1,12 @@
 //
-//  DMNFSDeploy55IndividualOperation.m
+//  DMNFSDeploy55FamilyOperation.m
 //  fs-dataman
 //
 //  Created by Christopher Miller on 3/2/12.
 //  Copyright (c) 2012 Christopher Miller. All rights reserved.
 //
 
-#import "DMNFSDeploy55IndividualOperation.h"
+#import "DMNFSDeploy55FamilyOperation.h"
 
 #import "FSURLOperation.h"
 
@@ -15,7 +15,7 @@
 
 #import "FSGEDCOMIndividual+NewDot.h"
 
-@implementation DMNFSDeploy55IndividualOperation
+@implementation DMNFSDeploy55FamilyOperation
 
 @synthesize individual=_individual;
 @synthesize service=_service;
