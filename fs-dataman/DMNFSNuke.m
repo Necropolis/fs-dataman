@@ -130,6 +130,7 @@
     __block NSDictionary * properties;
     __block BOOL stop=NO;
     [self.service familyTreePropertiesOnSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+        dm_PrintLn(@"Fetched properties");
         properties = response;
     } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
         dm_PrintLn(@"Failed to fetch properties!");
@@ -139,6 +140,7 @@
     
     [[[self.inputData valueForKey:@"persons"] fs_chunkifyWithMaxSize:[[properties objectForKey:@"person.max.ids"] integerValue]] enumerateObjectsUsingBlock:^(NSArray * pids, NSUInteger idx, BOOL *stop) {
         [self.service familyTreeReadPersons:pids withParameters:NDFamilyTreeAllPersonReadValues() onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+            dm_PrintLn(@"Fetched all assertions for persons %@", [pids componentsJoinedByString:@", "]);
             [[response valueForKey:@"persons"] enumerateObjectsUsingBlock:^(NSDictionary * person, NSUInteger idx, BOOL *stop) {
                 NSMutableDictionary * deleteAllAssertions = [NSMutableDictionary dictionaryWithCapacity:[NDFamilyTreeAllAssertionTypes() count]];
                 for (NSString * type in NDFamilyTreeAllAssertionTypes()) {
@@ -151,10 +153,7 @@
                         [[deleteAllAssertions objectForKey:type] addObject:deleteAssertion];
                     }
                 }
-                dm_PrintLn(@"%@: %@", [person valueForKey:@"id"], deleteAllAssertions);
-                
-                // drop this in the queue to be killed
-                
+                // TODO: drop deleteAllAssertions this in the queue to be killed
             }];
         } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
             dm_PrintLn(@"Oh noes!");
@@ -165,7 +164,7 @@
     
     // destroy all relationships
     
-    dm_PrintLn(@"%@", properties); // relationship.max.ids
+    NSMutableArray * deleteChildrenOperations = [NSMutableArray array];
 
     [[self.inputData valueForKey:@"persons"] enumerateObjectsUsingBlock:^(NSString * pid, NSUInteger idx, BOOL *stop) {
         // read the relationships
@@ -173,10 +172,12 @@
         
         FSURLOperation * getChildrenOperation = // oh dear, sounds like a Caesarian!
         [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:pid relationshipType:NDFamilyTreeRelationshipType.child toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+            dm_PrintLn(@"Read all children for person %@", pid);
             children = [[response valueForKeyPath:@"persons.relationships.child.id"] firstObject];
         } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
-            if ([resp statusCode]==404) { } // do nothing because nothing was found; it's OK
-            else {
+            if ([resp statusCode]==404) {
+                dm_PrintLn(@"Person %@ has no children", pid);
+            } else {
                 dm_PrintLn(@"oops");
                 dm_PrintURLOperationResponse(resp, payload, error);
             }
@@ -184,9 +185,28 @@
         [getChildrenOperation waitUntilFinished];
         
         [[children fs_chunkifyWithMaxSize:[[properties objectForKey:@"relationship.max.ids"] integerValue]] enumerateObjectsUsingBlock:^(NSArray * chunkyChildren, NSUInteger idx, BOOL *stop) {
-            FSURLOperation * oper =
+            FSURLOperation * oper = // chunkyChildren, possibly related to child obesity McDonald's style?
             [self.service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:pid relationshipType:NDFamilyTreeRelationshipType.child toPersons:chunkyChildren withParameters:NDFamilyTreeAllRelationshipReadValues() onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
-                dm_PrintLn(@"%@", response);
+                dm_PrintLn(@"Read all child relationship assertions for parent %@ to children %@", pid, [chunkyChildren componentsJoinedByString:@", "]);
+                NSDictionary * person = [[response valueForKey:@"persons"] firstObject];
+                [[person valueForKeyPath:@"relationships.child"] enumerateObjectsUsingBlock:^(NSDictionary * childRelationship, NSUInteger idx, BOOL *stop) {
+                    NSMutableDictionary * deleteAssertions = [NSMutableDictionary dictionary];
+                    [[childRelationship valueForKey:@"assertions"] enumerateKeysAndObjectsUsingBlock:^(NSString * assertionType, NSArray * assertions, BOOL *stop) {
+                        NSMutableArray * deleteTheseAssertions = [NSMutableArray array];
+                        [assertions enumerateObjectsUsingBlock:^(NSDictionary * assertion, NSUInteger idx, BOOL *stop) {
+                            [deleteTheseAssertions addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              @"Delete", @"action",
+                                                              [NSDictionary dictionaryWithObject:[assertion valueForKeyPath:@"value.id"] forKey:@"id"], @"value", nil]];
+                        }];
+                        [deleteAssertions setObject:deleteTheseAssertions forKey:assertionType];
+                    }];
+                    dm_PrintLn(@"%@", deleteAssertions);
+                    [deleteChildrenOperations addObject:[self.service familyTreeOperationRelationshipUpdateFromPerson:[person objectForKey:@"id"] relationshipType:NDFamilyTreeRelationshipType.child toPersons:[NSArray arrayWithObject:[childRelationship objectForKey:@"id"]] relationshipVersions:[NSArray arrayWithObject:[childRelationship objectForKey:@"version"]] assertions:[NSArray arrayWithObject:deleteAssertions] onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+                            
+                        } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
+                        
+                    }]];
+                }];
             } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
                 dm_PrintLn(@"oops");
                 dm_PrintURLOperationResponse(resp, payload, error);

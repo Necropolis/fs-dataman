@@ -45,7 +45,6 @@
 		DAC1984B14C0DE920068A0AD /* DMNFSInspect.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */; };
 		DAC6E70614E975CE002BD932 /* FSGEDCOMFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70514E975CE002BD932 /* FSGEDCOMFamily.m */; };
 		DAC6E70D14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */; };
-		DACACB5215012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */; };
 		DADB94EE14F6EBD400933099 /* FSArgumentPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94E914F6EBD400933099 /* FSArgumentPackage.m */; };
 		DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94EB14F6EBD400933099 /* FSArgumentParser.m */; };
 		DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = DADB94ED14F6EBD400933099 /* FSArgumentSignature.m */; };
@@ -57,6 +56,20 @@
 /* Begin PBXFileReference section */
 		DA00AEC614DC551200719E46 /* FSGEDCOMIndividual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMIndividual.h; sourceTree = "<group>"; };
 		DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMIndividual.m; sourceTree = "<group>"; };
+		DA1194DF1509269100A4A9F0 /* fs-dataman-ged55-list-individuals.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-ged55-list-individuals.1.ronn"; sourceTree = "<group>"; };
+		DA1194E01509269100A4A9F0 /* fs-dataman-nfs-deploy55.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-deploy55.1.ronn"; sourceTree = "<group>"; };
+		DA1194E11509269100A4A9F0 /* fs-dataman-nfs-inspect.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-inspect.1.ronn"; sourceTree = "<group>"; };
+		DA1194E21509269100A4A9F0 /* fs-dataman-nfs-link.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-link.1.ronn"; sourceTree = "<group>"; };
+		DA1194E31509269100A4A9F0 /* fs-dataman-nfs-show-person.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-show-person.1.ronn"; sourceTree = "<group>"; };
+		DA1194E41509269100A4A9F0 /* fs-dataman-nfs-show-relationships.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-show-relationships.1.ronn"; sourceTree = "<group>"; };
+		DA1194E51509269100A4A9F0 /* fs-dataman-nfs-unlink.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-unlink.1.ronn"; sourceTree = "<group>"; };
+		DA1194E61509269100A4A9F0 /* fs-dataman.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman.1.ronn"; sourceTree = "<group>"; };
+		DA1194E71509269100A4A9F0 /* index.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = index.txt; sourceTree = "<group>"; };
+		DA1194E9150926F800A4A9F0 /* Gemfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Gemfile; sourceTree = SOURCE_ROOT; };
+		DA1194EA150926F800A4A9F0 /* LICENSE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.md; sourceTree = SOURCE_ROOT; };
+		DA1194EB150926F800A4A9F0 /* Rakefile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; fileEncoding = 4; path = Rakefile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		DA1194EC150926F800A4A9F0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
+		DA1194ED1509276300A4A9F0 /* fs-dataman-nfs-nuke.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-nuke.1.ronn"; sourceTree = "<group>"; };
 		DA271FFD14CA039900CFF1D0 /* FSGEDCOMStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMStructure.h; sourceTree = "<group>"; };
 		DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMStructure.m; sourceTree = "<group>"; };
 		DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMHead.h; sourceTree = "<group>"; };
@@ -132,8 +145,6 @@
 		DAC6E70814E982C4002BD932 /* FSGEDCOM+ParserInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOM+ParserInternal.h"; sourceTree = "<group>"; };
 		DAC6E70B14E9B3B6002BD932 /* FSGEDCOMWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMWeakProxy.h; sourceTree = "<group>"; };
 		DAC6E70C14E9B3B6002BD932 /* FSGEDCOMWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMWeakProxy.m; sourceTree = "<group>"; };
-		DACACB5015012B9E0072C301 /* DMNFSDeploy55FamilyOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; path = DMNFSDeploy55FamilyOperation.h; sourceTree = "<group>"; };
-		DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSDeploy55FamilyOperation.m; sourceTree = "<group>"; };
 		DAD7312B14EAF6FB00232F0C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DADB94E814F6EBD400933099 /* FSArgumentPackage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSArgumentPackage.h; sourceTree = "<group>"; };
 		DADB94E914F6EBD400933099 /* FSArgumentPackage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSArgumentPackage.m; sourceTree = "<group>"; };
@@ -160,6 +171,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA1194DE1509267500A4A9F0 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				DA1194DF1509269100A4A9F0 /* fs-dataman-ged55-list-individuals.1.ronn */,
+				DA1194E01509269100A4A9F0 /* fs-dataman-nfs-deploy55.1.ronn */,
+				DA1194ED1509276300A4A9F0 /* fs-dataman-nfs-nuke.1.ronn */,
+				DA1194E11509269100A4A9F0 /* fs-dataman-nfs-inspect.1.ronn */,
+				DA1194E21509269100A4A9F0 /* fs-dataman-nfs-link.1.ronn */,
+				DA1194E31509269100A4A9F0 /* fs-dataman-nfs-show-person.1.ronn */,
+				DA1194E41509269100A4A9F0 /* fs-dataman-nfs-show-relationships.1.ronn */,
+				DA1194E51509269100A4A9F0 /* fs-dataman-nfs-unlink.1.ronn */,
+				DA1194E61509269100A4A9F0 /* fs-dataman.1.ronn */,
+				DA1194E71509269100A4A9F0 /* index.txt */,
+			);
+			name = Documentation;
+			path = man;
+			sourceTree = "<group>";
+		};
+		DA1194E8150926D600A4A9F0 /* Duct-Tape and Chewing Gum */ = {
+			isa = PBXGroup;
+			children = (
+				DA1194EC150926F800A4A9F0 /* README.md */,
+				DA1194EA150926F800A4A9F0 /* LICENSE.md */,
+				DA1194EB150926F800A4A9F0 /* Rakefile */,
+				DA1194E9150926F800A4A9F0 /* Gemfile */,
+			);
+			name = "Duct-Tape and Chewing Gum";
+			path = "fs-dataman";
+			sourceTree = "<group>";
+		};
 		DA638F8C14F82C90005992D0 /* GEDCOM 5.5+NewDot */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				DA9AE85614C0B90B002921BE /* Dataman */,
+				DA1194DE1509267500A4A9F0 /* Documentation */,
+				DA1194E8150926D600A4A9F0 /* Duct-Tape and Chewing Gum */,
 				DA9AE89314C0BDD7002921BE /* NewDot */,
 				DA9AE89714C0BDF9002921BE /* FSURLOperation */,
 				DA76088014C780A000CAB61D /* GEDCOM 5.5 */,
@@ -309,21 +352,11 @@
 			name = FSURLOperation;
 			sourceTree = "<group>";
 		};
-		DACACB5415012BA80072C301 /* deploy55 */ = {
+		DADB94E014F6CCB500933099 /* New FamilySearch Commands */ = {
 			isa = PBXGroup;
 			children = (
 				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
 				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
-				DACACB5015012B9E0072C301 /* DMNFSDeploy55FamilyOperation.h */,
-				DACACB5115012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m */,
-			);
-			name = deploy55;
-			sourceTree = "<group>";
-		};
-		DADB94E014F6CCB500933099 /* New FamilySearch Commands */ = {
-			isa = PBXGroup;
-			children = (
-				DACACB5415012BA80072C301 /* deploy55 */,
 				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
 				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
 				DAC1984914C0DE910068A0AD /* DMNFSInspect.h */,
@@ -458,7 +491,6 @@
 				DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */,
 				DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */,
 				DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */,
-				DACACB5215012B9E0072C301 /* DMNFSDeploy55FamilyOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +512,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
-					"FSURLDEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;

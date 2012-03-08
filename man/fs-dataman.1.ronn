@@ -14,9 +14,9 @@ fs-dataman(1) -- Utility to manage data in the FamilySearch Partner Reference cl
 
 * [nfs-deploy55][fs-dataman-nfs-deploy55(1)] - Deploy the contents of a GEDCOM 5.5.1 file to the cluster.
 * [nfs-inspect][fs-dataman-nfs-inspect(1)] - Inspect currently visible records in the tree.
+* [nfs-nuke][fs-dataman-nfs-nuke(1)] - Delete (recant) all assertions on the listed individuals, making them as it were invisible.
 * [nfs-link][fs-dataman-nfs-link(1)] - Link any two records to your current user's record as parents.
 * [nfs-unlink][fs-dataman-nfs-unlink(1)] - Unlink any two records from your current user's record as parents.
-* [nfs-deploy][fs-dataman-nfs-deploy(1)] - Deploy a GEDCOM to the cluster.
 * [nfs-show-person][fs-dataman-nfs-show-person(1)] - Show the data associated with a specific record. Useful when debugging.
 * [nfs-show-relationships][fs-dataman-nfs-show-relationships(1)] - Show the relationships of any type associated with a specific record. Useful when debugging.
 
@@ -76,7 +76,7 @@ The config file is an Apple Property List which needs four bits of information:
   The username you use when logging into www.dev.usys.org; this is generally something like `api-user-####`.
 
   * `password`:
-  Store your password in plaintext.
+  Store your password in plaintext, because it's so secure man!
 
 The config file will end up looking like this:
 
@@ -106,6 +106,7 @@ The config file will end up looking like this:
 `/usr/local/share/man/man1/fs-dataman-nfs-unlink.1`<br>
 `/usr/local/share/man/man1/fs-dataman-nfs-show-person.1`<br>
 `/usr/local/share/man/man1/fs-dataman-nfs-show-relationships.1`<br>
+`/usr/local/share/man/man1/fs-dataman-nfs-nuke.1`<br>
 `/usr/local/share/man/man1/fs-dataman-ged55-list-individuals.1`<br>
 `~/.fs-dataman.plist`
 
@@ -116,6 +117,6 @@ Please use [Github](https://github.com/NSError/fs-dataman) to report bugs and to
 ## HISTORY
 
   * 0.2 RELEASE PENDING:
-    Cleaned up the manpage documentation quite a lot. Instituted name prefixing because in "the future" there will be fancy new functionality related to GEDCOM X and Conclusion Tree. So the following commands: `inspect`, `link`, `unlink`, `show-person`, and `show-relationships`; were renamed to: `nfs-inspect`, `nfs-link`, `nfs-unlink`, `nfs-show-person`, and `nfs-show-relationships`, respectively. Added the `ged55-list-individuals` and `nfs-deploy55` commands, which are backed by a new (and not thoroughly tested) GEDCOM 5.5.1 parser.
+    Cleaned up the manpage documentation quite a lot. Instituted name prefixing because in "the future" there will be fancy new functionality related to GEDCOM X and Conclusion Tree. So the following commands: `inspect`, `link`, `unlink`, `show-person`, and `show-relationships`; were renamed to: `nfs-inspect`, `nfs-link`, `nfs-unlink`, `nfs-show-person`, and `nfs-show-relationships`, respectively. Added the `ged55-list-individuals`, `nfs-nuke`, and `nfs-deploy55` commands, which are backed by a new (and not thoroughly tested) GEDCOM 5.5.1 parser.
   * 0.1 25 January 2012:
     First release. Has the `inspect`, `link`, `unlink`, `show-person`, and `show-relationships` commands. No known bugs.
