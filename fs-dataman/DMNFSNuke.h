@@ -11,7 +11,8 @@
 @interface DMNFSNuke : DMVerb
 
 @property (readwrite, strong) NSFileHandle* outputFile;
-@property (readwrite, assign) enum flag_t flag;
+@property (readwrite, assign) BOOL soft;
+@property (readwrite, assign) BOOL greedy;
 @property (readwrite, strong) id inputData;
 
 @end

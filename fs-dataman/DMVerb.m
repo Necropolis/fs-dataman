@@ -52,6 +52,8 @@ NSString* kConfigLinkLong   = @"--link"  ;
 @synthesize service = _service;
 @synthesize configuration = _configuration;
 @synthesize me = _me;
+@synthesize startTime=_startTime;
+@synthesize endTime=_endTime;
 
 + (NSMutableArray*)registeredCommands
 {
@@ -132,6 +134,7 @@ NSString* kConfigLinkLong   = @"--link"  ;
 
 - (void)setUp
 {
+    self.startTime = [NSDate date];
     [self processArgs];
     dm_PrintLn(@"%@\n", [self verbHeader]);
     [self obtainConfig];
@@ -232,6 +235,11 @@ NSString* kConfigLinkLong   = @"--link"  ;
         [logout waitUntilFinished];
     }
     dm_PrintLn(@"\n%@", [self verbFooter]);
+    self.endTime = [NSDate date];
+    NSTimeInterval runningTime = [self.endTime timeIntervalSinceDate:self.startTime];
+    double minutes = floor(runningTime/60.);
+    double seconds = floor(runningTime-(minutes*60.));
+    dm_PrintLn(@"\n  Command took %d:%d", (long)minutes, (long)seconds);
 }
 
 - (void)getMe

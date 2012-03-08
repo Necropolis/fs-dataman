@@ -82,6 +82,12 @@ enum flag_t {
 /** The current user's record as obtained by the method `getMe`. */
 @property (readwrite, strong) NSDictionary* me;
 
+/** The time when the command was started. */
+@property (readwrite, strong) NSDate * startTime;
+
+/** The time when the command ended. */
+@property (readwrite, strong) NSDate * endTime;
+
 /**
  * To make a new custom command, add your `DMVerb` subclass to this array at load time (using `+(void)load` override).
  */
