@@ -211,6 +211,15 @@
 			path = "vendor/gedcom55+NewDot";
 			sourceTree = "<group>";
 		};
+		DA747420150AA243006C0596 /* NFS-Nuke */ = {
+			isa = PBXGroup;
+			children = (
+				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
+				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
+			);
+			name = "NFS-Nuke";
+			sourceTree = "<group>";
+		};
 		DA76088014C780A000CAB61D /* GEDCOM 5.5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,8 +366,7 @@
 			children = (
 				DAC1984314C0DDDD0068A0AD /* DMNFSDeploy55.h */,
 				DAC1984414C0DDDD0068A0AD /* DMNFSDeploy55.m */,
-				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
-				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
+				DA747420150AA243006C0596 /* NFS-Nuke */,
 				DAC1984914C0DE910068A0AD /* DMNFSInspect.h */,
 				DAC1984A14C0DE910068A0AD /* DMNFSInspect.m */,
 				DABDD79F14C8B41A00A3E160 /* DMNFSCapture.h */,
@@ -512,6 +520,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
+					"FSURLDEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
