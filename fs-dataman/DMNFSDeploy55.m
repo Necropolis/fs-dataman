@@ -107,7 +107,7 @@
     [self getMe];
     
     NSMutableDictionary * individualOperations = [[NSMutableDictionary alloc] init];
-    NSMutableArray * relationshipOperations = [[NSMutableArray alloc] init];
+//    NSMutableArray * relationshipOperations = [[NSMutableArray alloc] init];
     NSMutableDictionary * gedcomToPid = [[NSMutableDictionary alloc] init];
     NSMutableArray * slowRelationshipOperations = [[NSMutableArray alloc] init];
     

@@ -11,6 +11,8 @@
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
 		DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */; };
+		DA747424150AA3F4006C0596 /* DMNFSPersonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DA747423150AA3F4006C0596 /* DMNFSPersonNode.m */; };
+		DA747427150AA48F006C0596 /* WeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA747426150AA48E006C0596 /* WeakProxy.m */; };
 		DA76087E14C7809A00CAB61D /* FSGEDCOM.m in Sources */ = {isa = PBXBuildFile; fileRef = DA76087D14C7809A00CAB61D /* FSGEDCOM.m */; };
 		DA8CE79114D1DB5600A9F129 /* DMHelp.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79014D1DB5600A9F129 /* DMHelp.m */; };
 		DA8CE79414D1F8C200A9F129 /* ByteBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = DA8CE79314D1F8C200A9F129 /* ByteBuffer.m */; };
@@ -76,6 +78,10 @@
 		DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMHead.m; sourceTree = "<group>"; };
 		DA638F8F14F82D01005992D0 /* FSGEDCOMIndividual+NewDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOMIndividual+NewDot.h"; sourceTree = "<group>"; };
 		DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOMIndividual+NewDot.m"; sourceTree = "<group>"; };
+		DA747422150AA3F4006C0596 /* DMNFSPersonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSPersonNode.h; sourceTree = "<group>"; };
+		DA747423150AA3F4006C0596 /* DMNFSPersonNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSPersonNode.m; sourceTree = "<group>"; };
+		DA747425150AA48E006C0596 /* WeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeakProxy.h; sourceTree = "<group>"; };
+		DA747426150AA48E006C0596 /* WeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeakProxy.m; sourceTree = "<group>"; };
 		DA76087C14C7809A00CAB61D /* FSGEDCOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOM.h; sourceTree = "<group>"; };
 		DA76087D14C7809A00CAB61D /* FSGEDCOM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOM.m; sourceTree = "<group>"; };
 		DA8CE78F14D1DB5600A9F129 /* DMHelp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMHelp.h; sourceTree = "<group>"; };
@@ -216,6 +222,10 @@
 			children = (
 				DAC1984614C0DDEE0068A0AD /* DMNFSNuke.h */,
 				DAC1984714C0DDEE0068A0AD /* DMNFSNuke.m */,
+				DA747422150AA3F4006C0596 /* DMNFSPersonNode.h */,
+				DA747423150AA3F4006C0596 /* DMNFSPersonNode.m */,
+				DA747425150AA48E006C0596 /* WeakProxy.h */,
+				DA747426150AA48E006C0596 /* WeakProxy.m */,
 			);
 			name = "NFS-Nuke";
 			sourceTree = "<group>";
@@ -499,6 +509,8 @@
 				DADB94EF14F6EBD400933099 /* FSArgumentParser.m in Sources */,
 				DADB94F014F6EBD400933099 /* FSArgumentSignature.m in Sources */,
 				DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */,
+				DA747424150AA3F4006C0596 /* DMNFSPersonNode.m in Sources */,
+				DA747427150AA48F006C0596 /* WeakProxy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

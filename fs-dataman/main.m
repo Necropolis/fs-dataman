@@ -11,38 +11,47 @@
 #import "Console.h"
 
 #import "DMVerb.h"
-#if defined (DEBUG) && defined (FSURLDEBUG)
-#import "FSURLOperation.h"
-#endif
+#import "FSURLOperation.h" // how we count requests
 
 int main (int argc, const char * argv[])
 {
 
     @autoreleasepool {
         
-#if defined (DEBUG) && defined (FSURLDEBUG)
-        __block size_t concurrentOperations = 0;
+        __block size_t runningOperations = 0;
+        __block size_t operationsExecuted = 0;
+#ifdef DEBUG
         __block NSError * ___error=nil;
         __block NSRegularExpression * devKeyRegex = [[NSRegularExpression alloc] initWithPattern:@"(&?key\\=)((?:\\w{4}\\-?){8})" options:0 error:&___error];
-        [[FSURLOperation debugCallbacks] addObject:^(NSURLRequest * request, enum FSURLDebugStatus status, NSHTTPURLResponse * response, NSData * payload, NSError * error) {
-            NSString * requestURL = [request.URL description];
-            requestURL = [devKeyRegex stringByReplacingMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@"$1****-****-****-****-****-****-****-****"];
-            switch (status) {
-                case RequestBegan:
-                    ++concurrentOperations;
-                    dm_PrintLn(@">>> Concurrent Operations: %3lu\n        Started   %@ %@\n", concurrentOperations, request.HTTPMethod, requestURL);
-                    break;
-                case RequestFinished:
-                    --concurrentOperations;
-                    dm_PrintLn(@">>> Concurrent Operations: %3lu\n        Finished  %@ %@\n", concurrentOperations, request.HTTPMethod, requestURL);
-                    break;
-                    
-                default:
-                    dm_PrintLnThenDie(@"dude, this isn't a known callback type");
-                    break;
-            }
-        }];
+        __block NSRegularExpression * sessionIdRegex = [[NSRegularExpression alloc] initWithPattern:@"(&?sessionId=[^\\&]+)" options:0 error:&___error];
+        __block NSRegularExpression * dataFormatRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\??&?dataFormat=application\\/json)" options:0 error:&___error];
+        NSString * (^washURL)(NSURL * url) = ^NSString *(NSURL * url) {
+            NSMutableString * requestURL = [[url description] mutableCopy];
+            
+            [devKeyRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@"$1****-****-****-****-****-****-****-****"];
+            [sessionIdRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@""];
+            [dataFormatRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@""];
+            
+            return [requestURL copy];
+        };
 #endif
+        [[FSURLOperation globalBlockCallbacks_requestStarted] addObject:^(NSURLRequest * request, NSThread * t) {
+            ++runningOperations;
+#ifdef DEBUG
+            dm_PrintLn(@">>> Executing Operations: %4lu Finished Operations: %6lu\n"
+                       @"    Started %@ %@\n"
+                       @"    On thread %@\n", runningOperations, operationsExecuted, request.HTTPMethod, washURL(request.URL), t.name);
+#endif
+        }];
+        [[FSURLOperation globalBlockCallbacks_requestFinished] addObject:^(NSURLRequest * request, NSThread * t, NSHTTPURLResponse * response, NSData * payload, NSError * error) {
+            --runningOperations;
+            ++operationsExecuted;
+#ifdef DEBUG
+            dm_PrintLn(@">>> Executing Operations: %4lu Finished Operations: %6lu\n"
+                       @"    Finished %@ %@\n"
+                       @"    On thread %@\n", runningOperations, operationsExecuted, request.HTTPMethod, washURL(request.URL), t.name);
+#endif
+        }];
         
         NSArray* args = [[NSProcessInfo processInfo] arguments];
         
@@ -71,7 +80,9 @@ int main (int argc, const char * argv[])
             [verb_impl setUp];
             [verb_impl run];
             [verb_impl tearDown];
-        }        
+        }
+        
+        dm_PrintLn(@"  Command executed %lu HTTP requests.", operationsExecuted);
     }
     
     return 0;
