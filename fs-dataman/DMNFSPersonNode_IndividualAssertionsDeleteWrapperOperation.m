@@ -53,16 +53,28 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
         _soft = soft;
         // set up to recieve notifications
         [self.personToKill addObserver:self forKeyPath:@"writeState" options:NSKeyValueObservingOptionNew context:NULL];
-        [self.personToKill addObserver:self forKeyPath:@"tearDownState" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
+}
+
+- (void)_setState:(enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State)state
+{
+    NSString * keyPath;
+    if (state == kReady) keyPath = @"isReady";
+    else if (state == kExecuting) keyPath = @"isExecuting";
+    else if (state == kFinished) keyPath = @"isFinished";
+    
+    if (state != kCancelled) [self willChangeValueForKey:keyPath];
+    _state = state;
+    if (state != kCancelled) [self willChangeValueForKey:keyPath];
+    else [self cancel];
 }
 
 #pragma mark NSOperation
 
 - (BOOL)isReady
 {
-    return self.personToKill.writeState==kWriteState_Idle && (self.personToKill.tearDownState&kTearDownState_IndividualAssertions)==0;
+    return self.personToKill.writeState==kWriteState_Idle && _state == kReady;
 }
 
 - (BOOL)isConcurrent
@@ -92,9 +104,7 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
     // 1. Lock me
     self.personToKill.writeState = kWriteState_Active;
     
-    [self willChangeValueForKey:@"isExecuting"];
-    _state = kExecuting;
-    [self didChangeValueForKey:@"isExecuting"];
+    [self _setState:kExecuting];
         
     // 2. Read me from the API
     FSURLOperation * oper =
@@ -129,9 +139,7 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
         dm_PrintLn(@"%@ Deletion Progress: Would have dispatched request to remove\n"
                    @"                            assertions, but running in SOFT mode", self.personToKill.pid);
         
-        [self willChangeValueForKey:@"isFinished"];
-        _state = kFinished;
-        [self didChangeValueForKey:@"isFinished"];
+        [self _setState:kFinished];
     } else {
         // chuck if off to the queue
         FSURLOperation * oper =
@@ -150,15 +158,15 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
     self.personToKill.tearDownState |= kTearDownState_IndividualAssertions;
     self.personToKill.writeState = kWriteState_Idle;
     
-    [self willChangeValueForKey:@"isFinished"];
-    _state = kFinished;
-    [self didChangeValueForKey:@"isFinished"];
+    [self _setState:kFinished];
 }
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp data:(NSData *)payload error:(NSError *)error
 {
     dm_PrintLn(@"%@ Failed to perform deletion!", self.personToKill.pid);
     dm_PrintURLOperationResponse(resp, payload, error);
+    
+    [self _setState:kFinished];
 }
 
 #pragma mark NSObject
@@ -166,8 +174,7 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object==self.personToKill) {
-        if ([keyPath isEqualToString:@"writeState"]||[keyPath isEqualToString:@"tearDownState"])
-            [self didChangeValueForKey:@"isReady"]; // post a change notification
+        [self _setState:kReady];
     } else {
         dm_PrintLn(@"Extraneous notification recieved.");
     }
@@ -176,7 +183,6 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
 - (void)dealloc
 {
     [self.personToKill removeObserver:self forKeyPath:@"writeState"];
-    [self.personToKill removeObserver:self forKeyPath:@"tearDownState"];
 }
 
 @end

@@ -25,8 +25,9 @@ enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State {
 
 @interface DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation ()
 
-- (BOOL)_stateSpecificTeardownReadiness;
 - (BOOL)_hasFromPersonInToPersonsSet;
+
+- (void)_setState:(enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State)state;
 
 - (void)_start_respondToAssertionRead:(id)response;
 - (void)_start_respondToRelationshipUpdate:(id)response;
@@ -66,30 +67,9 @@ BOOL _stateSpecificTeardownReadiness(void);
         _state = kReady;
         // set up to receive notifications
         [self.fromPerson addObserver:self forKeyPath:@"writeState" options:NSKeyValueObservingOptionNew context:NULL];
-        [self.fromPerson addObserver:self forKeyPath:@"tearDownState" options:NSKeyValueObservingOptionNew context:NULL];
         [self.toPerson addObserver:self forKeyPath:@"writeState" options:NSKeyValueObservingOptionNew context:NULL];
-        [self.toPerson addObserver:self forKeyPath:@"tearDownState" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
-}
-
-- (BOOL)_stateSpecificTeardownReadiness
-{
-#ifdef DEBUG
-    NSAssert([NDFamilyTreeAllRelationshipTypes() containsObject:self.relationshipType], @"Unknown relationship type.");
-#endif
-    if ([self.relationshipType isEqual:NDFamilyTreeRelationshipType.child])
-        return (self.fromPerson.tearDownState & kTearDownState_ChildAssertions) == kTearDownState_None
-                                                                &&
-                (self.toPerson.tearDownState & kTearDownState_ChildAssertions) == kTearDownState_None;
-    else if ([self.relationshipType isEqual:NDFamilyTreeRelationshipType.parent])
-        return (self.fromPerson.tearDownState & kTearDownState_ParentAssertions) == kTearDownState_None
-                                                                &&
-                (self.toPerson.tearDownState & kTearDownState_ParentAssertions) == kTearDownState_None;
-    else // spouse
-        return (self.fromPerson.tearDownState & kTearDownState_SpouseAssertions) == kTearDownState_None
-                                                                &&
-                (self.fromPerson.tearDownState & kTearDownState_SpouseAssertions) == kTearDownState_None;
 }
 
 - (BOOL)_hasFromPersonInToPersonsSet
@@ -106,11 +86,24 @@ BOOL _stateSpecificTeardownReadiness(void);
     }
 }
 
+- (void)_setState:(enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State)state
+{
+    NSString * keyPath;
+    if (state == kReady) keyPath = @"isReady";
+    else if (state == kExecuting) keyPath = @"isExecuting";
+    else if (state == kFinished) keyPath = @"isFinished";
+    
+    if (state != kCancelled) [self willChangeValueForKey:keyPath];
+    _state = state;
+    if (state != kCancelled) [self willChangeValueForKey:keyPath];
+    else [self cancel];
+}
+
 #pragma mark NSOperation
 
 - (BOOL)isReady
 {
-    return self.fromPerson.writeState == kWriteState_Idle && self.toPerson.writeState == kWriteState_Idle && [self _stateSpecificTeardownReadiness] && _state == kReady;
+    return self.fromPerson.writeState == kWriteState_Idle && self.toPerson.writeState == kWriteState_Idle && _state == kReady;
 }
 
 - (BOOL)isConcurrent
@@ -141,9 +134,7 @@ BOOL _stateSpecificTeardownReadiness(void);
     self.fromPerson.writeState = kWriteState_Active;
     self.toPerson.writeState = kWriteState_Active;
     
-    [self willChangeValueForKey:@"isExecuting"];
-    _state = kExecuting;
-    [self didChangeValueForKey:@"isExecuting"];
+    [self _setState:kExecuting];
     
     // 2. Get all assertions
     FSURLOperation * oper =
@@ -166,9 +157,7 @@ BOOL _stateSpecificTeardownReadiness(void);
     self.fromPerson.writeState = kWriteState_Idle;
     self.toPerson.writeState = kWriteState_Idle;
     
-    [self willChangeValueForKey:@"isFinished"];
-    _state = kFinished;
-    [self didChangeValueForKey:@"isFinished"];
+    [self _setState:kFinished];
 }
 
 - (void)_start_respondToRelationshipUpdate:(id)response
@@ -180,26 +169,25 @@ BOOL _stateSpecificTeardownReadiness(void);
 {
     dm_PrintLn(@"%@ to %@ %@ failed to perform deletion");
     dm_PrintURLOperationResponse(resp, payload, error);
+    
+    [self _setState:kFinished];
 }
 
 #pragma mark NSObject
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ((object==self.fromPerson || object==self.toPerson) && _state == kReady) {
+    if (object==self.fromPerson || object==self.toPerson) {
         // check to see if the assertion should still exist
         // this is an easy way to invalidate this operation before it hits the queue
         
         if (![self _hasFromPersonInToPersonsSet]) {
-            [self cancel];
-            _state = kCancelled;
+            [self _setState:kCancelled];
         } else if (_state == kCancelled) {
             dm_PrintLn(@"State transition unavailable to revalidate deletion operation from %@ to %@ %@", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
         }
         
-        if ([self isReady])
-            [self didChangeValueForKey:@"isReady"];
-        
+        [self _setState:kReady];
     } else
         dm_PrintLn(@"Extraneous notification recieved from object %@; expecting either %@ or %@.", object, self.fromPerson, self.toPerson);
 }
@@ -218,9 +206,7 @@ BOOL _stateSpecificTeardownReadiness(void);
 - (void)dealloc
 {
     [self.fromPerson removeObserver:self forKeyPath:@"writeState"];
-    [self.fromPerson removeObserver:self forKeyPath:@"tearDownState"];
     [self.toPerson removeObserver:self forKeyPath:@"writeState"];
-    [self.toPerson removeObserver:self forKeyPath:@"tearDownState"];
 }
 
 @end
