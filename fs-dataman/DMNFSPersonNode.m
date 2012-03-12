@@ -8,6 +8,8 @@
 
 #import "DMNFSPersonNode.h"
 
+#import "DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h"
+
 #import "WeakProxy.h"
 
 #import "Console.h"
@@ -29,7 +31,9 @@
 @synthesize children=_children;
 @synthesize parents=_parents;
 @synthesize spouses=_spouses;
-@synthesize state=_state;
+@synthesize traversalState=_traversalState;
+@synthesize writeState=_writeState;
+@synthesize tearDownState=_tearDownState;
 
 - (id)initWithPID:(NSString *)pid
 {
@@ -62,10 +66,8 @@
 
 - (void)__traverseCore_tryUnlockWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
 {
-    self.state = kTraverseState_Traversed;
-//    if ([self isTraversed]) {
-//        [self unlock];
-//    }
+    if ([self isTraversed])
+        self.traversalState = kTraverseState_Traversed;
     
     if (recursive) {
         NSArray * lockOriginStack;
@@ -97,18 +99,10 @@
 
 - (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
 {
-    if (self.state==kTraverseState_Traversed||self.state==kTraverseState_Traversing) {
+    if (self.traversalState==kTraverseState_Traversed||self.traversalState==kTraverseState_Traversing)
         return;
-    }
-    self.state=kTraverseState_Traversing;
-//    if ([self isTraversed]) return; // fast escape from irrelevancy
-//    if (![self lockBeforeDate:[NSDate dateWithTimeIntervalSinceNow:kDMNFSPERSONNODE_TRAVERSE_LOCK_TIMEOUT] byAuthority:lockOrigin]) {
-//        dm_PrintLn(@"Failed to lock %@ because it has been locked for longer than %f by %@! Undefined behavior is going to occur.", _pid, kDMNFSPERSONNODE_TRAVERSE_LOCK_TIMEOUT, self->_auth);
-//    }
-//    if ([self isTraversed]) {
-//        [self unlock];
-//        return;
-//    }
+    self.traversalState=kTraverseState_Traversing;
+
     NSMutableArray * operations = [[NSMutableArray alloc] initWithCapacity:3];
     FSURLOperation * oper;
     // Children
@@ -219,6 +213,13 @@
     [q addOperations:operations waitUntilFinished:NO];
 }
 
+#pragma mark Tear Down
+
+- (void)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q soft:(BOOL)soft
+{
+    [q addOperation:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation individualAssertionsDeleteWrapperOperationWithPersonNode:self service:service soft:soft]];
+}
+
 #pragma mark NSCopying
 
 - (id)copy
@@ -242,7 +243,9 @@
 {
     self = [super init];
     if (self) {
-        _state = kTraverseState_Untraversed;
+        _traversalState = kTraverseState_Untraversed;
+        _tearDownState = kTearDownState_None;
+        _writeState = kWriteState_Idle;
         _lock = [[NSLock alloc] init];
     }
     return self;
@@ -262,7 +265,8 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"PID: %@ Hash: %lu %@", _pid, [self hash], [super description]];
+    return [NSString stringWithFormat:@"<%@:%p PID:%@ Hash:%lu>", NSStringFromClass([self class]), (void *)self, _pid, [self hash]];
+//    return [NSString stringWithFormat:@"PID: %@ Hash: %lu %@", _pid, [self hash], [super description]];
 }
 
 @end

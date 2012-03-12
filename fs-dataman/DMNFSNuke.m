@@ -152,7 +152,6 @@
      */
     
     // 1. traverse entire tree
-//    [self.service.operationQueue setMaxConcurrentOperationCount:4];
     NSMutableArray * a = [[NSMutableArray alloc] init];
     [[self.inputData valueForKey:@"persons"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSAssert([obj isKindOfClass:[NSString class]], @"This PID isn't a string.");
@@ -164,6 +163,14 @@
         }]];
     }];
     [self.service.operationQueue addOperations:a waitUntilFinished:NO];
+    [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    
+    // 2. Delete all person assertions
+    [_allPersons enumerateObjectsUsingBlock:^(DMNFSPersonNode * person, BOOL *stop) {
+        [self.service.operationQueue addOperation:[NSBlockOperation blockOperationWithBlock:^{
+            [person tearDownWithService:self.service queue:self.service.operationQueue soft:self.soft];
+        }]];
+    }];
     [self.service.operationQueue waitUntilAllOperationsAreFinished];
 }
 

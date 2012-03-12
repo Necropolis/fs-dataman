@@ -22,13 +22,13 @@ int main (int argc, const char * argv[])
         __block size_t operationsExecuted = 0;
 #ifdef DEBUG
         __block NSError * ___error=nil;
-        __block NSRegularExpression * devKeyRegex = [[NSRegularExpression alloc] initWithPattern:@"(&?key\\=)((?:\\w{4}\\-?){8})" options:0 error:&___error];
-        __block NSRegularExpression * sessionIdRegex = [[NSRegularExpression alloc] initWithPattern:@"(&?sessionId=[^\\&]+)" options:0 error:&___error];
+        __block NSRegularExpression * devKeyRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\??&?key\\=)((?:\\w{4}\\-?){8})" options:0 error:&___error];
+        __block NSRegularExpression * sessionIdRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\??&?sessionId=[^\\&]+)" options:0 error:&___error];
         __block NSRegularExpression * dataFormatRegex = [[NSRegularExpression alloc] initWithPattern:@"(\\??&?dataFormat=application\\/json)" options:0 error:&___error];
         NSString * (^washURL)(NSURL * url) = ^NSString *(NSURL * url) {
             NSMutableString * requestURL = [[url description] mutableCopy];
             
-            [devKeyRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@"$1****-****-****-****-****-****-****-****"];
+            [devKeyRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@""];
             [sessionIdRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@""];
             [dataFormatRegex replaceMatchesInString:requestURL options:0 range:NSMakeRange(0, [requestURL length]) withTemplate:@""];
             
