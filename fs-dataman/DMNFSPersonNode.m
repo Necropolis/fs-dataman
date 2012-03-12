@@ -9,6 +9,7 @@
 #import "DMNFSPersonNode.h"
 
 #import "DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h"
+#import "DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.h"
 
 #import "WeakProxy.h"
 
@@ -218,6 +219,12 @@
 - (void)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q soft:(BOOL)soft
 {
     [q addOperation:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation individualAssertionsDeleteWrapperOperationWithPersonNode:self service:service soft:soft]];
+    for (DMNFSPersonNode * child in self.children)
+        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:child relationshipType:NDFamilyTreeRelationshipType.child service:service queue:q soft:soft]];
+    for (DMNFSPersonNode * parent in self.parents)
+        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:parent relationshipType:NDFamilyTreeRelationshipType.parent service:service queue:q soft:soft]];
+    for (DMNFSPersonNode * spouse in self.spouses)
+        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:spouse relationshipType:NDFamilyTreeRelationshipType.spouse service:service queue:q soft:soft]];
 }
 
 #pragma mark NSCopying
@@ -266,7 +273,6 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"<%@:%p PID:%@ Hash:%lu>", NSStringFromClass([self class]), (void *)self, _pid, [self hash]];
-//    return [NSString stringWithFormat:@"PID: %@ Hash: %lu %@", _pid, [self hash], [super description]];
 }
 
 @end

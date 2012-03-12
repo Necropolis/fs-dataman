@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA00AEC814DC551200719E46 /* FSGEDCOMIndividual.m in Sources */ = {isa = PBXBuildFile; fileRef = DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */; };
 		DA0D5FA6150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0D5FA5150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m */; };
+		DA0D5FAA150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0D5FA9150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m */; };
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
 		DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */; };
@@ -61,6 +62,8 @@
 		DA00AEC714DC551200719E46 /* FSGEDCOMIndividual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMIndividual.m; sourceTree = "<group>"; };
 		DA0D5FA4150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h; sourceTree = "<group>"; };
 		DA0D5FA5150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m; sourceTree = "<group>"; };
+		DA0D5FA8150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.h; sourceTree = "<group>"; };
+		DA0D5FA9150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m; sourceTree = "<group>"; };
 		DA1194DF1509269100A4A9F0 /* fs-dataman-ged55-list-individuals.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-ged55-list-individuals.1.ronn"; sourceTree = "<group>"; };
 		DA1194E01509269100A4A9F0 /* fs-dataman-nfs-deploy55.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-deploy55.1.ronn"; sourceTree = "<group>"; };
 		DA1194E11509269100A4A9F0 /* fs-dataman-nfs-inspect.1.ronn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "fs-dataman-nfs-inspect.1.ronn"; sourceTree = "<group>"; };
@@ -231,6 +234,8 @@
 				DA747426150AA48E006C0596 /* WeakProxy.m */,
 				DA0D5FA4150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h */,
 				DA0D5FA5150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m */,
+				DA0D5FA8150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.h */,
+				DA0D5FA9150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m */,
 			);
 			name = "NFS-Nuke";
 			sourceTree = "<group>";
@@ -517,6 +522,7 @@
 				DA747424150AA3F4006C0596 /* DMNFSPersonNode.m in Sources */,
 				DA747427150AA48F006C0596 /* WeakProxy.m in Sources */,
 				DA0D5FA6150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m in Sources */,
+				DA0D5FAA150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
