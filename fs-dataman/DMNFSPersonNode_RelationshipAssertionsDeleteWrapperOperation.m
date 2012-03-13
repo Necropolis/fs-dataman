@@ -15,6 +15,7 @@
 #import "NDService.h"
 #import "NDService+FamilyTree.h"
 #import "FSURLOperation.h"
+#import "NSData+StringValue.h"
 
 #import "ISO8601DateFormatter.h"
 
@@ -261,7 +262,7 @@ BOOL _stateSpecificTeardownReadiness(void);
                                                                     [NSDictionary dictionaryWithObjectsAndKeys:
                                                                      [NSNumber numberWithInteger:resp.statusCode                                                                                                                              ], @"statusCode",
                                                                      resp.allHeaderFields, @"allHeaderFields", nil], @"httpResponse",
-                                                                    payload, @"payload",
+                                                                    [payload fs_stringValue], @"payload",
                                                                     [NSDictionary dictionaryWithObjectsAndKeys:
                                                                      [NSNumber numberWithInteger:[error code]], @"errorCode",
                                                                      [error domain], @"errorDomain",

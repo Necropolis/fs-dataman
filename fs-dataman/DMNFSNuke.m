@@ -187,6 +187,7 @@
     // Ensure that the (un-editable) user record is out of the list
     [self getMe];
     DMNFSPersonNode * meNode = [[DMNFSPersonNode alloc] initWithPID:[[self.me valueForKeyPath:@"persons.id"] firstObject]];
+    meNode = [_allPersons member:meNode]; // keep a ref to it in order to appease the weak-references
     [_allPersons removeObject:meNode];
     
     // 2. Delete all person assertions

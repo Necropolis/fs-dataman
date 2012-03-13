@@ -232,14 +232,17 @@
     NSMutableArray * operations = [[NSMutableArray alloc] init];
     [operations addObject:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation individualAssertionsDeleteWrapperOperationWithPersonNode:self service:service soft:soft]];
     for (DMNFSPersonNode * child in self.children)
-        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:child relType:NDFamilyTreeRelationshipType.child operations:allOperations])
-            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:child relationshipType:NDFamilyTreeRelationshipType.child service:service queue:q soft:soft]];
+        if (([child class]==[WeakProxy class]&&[((WeakProxy *)child) object])||[child class]!=[WeakProxy class])
+            if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:child relType:NDFamilyTreeRelationshipType.child operations:allOperations])
+                [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:child relationshipType:NDFamilyTreeRelationshipType.child service:service queue:q soft:soft]];
     for (DMNFSPersonNode * parent in self.parents)
-        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:parent relType:NDFamilyTreeRelationshipType.parent operations:allOperations])
-            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:parent relationshipType:NDFamilyTreeRelationshipType.parent service:service queue:q soft:soft]];
+        if (([parent class]==[WeakProxy class]&&[((WeakProxy *)parent) object])||[parent class]!=[WeakProxy class])
+            if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:parent relType:NDFamilyTreeRelationshipType.parent operations:allOperations])
+                [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:parent relationshipType:NDFamilyTreeRelationshipType.parent service:service queue:q soft:soft]];
     for (DMNFSPersonNode * spouse in self.spouses)
-        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:spouse relType:NDFamilyTreeRelationshipType.spouse operations:allOperations])
-            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:spouse relationshipType:NDFamilyTreeRelationshipType.spouse service:service queue:q soft:soft]];
+        if (([spouse class]==[WeakProxy class]&&[((WeakProxy *)spouse) object])||[spouse class]!=[WeakProxy class])
+            if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:spouse relType:NDFamilyTreeRelationshipType.spouse operations:allOperations])
+                [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:spouse relationshipType:NDFamilyTreeRelationshipType.spouse service:service queue:q soft:soft]];
     return operations;
 }
 
