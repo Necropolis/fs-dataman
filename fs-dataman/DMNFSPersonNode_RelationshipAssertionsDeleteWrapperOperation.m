@@ -164,11 +164,15 @@ BOOL _stateSpecificTeardownReadiness(void);
     if ([self isCancelled]||[self isFinished])
         return;
     
-    // 1. Lock fromPerson & toPerson
-    self.fromPerson.writeState = kWriteState_Active;
-    self.toPerson.writeState = kWriteState_Active;
+    if (![self isExecuting]) { // supposed to restart if throttled
     
-    [self setIsExecuting:YES];
+        // 1. Lock fromPerson & toPerson
+        self.fromPerson.writeState = kWriteState_Active;
+        self.toPerson.writeState = kWriteState_Active;
+        
+        [self setIsExecuting:YES];
+        
+    }
     
     // 2. Get all assertions
     FSURLOperation * oper =
@@ -186,19 +190,46 @@ BOOL _stateSpecificTeardownReadiness(void);
     NSDictionary * originalAssertions = [[[response valueForKeyPath:[NSString stringWithFormat:@"persons.relationships.%@.assertions", self.relationshipType]] firstObject] firstObject];
     NSNumber * version = [[[response valueForKeyPath:[NSString stringWithFormat:@"persons.relationships.%@.version", self.relationshipType]] firstObject] firstObject];
     
-    dm_PrintLn(@"originalAssertions: %@", originalAssertions);
-    dm_PrintLn(@"version: %@", version);
+    NSMutableDictionary * deleteAssertions = [[NSMutableDictionary alloc] initWithCapacity:[[originalAssertions allKeys] count]];
+    [originalAssertions enumerateKeysAndObjectsUsingBlock:^(id key, NSArray * obj, BOOL *stop) {
+        NSMutableArray * newDotDeleteAssertions = [[NSMutableArray alloc] initWithCapacity:[obj count]];
+        for (NSDictionary * assertion in obj) {
+            [newDotDeleteAssertions addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                               @"Delete", @"action",
+                                               [NSDictionary dictionaryWithObject:[assertion valueForKeyPath:@"value.id"] forKey:@"id"], @"value", nil]];
+        }
+        [deleteAssertions setObject:[newDotDeleteAssertions copy] forKey:key];
+    }];
     
+    dm_PrintLn(@"deleteAssertions: %@", deleteAssertions);
     
-    self.fromPerson.writeState = kWriteState_Idle;
-    self.toPerson.writeState = kWriteState_Idle;
-    
-    [self setIsFinished:YES];
+    if (self.soft) {
+        dm_PrintLn(@"%@ to %@ %@ Deletion progress: Generated deletion assertions, but due to SOFT mode I have taken no action.", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
+        
+        self.fromPerson.writeState = kWriteState_Idle;
+        self.toPerson.writeState = kWriteState_Idle;
+        
+        [self setIsFinished:YES];
+    } else {
+        
+        FSURLOperation * oper =
+        [self.service familyTreeOperationRelationshipUpdateFromPerson:self.fromPerson.pid relationshipType:self.relationshipType toPersons:[NSArray arrayWithObject:self.toPerson.pid] relationshipVersions:[NSArray arrayWithObject:version] assertions:[NSArray arrayWithObject:deleteAssertions] onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
+            dm_PrintLn(@"%@ to %@ %@ Deletion progress: Just deleted the relationship.", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
+            [self _start_respondToRelationshipUpdate:response];
+        } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
+            [self _start_handleFailure:resp payload:payload error:error];
+        }];
+        [self.q addOperation:oper];
+        
+    }
 }
 
 - (void)_start_respondToRelationshipUpdate:(id)response
 {
+    self.fromPerson.writeState = kWriteState_Idle;
+    self.toPerson.writeState = kWriteState_Idle;
     
+    [self setIsFinished:YES];
 }
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp payload:(NSData *)payload error:(NSError *)error

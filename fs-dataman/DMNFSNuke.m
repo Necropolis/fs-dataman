@@ -168,7 +168,7 @@
         [_allPersons addObject:n];
         [a addObject:[NSBlockOperation blockOperationWithBlock:^{
             if (![n isTraversed])
-                [n traverseTreeWithService:self.service globalNodeSet:_allPersons recursive:self.greedy queue:self.service.operationQueue lockOrigin:self];
+                [n traverseTreeWithService:self.service globalNodeSet:_allPersons recursive:self.greedy queue:self.service.operationQueue];
         }]];
     }];
     [self.service.operationQueue addOperations:a waitUntilFinished:NO];
@@ -180,27 +180,7 @@
         [allOperations addObjectsFromArray:[person tearDownWithService:self.service queue:self.service.operationQueue allOperations:allOperations soft:self.soft]];
     }];
     
-//    NSArray * individualDeleteOperations = [allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
-//        if ([evaluatedObject isKindOfClass:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation class]]) return YES;
-//        else return NO;
-//    }]];
-//    NSArray * relationshipDeleteOperations = [allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
-//        if ([evaluatedObject isKindOfClass:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation class]]) return YES;
-//        else return NO;
-//    }]];
-    
     [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
-//    [self.service.operationQueue addOperations:relationshipDeleteOperations waitUntilFinished:YES];
-    
-//    [self.service.operationQueue addOperations:allOperations waitUntilFinished:NO];
-//    
-//    while ([[allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
-//        return ![evaluatedObject isFinished];
-//    }]] count]>0)
-//        [NSThread sleepForTimeInterval:1.0f];
-    
-//    [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
-//    [self.service.operationQueue waitUntilAllOperationsAreFinished];
 }
 
 @end

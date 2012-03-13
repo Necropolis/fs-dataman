@@ -23,12 +23,10 @@
     NSSet * _children;
     NSSet * _parents;
     NSSet * _spouses;
-    __weak id _auth; // who locked this object?
 }
 
 @synthesize pid=_pid;
 @synthesize me=_me;
-@synthesize lock=_lock;
 @synthesize children=_children;
 @synthesize parents=_parents;
 @synthesize spouses=_spouses;
@@ -45,19 +43,6 @@
     return self;
 }
 
-- (BOOL)lockBeforeDate:(NSDate *)date byAuthority:(id)auth
-{
-    BOOL res = [self.lock lockBeforeDate:date];
-    if (res) _auth = auth;
-    return res;
-}
-
-- (void)unlock
-{
-    _auth = nil;
-    [self.lock unlock];
-}
-
 #pragma mark Traversal
 
 - (BOOL)isTraversed
@@ -65,40 +50,34 @@
     return self.spouses!=nil && self.parents!=nil && self.children!=nil;
 }
 
-- (void)__traverseCore_tryUnlockWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
+- (void)__traverseCore_tryUnlockWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q
 {
     if ([self isTraversed])
         self.traversalState = kTraverseState_Traversed;
     
     if (recursive) {
-        NSArray * lockOriginStack;
-        if ([lockOrigin isKindOfClass:[NSArray class]]) {
-            lockOriginStack = [NSArray arrayWithObject:self];
-            lockOriginStack = [lockOriginStack arrayByAddingObjectsFromArray:lockOrigin];
-        }
-        
         for (DMNFSPersonNode * child in self.children) {
             [q addOperation:[NSBlockOperation blockOperationWithBlock:^{
                 if (![child isTraversed])
-                    [child traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOriginStack];
+                    [child traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
             }]];
         }
         for (DMNFSPersonNode * parent in self.parents) {
             [q addOperation:[NSBlockOperation blockOperationWithBlock:^{
                 if (![parent isTraversed])
-                    [parent traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOriginStack];
+                    [parent traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
             }]];
         }
         for (DMNFSPersonNode * spouse in self.spouses) {
             [q addOperation:[NSBlockOperation blockOperationWithBlock:^{
                 if (![spouse isTraversed])
-                    [spouse traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOriginStack];
+                    [spouse traverseTreeWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
             }]];
         }
     }
 }
 
-- (void)_traverseTreeWithService__childTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
+- (void)_traverseTreeWithService__childTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q
 {
     FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.child toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
@@ -123,7 +102,7 @@
         self.children = [childNodes copy];
         dm_PrintLn(@"%@ Added children: %@", _pid, [[[self.children valueForKey:@"pid"] allObjects] componentsJoinedByString:@", "]);
         
-        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOrigin];
+        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
         
     } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
         if ([resp statusCode]==404) {
@@ -132,14 +111,14 @@
         } else if (resp.statusCode == 503) {
             dm_PrintLn(@"%@ child read was throttled; waiting 20 seconds, then trying again.", self.pid);
             [NSThread sleepForTimeInterval:20.0f];
-            [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
+            [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
     [q addOperation:oper];
 }
 
-- (void)_traverseTreeWithService__parentTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
+- (void)_traverseTreeWithService__parentTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q
 {
     FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.parent toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
@@ -164,7 +143,7 @@
         self.parents = [parentNodes copy];
         dm_PrintLn(@"%@ Added parents: %@", _pid, [[[self.parents valueForKey:@"pid"] allObjects] componentsJoinedByString:@", "]);
         
-        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOrigin];
+        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
         
     } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
         if ([resp statusCode]==404) {
@@ -173,14 +152,14 @@
         } else if (resp.statusCode == 503) {
             dm_PrintLn(@"%@ parent read was throttled; waiting 20 seconds, then trying again.", self.pid);
             [NSThread sleepForTimeInterval:20.0f];
-            [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
+            [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
     [q addOperation:oper];
 }
 
-- (void)_traverseTreeWithService__spouseTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
+- (void)_traverseTreeWithService__spouseTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q
 {
     FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.spouse toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
@@ -205,7 +184,7 @@
         self.spouses = [spouseNodes copy];
         dm_PrintLn(@"%@ Added spouses: %@", _pid, [[[self.spouses valueForKey:@"pid"] allObjects] componentsJoinedByString:@", "]);
         
-        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q lockOrigin:lockOrigin];
+        [self __traverseCore_tryUnlockWithService:service globalNodeSet:allNodes recursive:recursive queue:q];
         
     } onFailure:^(NSHTTPURLResponse *resp, NSData *payload, NSError *error) {
         if ([resp statusCode]==404) {
@@ -214,22 +193,22 @@
         } else if (resp.statusCode == 503) {
             dm_PrintLn(@"%@ spouse read was throttled; waiting 20 seconds, then trying again.", self.pid);
             [NSThread sleepForTimeInterval:20.0f];
-            [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
+            [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
     [q addOperation:oper];
 }
 
-- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
+- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q
 {
     if (self.traversalState==kTraverseState_Traversed||self.traversalState==kTraverseState_Traversing)
         return;
     self.traversalState=kTraverseState_Traversing;
 
-    [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
-    [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
-    [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];    
+    [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];
+    [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];
+    [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q];    
 }
 
 #pragma mark Tear Down
@@ -269,7 +248,6 @@
 - (id)copy
 {
     DMNFSPersonNode * n = [[[self class] alloc] initWithPID:_pid];
-    n.lock = _lock;
     n.children = _children;
     n.parents = _parents;
     n.spouses = _spouses;
@@ -290,7 +268,6 @@
         _traversalState = kTraverseState_Untraversed;
         _tearDownState = kTearDownState_None;
         _writeState = kWriteState_Idle;
-        _lock = [[NSLock alloc] init];
     }
     return self;
 }

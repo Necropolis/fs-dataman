@@ -38,7 +38,6 @@ enum DMNFSPersonNode_TearDownState {
 
 @property (strong) NSString * pid;
 @property (assign, getter = isMe) BOOL me;
-@property (strong) NSLock * lock;
 @property (strong) NSSet * children; // links to other nodes through proxy objects
 @property (strong) NSSet * parents; // links to other nodes through proxy objects
 @property (strong) NSSet * spouses; // links to other nodes through proxy objects
@@ -48,13 +47,10 @@ enum DMNFSPersonNode_TearDownState {
 
 - (id)initWithPID:(NSString *)pid;
 
-- (BOOL)lockBeforeDate:(NSDate *)date byAuthority:(id)auth;
-- (void)unlock;
-
 #pragma mark Traversal
 
 - (BOOL)isTraversed;
-- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin;
+- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q;
 
 #pragma mark Tear Down
 
