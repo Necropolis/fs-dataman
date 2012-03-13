@@ -137,6 +137,7 @@
     }]];
 }
 
+// bonus points for defines in weird places
 #define kIndividualsDeletedKey @"individualsDeleted"
 #define kRelationshipsDeletedKey @"relationshipDeleted"
 #define kFailedIndividualDeletionsKey @"failedIndividualDeletions"
@@ -182,12 +183,17 @@
     [self.service.operationQueue addOperations:a waitUntilFinished:NO];
     [self.service.operationQueue waitUntilAllOperationsAreFinished];
     
+    
+    // Ensure that the (un-editable) user record is out of the list
+    [self getMe];
+    DMNFSPersonNode * meNode = [[DMNFSPersonNode alloc] initWithPID:[[self.me valueForKeyPath:@"persons.id"] firstObject]];
+    [_allPersons removeObject:meNode];
+    
     // 2. Delete all person assertions
     NSMutableArray * allOperations = [[NSMutableArray alloc] init];
     [_allPersons enumerateObjectsUsingBlock:^(DMNFSPersonNode * person, BOOL *stop) {
         [allOperations addObjectsFromArray:[person tearDownWithService:self.service queue:self.service.operationQueue allOperations:allOperations soft:self.soft]];
     }];
-    
     [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
     
     [[NSNotificationCenter defaultCenter] removeObserver:individualDeletedObserverToken];
