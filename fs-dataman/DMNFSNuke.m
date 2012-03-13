@@ -19,6 +19,8 @@
 #import "FSURLOperation.h"
 
 #import "DMNFSPersonNode.h"
+#import "DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.h"
+#import "DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.h"
 
 @implementation DMNFSNuke {
     NSString* _ifile;
@@ -128,6 +130,13 @@
     return desc;
 }
 
+- (NSArray *)_allUnfinishedOperations_:(NSArray *)operations
+{
+    return [operations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
+        return [evaluatedObject isReady] && ![evaluatedObject isFinished];
+    }]];
+}
+
 - (void)run
 {   // /run/dos/run https://devnet.familysearch.org/docs/api/familytree-v2/guides/deleting-a-person
 
@@ -166,12 +175,32 @@
     [self.service.operationQueue waitUntilAllOperationsAreFinished];
     
     // 2. Delete all person assertions
+    NSMutableArray * allOperations = [[NSMutableArray alloc] init];
     [_allPersons enumerateObjectsUsingBlock:^(DMNFSPersonNode * person, BOOL *stop) {
-        [self.service.operationQueue addOperation:[NSBlockOperation blockOperationWithBlock:^{
-            [person tearDownWithService:self.service queue:self.service.operationQueue soft:self.soft];
-        }]];
+        [allOperations addObjectsFromArray:[person tearDownWithService:self.service queue:self.service.operationQueue allOperations:allOperations soft:self.soft]];
     }];
-    [self.service.operationQueue waitUntilAllOperationsAreFinished];
+    
+//    NSArray * individualDeleteOperations = [allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
+//        if ([evaluatedObject isKindOfClass:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation class]]) return YES;
+//        else return NO;
+//    }]];
+//    NSArray * relationshipDeleteOperations = [allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
+//        if ([evaluatedObject isKindOfClass:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation class]]) return YES;
+//        else return NO;
+//    }]];
+    
+    [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
+//    [self.service.operationQueue addOperations:relationshipDeleteOperations waitUntilFinished:YES];
+    
+//    [self.service.operationQueue addOperations:allOperations waitUntilFinished:NO];
+//    
+//    while ([[allOperations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * evaluatedObject, NSDictionary *bindings) {
+//        return ![evaluatedObject isFinished];
+//    }]] count]>0)
+//        [NSThread sleepForTimeInterval:1.0f];
+    
+//    [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
+//    [self.service.operationQueue waitUntilAllOperationsAreFinished];
 }
 
 @end

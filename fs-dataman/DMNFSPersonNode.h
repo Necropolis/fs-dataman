@@ -58,6 +58,6 @@ enum DMNFSPersonNode_TearDownState {
 
 #pragma mark Tear Down
 
-- (void)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q soft:(BOOL)soft;
+- (NSArray *)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q allOperations:(NSArray *)allOperations soft:(BOOL)soft;
 
 @end

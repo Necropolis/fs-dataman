@@ -17,17 +17,16 @@
 #import "FSURLOperation.h"
 
 enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State {
-    kReady, // inidicates that it is not in a cancelled, executing, or finished state; does not track other preconditions!
-    kCancelled,
-    kExecuting,
-    kFinished
+    kUnready=0,
+    kReady=1<<1, // inidicates that it is not in a cancelled, executing, or finished state; does not track other preconditions!
+    kExecuting=1<<2,
+    kFinished=1<<3,
+    kCancelled=1<<4
 };
 
 @interface DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation ()
 
 - (BOOL)_hasFromPersonInToPersonsSet;
-
-- (void)_setState:(enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State)state;
 
 - (void)_start_respondToAssertionRead:(id)response;
 - (void)_start_respondToRelationshipUpdate:(id)response;
@@ -86,24 +85,21 @@ BOOL _stateSpecificTeardownReadiness(void);
     }
 }
 
-- (void)_setState:(enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State)state
-{
-    NSString * keyPath;
-    if (state == kReady) keyPath = @"isReady";
-    else if (state == kExecuting) keyPath = @"isExecuting";
-    else if (state == kFinished) keyPath = @"isFinished";
-    
-    if (state != kCancelled) [self willChangeValueForKey:keyPath];
-    _state = state;
-    if (state != kCancelled) [self willChangeValueForKey:keyPath];
-    else [self cancel];
-}
-
 #pragma mark NSOperation
+
+- (void)setIsReady:(__unused BOOL)isReady
+{
+    [self willChangeValueForKey:@"isReady"];
+    if ([self isReady])
+        _state = kReady;
+    else
+        _state = kUnready;
+    [self didChangeValueForKey:@"isReady"];
+}
 
 - (BOOL)isReady
 {
-    return self.fromPerson.writeState == kWriteState_Idle && self.toPerson.writeState == kWriteState_Idle && _state == kReady;
+    return self.fromPerson.writeState == kWriteState_Idle && self.toPerson.writeState == kWriteState_Idle;
 }
 
 - (BOOL)isConcurrent
@@ -111,30 +107,68 @@ BOOL _stateSpecificTeardownReadiness(void);
     return YES;
 }
 
+- (void)setIsExecuting:(BOOL)isExecuting
+{
+    [self willChangeValueForKey:@"isExecuting"];
+    if (isExecuting)
+        _state = kExecuting;
+    else
+        _state ^= kExecuting;
+    [self didChangeValueForKey:@"isExecuting"];
+}
+
 - (BOOL)isExecuting
 {
-    return _state == kExecuting;
+    return _state & kExecuting;
+}
+
+- (void)setIsFinished:(BOOL)isFinished
+{
+    if (isFinished) [self setIsExecuting:NO];
+    [self willChangeValueForKey:@"isFinished"];
+    if (isFinished)
+        _state |= kFinished;
+    else
+        _state ^= kFinished;
+    [self didChangeValueForKey:@"isFinished"];
+    if (isFinished) {
+        [self.fromPerson removeObserver:self forKeyPath:@"writeState"];
+        [self.toPerson removeObserver:self forKeyPath:@"writeState"];
+    }
 }
 
 - (BOOL)isFinished
 {
-    return _state == kFinished;
+    return _state & kFinished;
+}
+
+- (void)setIsCancelled:(BOOL)isCancelled
+{
+    [self willChangeValueForKey:@"isCancelled"];
+    if (isCancelled)
+        _state |= kCancelled;
+    else
+        _state ^= kCancelled;
+    [self didChangeValueForKey:@"isCancelled"];
+    if (isCancelled)
+        [self setIsFinished:YES];
 }
 
 - (BOOL)isCancelled
 {
-    return _state == kCancelled;
+    return _state & kCancelled;
 }
 
 - (void)start
 {
-    if ([self isCancelled]||[self isFinished]) return;
+    if ([self isCancelled]||[self isFinished])
+        return;
     
     // 1. Lock fromPerson & toPerson
     self.fromPerson.writeState = kWriteState_Active;
     self.toPerson.writeState = kWriteState_Active;
     
-    [self _setState:kExecuting];
+    [self setIsExecuting:YES];
     
     // 2. Get all assertions
     FSURLOperation * oper =
@@ -157,7 +191,7 @@ BOOL _stateSpecificTeardownReadiness(void);
     self.fromPerson.writeState = kWriteState_Idle;
     self.toPerson.writeState = kWriteState_Idle;
     
-    [self _setState:kFinished];
+    [self setIsFinished:YES];
 }
 
 - (void)_start_respondToRelationshipUpdate:(id)response
@@ -167,10 +201,13 @@ BOOL _stateSpecificTeardownReadiness(void);
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp payload:(NSData *)payload error:(NSError *)error
 {
-    dm_PrintLn(@"%@ to %@ %@ failed to perform deletion");
+    dm_PrintLn(@"%@ to %@ %@ failed to perform deletion", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
     dm_PrintURLOperationResponse(resp, payload, error);
     
-    [self _setState:kFinished];
+    self.fromPerson.writeState = kWriteState_Idle;
+    self.toPerson.writeState = kWriteState_Idle;
+    
+    [self setIsFinished:YES];
 }
 
 #pragma mark NSObject
@@ -180,14 +217,7 @@ BOOL _stateSpecificTeardownReadiness(void);
     if (object==self.fromPerson || object==self.toPerson) {
         // check to see if the assertion should still exist
         // this is an easy way to invalidate this operation before it hits the queue
-        
-        if (![self _hasFromPersonInToPersonsSet]) {
-            [self _setState:kCancelled];
-        } else if (_state == kCancelled) {
-            dm_PrintLn(@"State transition unavailable to revalidate deletion operation from %@ to %@ %@", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
-        }
-        
-        [self _setState:kReady];
+        [self setIsReady:[self isReady]];
     } else
         dm_PrintLn(@"Extraneous notification recieved from object %@; expecting either %@ or %@.", object, self.fromPerson, self.toPerson);
 }
@@ -200,13 +230,15 @@ BOOL _stateSpecificTeardownReadiness(void);
     else if (_state == kExecuting) state = @"Executing";
     else state = @"Finished";
     
-    return [NSString stringWithFormat:@"<%@:%p from:%@ to:%@ state:%@>", NSStringFromClass([self class]), (void *)self, self.fromPerson.pid, self.toPerson.pid, state];
+    return [NSString stringWithFormat:@"<%@:%p from:%@ to:%@ state:%@ isReady:%@ isExecuting:%@ isFinished:%@ isCancelled:%@>", NSStringFromClass([self class]), (void *)self, self.fromPerson.pid, self.toPerson.pid, state, [self isReady]?@"YES":@"NO", [self isExecuting]?@"YES":@"NO", [self isFinished]?@"YES":@"NO", [self isCancelled]?@"YES":@"NO"];
 }
 
 - (void)dealloc
 {
-    [self.fromPerson removeObserver:self forKeyPath:@"writeState"];
-    [self.toPerson removeObserver:self forKeyPath:@"writeState"];
+    if (![self isFinished]) {
+        [self.fromPerson removeObserver:self forKeyPath:@"writeState"];
+        [self.toPerson removeObserver:self forKeyPath:@"writeState"];
+    }
 }
 
 @end

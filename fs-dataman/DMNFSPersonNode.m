@@ -216,15 +216,34 @@
 
 #pragma mark Tear Down
 
-- (void)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q soft:(BOOL)soft
+- (BOOL)_tearDownWithService_shouldAddOperationFromNode:(DMNFSPersonNode *)fromNode toNode:(DMNFSPersonNode *)toNode relType:(NSString *)relType operations:(NSArray *)operations
 {
-    [q addOperation:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation individualAssertionsDeleteWrapperOperationWithPersonNode:self service:service soft:soft]];
+    NSArray * relevantOperations = [operations filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSOperation * unknownOperation, NSDictionary *bindings) {
+        if (![unknownOperation isKindOfClass:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation class]]) return NO;
+        DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation * knownOperation = (DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation *)unknownOperation;
+        if (![knownOperation.relationshipType isEqual:relType]) return NO;
+        NSSet * nodes = [NSSet setWithObjects:knownOperation.fromPerson, knownOperation.toPerson, nil];
+        if ([nodes member:fromNode] && [nodes member:toNode]) return YES;
+        else return NO;
+    }]];
+    if ([relevantOperations count]>0) return NO;
+    else return YES;
+}
+
+- (NSArray *)tearDownWithService:(NDService *)service queue:(NSOperationQueue *)q allOperations:(NSArray *)allOperations soft:(BOOL)soft
+{
+    NSMutableArray * operations = [[NSMutableArray alloc] init];
+    [operations addObject:[DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation individualAssertionsDeleteWrapperOperationWithPersonNode:self service:service soft:soft]];
     for (DMNFSPersonNode * child in self.children)
-        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:child relationshipType:NDFamilyTreeRelationshipType.child service:service queue:q soft:soft]];
+        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:child relType:NDFamilyTreeRelationshipType.child operations:allOperations])
+            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:child relationshipType:NDFamilyTreeRelationshipType.child service:service queue:q soft:soft]];
     for (DMNFSPersonNode * parent in self.parents)
-        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:parent relationshipType:NDFamilyTreeRelationshipType.parent service:service queue:q soft:soft]];
+        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:parent relType:NDFamilyTreeRelationshipType.parent operations:allOperations])
+            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:parent relationshipType:NDFamilyTreeRelationshipType.parent service:service queue:q soft:soft]];
     for (DMNFSPersonNode * spouse in self.spouses)
-        [q addOperation:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:spouse relationshipType:NDFamilyTreeRelationshipType.spouse service:service queue:q soft:soft]];
+        if ([self _tearDownWithService_shouldAddOperationFromNode:self toNode:spouse relType:NDFamilyTreeRelationshipType.spouse operations:allOperations])
+            [operations addObject:[DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation relationshipAssertionsDeleteWrapperOperationFromPerson:self toPerson:spouse relationshipType:NDFamilyTreeRelationshipType.spouse service:service queue:q soft:soft]];
+    return operations;
 }
 
 #pragma mark NSCopying
