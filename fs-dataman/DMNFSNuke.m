@@ -137,28 +137,36 @@
     }]];
 }
 
+#define kIndividualsDeletedKey @"individualsDeleted"
+#define kRelationshipsDeletedKey @"relationshipDeleted"
+#define kFailedIndividualDeletionsKey @"failedIndividualDeletions"
+#define kFailedRelationshipDeletionsKey @"failedRelationshipDeletions"
+
 - (void)run
 {   // /run/dos/run https://devnet.familysearch.org/docs/api/familytree-v2/guides/deleting-a-person
 
     _allPersons = [[NSMutableSet alloc] init];
     
-    /* BATTLE PLAN:
-     
-     1. Traverse the entire tree.
-       
-       If greedy is on, descend all relationship links to find more PIDs. Add these new PIDs to the list of PIDs to delete.
-     
-     2. Delete all assertions on persons.
-     
-     3. Delete all parent->child relationships.
-     
-     4. Delete all spouse relationships.
-
-     Note that 1 can be massively parallelized, but requires some fancy locking to prevent bouncing around the tree in an infinite loop.
-     
-     Note that 2, 3, and 4 can be massively parallelized, but requires some fancy locking to prevent concurrent modification of the same record.
-     
-     */
+    NSOperationQueue * notificationQueue = [[NSOperationQueue alloc] init];
+    
+    NSMutableDictionary * commandResults = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                            [NSMutableArray array], kIndividualsDeletedKey,
+                                            [NSMutableArray array], kRelationshipsDeletedKey,
+                                            [NSMutableArray array], kFailedIndividualDeletionsKey,
+                                            [NSMutableArray array], kFailedRelationshipDeletionsKey, nil];
+    id individualDeletedObserverToken =
+    [[NSNotificationCenter defaultCenter] addObserverForName:kIndividualDeletedNotification object:nil queue:notificationQueue usingBlock:^(NSNotification *note) {
+        [[commandResults objectForKey:kIndividualsDeletedKey] addObject:note.userInfo];
+    }]; id failedIndividualDeletionsObserverToken =
+    [[NSNotificationCenter defaultCenter] addObserverForName:kIndividualDeletionFailureNofication object:nil queue:notificationQueue usingBlock:^(NSNotification *note) {
+        [[commandResults objectForKey:kFailedIndividualDeletionsKey] addObject:note.userInfo];
+    }]; id relationshipsDeletedObserverToken =
+    [[NSNotificationCenter defaultCenter] addObserverForName:kRelationshipDeletedNotification object:nil queue:notificationQueue usingBlock:^(NSNotification *note) {
+        [[commandResults objectForKey:kRelationshipsDeletedKey] addObject:note.userInfo];
+    }]; id failedRelationshipsDeletionObserverToken =
+    [[NSNotificationCenter defaultCenter] addObserverForName:kRelationshipDeletionFailureNotification object:nil queue:notificationQueue usingBlock:^(NSNotification *note) {
+        [[commandResults objectForKey:kFailedRelationshipDeletionsKey] addObject:note.userInfo];
+    }];
     
     // 1. traverse entire tree
     NSMutableArray * a = [[NSMutableArray alloc] init];
@@ -181,6 +189,19 @@
     }];
     
     [self.service.operationQueue addOperations:allOperations waitUntilFinished:YES];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:individualDeletedObserverToken];
+    [[NSNotificationCenter defaultCenter] removeObserver:failedIndividualDeletionsObserverToken];
+    [[NSNotificationCenter defaultCenter] removeObserver:relationshipsDeletedObserverToken];
+    [[NSNotificationCenter defaultCenter] removeObserver:failedRelationshipsDeletionObserverToken];
+    
+    NSError * err;
+    NSData * commandResults_data =
+    [NSJSONSerialization dataWithJSONObject:commandResults options:NSJSONWritingPrettyPrinted error:&err];
+    if (err)
+        dm_PrintLn(@"Choked on the home stretch! failed to write out results with error: %@", err);
+    else
+        [self.outputFile writeData:commandResults_data];
 }
 
 @end

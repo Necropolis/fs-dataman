@@ -15,6 +15,8 @@
 #import "NDService+FamilyTree.h"
 #import "FSURLOperation.h"
 
+#import "ISO8601DateFormatter.h"
+
 enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
     kUnready=0,
     kReady=1<<1,
@@ -174,6 +176,8 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
                    @"                            assertions, but running in SOFT mode", self.personToKill.pid);
         
         [self setIsFinished:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kIndividualDeletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.personToKill.pid, @"pid", [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when", [NSNumber numberWithBool:YES], @"soft", nil]];
     } else {
         // chuck if off to the queue
         FSURLOperation * oper =
@@ -193,6 +197,8 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
     self.personToKill.writeState = kWriteState_Idle;
     
     [self setIsFinished:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kIndividualDeletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.personToKill.pid, @"pid", [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when", nil]];
 }
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp data:(NSData *)payload error:(NSError *)error
@@ -208,6 +214,20 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
         self.personToKill.writeState = kWriteState_Idle;
         
         [self setIsFinished:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kIndividualDeletionFailureNofication
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    self.personToKill.pid, @"pid",
+                                                                    [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when",
+                                                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [NSNumber numberWithInteger:resp.statusCode                                                                                                                              ], @"statusCode",
+                                                                     resp.allHeaderFields, @"allHeaderFields", nil], @"httpResponse",
+                                                                    payload, @"payload",
+                                                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [NSNumber numberWithInteger:[error code]], @"errorCode",
+                                                                     [error domain], @"errorDomain",
+                                                                     [error userInfo], @"userInfo", nil], @"error", nil]];
     }
 }
 

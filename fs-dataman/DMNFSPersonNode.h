@@ -12,6 +12,11 @@
 
 #define kDMNFSPERSONNODE_TRAVERSE_LOCK_TIMEOUT 30.0f
 
+#define kIndividualDeletedNotification @"individualDeletedNotification"
+#define kRelationshipDeletedNotification @"relationshipDeletedNotification"
+#define kIndividualDeletionFailureNofication @"individualDeletionFailureNotification"
+#define kRelationshipDeletionFailureNotification @"relationshipDeletionFailureNotification"
+
 enum DMNFSPersonNode_TraversalState {
     kTraverseState_Untraversed,
     kTraverseState_Traversing,

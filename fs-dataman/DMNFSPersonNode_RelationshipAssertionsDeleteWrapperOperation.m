@@ -16,6 +16,8 @@
 #import "NDService+FamilyTree.h"
 #import "FSURLOperation.h"
 
+#import "ISO8601DateFormatter.h"
+
 enum DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation_State {
     kUnready=0,
     kReady=1<<1, // inidicates that it is not in a cancelled, executing, or finished state; does not track other preconditions!
@@ -201,8 +203,6 @@ BOOL _stateSpecificTeardownReadiness(void);
         [deleteAssertions setObject:[newDotDeleteAssertions copy] forKey:key];
     }];
     
-    dm_PrintLn(@"deleteAssertions: %@", deleteAssertions);
-    
     if (self.soft) {
         dm_PrintLn(@"%@ to %@ %@ Deletion progress: Generated deletion assertions, but due to SOFT mode I have taken no action.", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
         
@@ -210,6 +210,8 @@ BOOL _stateSpecificTeardownReadiness(void);
         self.toPerson.writeState = kWriteState_Idle;
         
         [self setIsFinished:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRelationshipDeletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.fromPerson.pid, @"fromPid", self.toPerson.pid, @"toPid", self.relationshipType, @"relationshipType", [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when", [NSNumber numberWithBool:YES], @"soft", nil]];
     } else {
         
         FSURLOperation * oper =
@@ -230,6 +232,8 @@ BOOL _stateSpecificTeardownReadiness(void);
     self.toPerson.writeState = kWriteState_Idle;
     
     [self setIsFinished:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRelationshipDeletedNotification object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:self.fromPerson.pid, @"fromPid", self.toPerson.pid, @"toPid", self.relationshipType, @"relationshipType", [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when", nil]];
 }
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp payload:(NSData *)payload error:(NSError *)error
@@ -246,6 +250,22 @@ BOOL _stateSpecificTeardownReadiness(void);
         self.toPerson.writeState = kWriteState_Idle;
         
         [self setIsFinished:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRelationshipDeletionFailureNotification
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    self.fromPerson.pid, @"fromPid",
+                                                                    self.toPerson.pid, @"toPerson",
+                                                                    self.relationshipType, @"relationshipType",
+                                                                    [GetDefaultFormatter() stringFromDate:[NSDate date]], @"when",
+                                                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [NSNumber numberWithInteger:resp.statusCode                                                                                                                              ], @"statusCode",
+                                                                     resp.allHeaderFields, @"allHeaderFields", nil], @"httpResponse",
+                                                                    payload, @"payload",
+                                                                    [NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [NSNumber numberWithInteger:[error code]], @"errorCode",
+                                                                     [error domain], @"errorDomain",
+                                                                     [error userInfo], @"userInfo", nil], @"error", nil]];
     }
 }
 

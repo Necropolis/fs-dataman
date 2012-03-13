@@ -12,6 +12,7 @@
 		DA0D5FAA150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0D5FA9150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m */; };
 		DA271FFF14CA039900CFF1D0 /* FSGEDCOMStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */; };
 		DA27200314CA085000CFF1D0 /* FSGEDCOMHead.m in Sources */ = {isa = PBXBuildFile; fileRef = DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */; };
+		DA5A6275150FEEFA00C52A26 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA5A6274150FEEFA00C52A26 /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DA638F9114F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */; };
 		DA747424150AA3F4006C0596 /* DMNFSPersonNode.m in Sources */ = {isa = PBXBuildFile; fileRef = DA747423150AA3F4006C0596 /* DMNFSPersonNode.m */; };
 		DA747427150AA48F006C0596 /* WeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA747426150AA48E006C0596 /* WeakProxy.m */; };
@@ -82,6 +83,8 @@
 		DA271FFE14CA039900CFF1D0 /* FSGEDCOMStructure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMStructure.m; sourceTree = "<group>"; };
 		DA27200114CA085000CFF1D0 /* FSGEDCOMHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSGEDCOMHead.h; sourceTree = "<group>"; };
 		DA27200214CA085000CFF1D0 /* FSGEDCOMHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSGEDCOMHead.m; sourceTree = "<group>"; };
+		DA5A6273150FEEFA00C52A26 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISO8601DateFormatter.h; path = "vendor/ISO-8601-parser-0.6/ISO8601DateFormatter.h"; sourceTree = "<group>"; };
+		DA5A6274150FEEFA00C52A26 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ISO8601DateFormatter.m; path = "vendor/ISO-8601-parser-0.6/ISO8601DateFormatter.m"; sourceTree = "<group>"; };
 		DA638F8F14F82D01005992D0 /* FSGEDCOMIndividual+NewDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FSGEDCOMIndividual+NewDot.h"; sourceTree = "<group>"; };
 		DA638F9014F82D01005992D0 /* FSGEDCOMIndividual+NewDot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FSGEDCOMIndividual+NewDot.m"; sourceTree = "<group>"; };
 		DA747422150AA3F4006C0596 /* DMNFSPersonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNFSPersonNode.h; sourceTree = "<group>"; };
@@ -213,6 +216,15 @@
 			path = "fs-dataman";
 			sourceTree = "<group>";
 		};
+		DA5A6271150FEEE400C52A26 /* ISO-8601 0.6 */ = {
+			isa = PBXGroup;
+			children = (
+				DA5A6273150FEEFA00C52A26 /* ISO8601DateFormatter.h */,
+				DA5A6274150FEEFA00C52A26 /* ISO8601DateFormatter.m */,
+			);
+			name = "ISO-8601 0.6";
+			sourceTree = "<group>";
+		};
 		DA638F8C14F82C90005992D0 /* GEDCOM 5.5+NewDot */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +306,7 @@
 				DA76088014C780A000CAB61D /* GEDCOM 5.5 */,
 				DA638F8C14F82C90005992D0 /* GEDCOM 5.5+NewDot */,
 				DADB94F114F6EBDD00933099 /* Argument Parser */,
+				DA5A6271150FEEE400C52A26 /* ISO-8601 0.6 */,
 				DA9AE85314C0B90B002921BE /* Frameworks */,
 				DA9AE85114C0B90B002921BE /* Products */,
 			);
@@ -523,6 +536,7 @@
 				DA747427150AA48F006C0596 /* WeakProxy.m in Sources */,
 				DA0D5FA6150E7B6B0078D4DA /* DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation.m in Sources */,
 				DA0D5FAA150E8C800078D4DA /* DMNFSPersonNode_RelationshipAssertionsDeleteWrapperOperation.m in Sources */,
+				DA5A6275150FEEFA00C52A26 /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

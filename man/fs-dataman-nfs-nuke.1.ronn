@@ -2,13 +2,15 @@ fs-dataman-nfs-nuke(1) -- Delete all individuals and relationships in the cluste
 ==================================================================================
 ## SYNOPSIS
 
-`fs-dataman` nfs-nuke [-g --greedy] <inputfile> <outputfile>
+`fs-dataman` nfs-nuke [-g --greedy] [-s --soft] <inputfile> <outputfile>
 
 ## DESCRIPTION
 
 Some times you just have to destroy everything. This tool runs through all the Person IDs in <inputfile> and tries to murder them by deleting all their assertions and just overall making them go away.
 
 Use the `-g` flag to make `nfs-nuke` greedy, which means that it will recursively crawl the tree using the input Person IDs as starting nodes.
+
+Use the `-s` flag to make `nfs-nuke` very scared of writing to the API; it'll run through and generate deletion assertions, but will not write them to the API.
 
 Please consider NOT using this a whole lot! Just use [`nfs-unlink`][fs-dataman-nfs-unlink(1)] to snip the tree from your user's record, which should make them go away. The reason to use `nfs-nuke` is because you're experiencing issues with older records showing up in search queries; by recanting all information, it should no longer show up when you search for duplicates, etc.
 
