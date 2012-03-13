@@ -116,7 +116,7 @@ Please use [Github](https://github.com/NSError/fs-dataman) to report bugs and to
 
 ## HISTORY
 
-  * 0.2 RELEASE PENDING:
-    Cleaned up the manpage documentation quite a lot. Instituted name prefixing because in "the future" there will be fancy new functionality related to GEDCOM X and Conclusion Tree. So the following commands: `inspect`, `link`, `unlink`, `show-person`, and `show-relationships`; were renamed to: `nfs-inspect`, `nfs-link`, `nfs-unlink`, `nfs-show-person`, and `nfs-show-relationships`, respectively. Added the `ged55-list-individuals`, `nfs-nuke`, and `nfs-deploy55` commands, which are backed by a new (and not thoroughly tested) GEDCOM 5.5.1 parser.
+  * 0.2 13 March 2012:
+    Cleaned up the manpage documentation quite a lot. Instituted name prefixing because in "the future" there will be fancy new functionality related to GEDCOM X and Conclusion Tree. So the following commands: `inspect`, `link`, `unlink`, `show-person`, and `show-relationships`; were renamed to: `nfs-inspect`, `nfs-link`, `nfs-unlink`, `nfs-show-person`, and `nfs-show-relationships`, respectively. Added the `ged55-list-individuals`, `nfs-nuke`, and `nfs-deploy55` commands, which are backed by a new (and not thoroughly tested) GEDCOM 5.5.1 parser. This entire release is extremely alpha-quality.
   * 0.1 25 January 2012:
     First release. Has the `inspect`, `link`, `unlink`, `show-person`, and `show-relationships` commands. No known bugs.
