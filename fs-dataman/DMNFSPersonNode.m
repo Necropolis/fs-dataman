@@ -98,16 +98,9 @@
     }
 }
 
-- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
+- (void)_traverseTreeWithService__childTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
 {
-    if (self.traversalState==kTraverseState_Traversed||self.traversalState==kTraverseState_Traversing)
-        return;
-    self.traversalState=kTraverseState_Traversing;
-
-    NSMutableArray * operations = [[NSMutableArray alloc] initWithCapacity:3];
-    FSURLOperation * oper;
-    // Children
-    oper =
+    FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.child toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
         NSArray * children = [[response valueForKeyPath:@"persons.relationships.child.id"] firstObject];
         NSMutableSet * childNodes = [[NSMutableSet alloc] initWithCapacity:[children count]];
@@ -136,13 +129,19 @@
         if ([resp statusCode]==404) {
             self.children=[NSSet set];
             dm_PrintLn(@"%@ has no children", self.pid);
+        } else if (resp.statusCode == 503) {
+            dm_PrintLn(@"%@ child read was throttled; waiting 20 seconds, then trying again.", self.pid);
+            [NSThread sleepForTimeInterval:20.0f];
+            [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
-    [operations addObject:oper];
-    
-    // Parents
-    oper =
+    [q addOperation:oper];
+}
+
+- (void)_traverseTreeWithService__parentTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
+{
+    FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.parent toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
         NSArray * parents = [[response valueForKeyPath:@"persons.relationships.parent.id"] firstObject];
         NSMutableSet * parentNodes = [[NSMutableSet alloc] initWithCapacity:[parents count]];
@@ -171,13 +170,19 @@
         if ([resp statusCode]==404) {
             self.parents=[NSSet set];
             dm_PrintLn(@"%@ has no parents", self.pid);
+        } else if (resp.statusCode == 503) {
+            dm_PrintLn(@"%@ parent read was throttled; waiting 20 seconds, then trying again.", self.pid);
+            [NSThread sleepForTimeInterval:20.0f];
+            [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
-    [operations addObject:oper];
-    
-    // Spouses
-    oper =
+    [q addOperation:oper];
+}
+
+- (void)_traverseTreeWithService__spouseTraversal:(NDService *)service _globalNodeSet:(NSMutableSet *)allNodes _recursive:(BOOL)recursive _queue:(NSOperationQueue *)q _lockOrigin:(id)lockOrigin
+{
+    FSURLOperation * oper =
     [service familyTreeOperationRelationshipOfReadType:NDFamilyTreeReadType.person forPerson:_pid relationshipType:NDFamilyTreeRelationshipType.spouse toPersons:nil withParameters:nil onSuccess:^(NSHTTPURLResponse *resp, id response, NSData *payload) {
         NSArray * spouses = [[response valueForKeyPath:@"persons.relationships.spouse.id"] firstObject];
         NSMutableSet * spouseNodes = [[NSMutableSet alloc] initWithCapacity:[spouses count]];
@@ -206,12 +211,25 @@
         if ([resp statusCode]==404) {
             self.spouses=[NSSet set];
             dm_PrintLn(@"%@ has no spouses", self.pid);
+        } else if (resp.statusCode == 503) {
+            dm_PrintLn(@"%@ spouse read was throttled; waiting 20 seconds, then trying again.", self.pid);
+            [NSThread sleepForTimeInterval:20.0f];
+            [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
         } else 
             dm_PrintURLOperationResponse(resp, payload, error);
     }];
-    [operations addObject:oper];
-    
-    [q addOperations:operations waitUntilFinished:NO];
+    [q addOperation:oper];
+}
+
+- (void)traverseTreeWithService:(NDService *)service globalNodeSet:(NSMutableSet *)allNodes recursive:(BOOL)recursive queue:(NSOperationQueue *)q lockOrigin:(id)lockOrigin
+{
+    if (self.traversalState==kTraverseState_Traversed||self.traversalState==kTraverseState_Traversing)
+        return;
+    self.traversalState=kTraverseState_Traversing;
+
+    [self _traverseTreeWithService__childTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
+    [self _traverseTreeWithService__parentTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];
+    [self _traverseTreeWithService__spouseTraversal:service _globalNodeSet:allNodes _recursive:recursive _queue:q _lockOrigin:lockOrigin];    
 }
 
 #pragma mark Tear Down

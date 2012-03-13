@@ -197,12 +197,18 @@ enum DMNFSPersonNode_IndividualAssertionsDeleteWrapperOperation_State {
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp data:(NSData *)payload error:(NSError *)error
 {
-    dm_PrintLn(@"%@ Failed to perform deletion!", self.personToKill.pid);
-    dm_PrintURLOperationResponse(resp, payload, error);
-    
-    self.personToKill.writeState = kWriteState_Idle;
-    
-    [self setIsFinished:YES];
+    if (resp.statusCode == 503) {
+        dm_PrintLn(@"%@ has been throttled; waiting for 20 seconds, then trying again.", self.personToKill.pid);
+        [NSThread sleepForTimeInterval:20.0f];
+        [self start];
+    } else {
+        dm_PrintLn(@"%@ Failed to perform deletion!", self.personToKill.pid);
+        dm_PrintURLOperationResponse(resp, payload, error);
+        
+        self.personToKill.writeState = kWriteState_Idle;
+        
+        [self setIsFinished:YES];
+    }
 }
 
 #pragma mark NSObject

@@ -183,9 +183,11 @@ BOOL _stateSpecificTeardownReadiness(void);
 
 - (void)_start_respondToAssertionRead:(id)response
 {
-    dm_PrintLn(@"response: %@", response);
+    NSDictionary * originalAssertions = [[[response valueForKeyPath:[NSString stringWithFormat:@"persons.relationships.%@.assertions", self.relationshipType]] firstObject] firstObject];
+    NSNumber * version = [[[response valueForKeyPath:[NSString stringWithFormat:@"persons.relationships.%@.version", self.relationshipType]] firstObject] firstObject];
     
-    
+    dm_PrintLn(@"originalAssertions: %@", originalAssertions);
+    dm_PrintLn(@"version: %@", version);
     
     
     self.fromPerson.writeState = kWriteState_Idle;
@@ -201,13 +203,19 @@ BOOL _stateSpecificTeardownReadiness(void);
 
 - (void)_start_handleFailure:(NSHTTPURLResponse *)resp payload:(NSData *)payload error:(NSError *)error
 {
-    dm_PrintLn(@"%@ to %@ %@ failed to perform deletion", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
-    dm_PrintURLOperationResponse(resp, payload, error);
-    
-    self.fromPerson.writeState = kWriteState_Idle;
-    self.toPerson.writeState = kWriteState_Idle;
-    
-    [self setIsFinished:YES];
+    if (resp.statusCode == 503) {
+        dm_PrintLn(@"%@ to %@ %@ has been throttled; sleeping for 20 seconds, then trying again.", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
+        [NSThread sleepForTimeInterval:20.0f];
+        [self start];
+    } else {
+        dm_PrintLn(@"%@ to %@ %@ failed to perform deletion", self.fromPerson.pid, self.relationshipType, self.toPerson.pid);
+        dm_PrintURLOperationResponse(resp, payload, error);
+        
+        self.fromPerson.writeState = kWriteState_Idle;
+        self.toPerson.writeState = kWriteState_Idle;
+        
+        [self setIsFinished:YES];
+    }
 }
 
 #pragma mark NSObject
